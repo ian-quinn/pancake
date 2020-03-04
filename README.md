@@ -1,12 +1,12 @@
 # Briefing
 
 ## Main components
-Flask - Backend support
-Bootstrap - Frontend support
-SQLite - Light weight, disk access management
-Gunicorn - Development server
-Supervisor - Process monitor
-Nginx - HTTP server
+- Flask - Backend support
+- Bootstrap - Frontend support
+- SQLite - Light weight, disk access management
+- Gunicorn - Development server
+- Supervisor - Process monitor
+- Nginx - HTTP server
 
 ## Scheduled tasks
 - Update dictionary for search engine whooshee
@@ -14,7 +14,6 @@ Nginx - HTTP server
 - Update project by Git
 
 ## Deployment on CentOS 7
-
 To setup the website on a clean CentOS 7 system, follow these lines"
 ```
 ~$ yum -y install python3 python3-venv python3-dev
@@ -102,7 +101,6 @@ $ kill -9 1100
 # yum -y install net-tools
 $ netstat -plunt
 ```
-
 **Firewall** If firewall cannot be dismentled and must be set, make sure all ports are served:
 ```
 $ systemctl start firewalld
@@ -120,7 +118,6 @@ $ systemctl disable firewalld # temporarily shut down for test
 $ systemctl status firewalld
 $ systemctl restart firewalld.service
 ```
-
 **Server** Make sure your virtual server opens ports: `22`, `80`, `443`
 
 --------
