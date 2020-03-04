@@ -1,0 +1,395 @@
+# Translations template for PROJECT.
+# Copyright (C) 2020 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2020-03-04 13:30+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+
+#: app/templates/base.html:33
+msgid "Home"
+msgstr ""
+
+#: app/templates/base.html:34 app/templates/news/edit_news.html:4
+#: app/templates/news/news.html:4 app/templates/news/story.html:4
+msgid "News"
+msgstr ""
+
+#: app/templates/base.html:35 app/templates/proj/project.html:4
+#: app/templates/proj/project_item.html:4
+msgid "Project"
+msgstr ""
+
+#: app/templates/base.html:36
+msgid "People"
+msgstr ""
+
+#: app/templates/base.html:37 app/templates/pubs.html:3
+msgid "Publication"
+msgstr ""
+
+#: app/templates/base.html:38
+msgid "Note"
+msgstr ""
+
+#: app/templates/base.html:39 app/templates/base.html:126
+#: app/templates/user/settings.html:4 app/templates/user/settings.html:8
+msgid "Settings"
+msgstr ""
+
+#: app/templates/base.html:40 app/templates/base.html:127
+msgid "Bookshelf"
+msgstr ""
+
+#: app/templates/base.html:58 app/templates/base.html:128
+msgid "Logout"
+msgstr ""
+
+#: app/templates/auth/login.html:2 app/templates/base.html:60
+msgid "Login"
+msgstr ""
+
+#: app/templates/base.html:83 app/templates/index.html:19
+msgid "PAN Research Group"
+msgstr ""
+
+#: app/templates/base.html:125
+msgid "Profile"
+msgstr ""
+
+#: app/templates/index.html:14
+msgid "Homepage"
+msgstr ""
+
+#: app/templates/index.html:25
+msgid ""
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
+"tempor incididunt ut labore et dolore magna aliqua. Accumsan sit amet "
+"nulla facilisi morbi tempus iaculis urna id. Fermentum leo vel orci porta"
+" non pulvinar neque laoreet. Lorem mollis aliquam ut porttitor leo a. "
+"Tincidunt dui ut ornare lectus. Justo laoreet sit amet cursus sit amet "
+"dictum. Ultrices mi tempus imperdiet nulla malesuada pellentesque elit. "
+"Enim eu turpis egestas pretium aenean pharetra. Amet massa vitae tortor "
+"condimentum lacinia quis vel eros. Semper viverra nam libero justo "
+"laoreet sit amet cursus. Nibh sit amet commodo nulla facilisi."
+msgstr ""
+
+#: app/templates/index.html:51
+msgid "Research"
+msgstr ""
+
+#: app/templates/index.html:56
+msgid "Building Performance Simulation & System Emulation"
+msgstr ""
+
+#: app/templates/index.html:60
+msgid "Load Leveling & Distributed Energy System"
+msgstr ""
+
+#: app/templates/index.html:64
+msgid "Human Behaviour in Building Operation"
+msgstr ""
+
+#: app/templates/index.html:68
+msgid "Big Data & Energy Management System<"
+msgstr ""
+
+#: app/templates/index.html:76
+msgid "Publications"
+msgstr ""
+
+#: app/templates/index.html:95 app/templates/index.html:160
+msgid "... More"
+msgstr ""
+
+#: app/templates/index.html:150
+msgid "Recently"
+msgstr ""
+
+#: app/templates/index.html:176
+msgid "Partners:"
+msgstr ""
+
+#: app/templates/index.html:177
+msgid "Room A441, School of Mechanical Engineering, Tongji University"
+msgstr ""
+
+#: app/templates/index.html:177
+msgid "No.4800 Caoan Rd., Shanghai"
+msgstr ""
+
+#: app/templates/people.html:8
+msgid "This is us"
+msgstr ""
+
+#: app/templates/people.html:9
+msgid ""
+"The Group has 3 tutors, 6 doctor candidates and 7 master candidates for "
+"now. All members are listed here chronically. Click on the name card to "
+"have a closer look. hahhahahahahahah"
+msgstr ""
+
+#: app/templates/people.html:17
+msgid "Tutor"
+msgstr ""
+
+#: app/templates/people.html:18
+msgid "Doctoral student"
+msgstr ""
+
+#: app/templates/people.html:19
+msgid "Postgraduate"
+msgstr ""
+
+#: app/templates/people.html:20
+msgid "Alumni"
+msgstr ""
+
+#: app/templates/pubs.html:9
+msgid "Research Publications"
+msgstr ""
+
+#: app/templates/pubs.html:10
+msgid ""
+"Free to download and share the published books and papers. Send an email "
+"if some of those are hard to find. Other documents, guidances, installers"
+" that you may be interested in can be found in the"
+msgstr ""
+
+#: app/templates/pubs.html:24
+msgid "Cached"
+msgstr ""
+
+#: app/templates/pubs.html:29
+msgid "Category"
+msgstr ""
+
+#: app/templates/pubs.html:31
+msgid "EN-Journal"
+msgstr ""
+
+#: app/templates/pubs.html:32
+msgid "CN-Journal"
+msgstr ""
+
+#: app/templates/pubs.html:33
+msgid "Conference"
+msgstr ""
+
+#: app/templates/pubs.html:34
+msgid "Thesis"
+msgstr ""
+
+#: app/templates/pubs.html:38
+msgid "Search"
+msgstr ""
+
+#: app/templates/search.html:5
+msgid "Search Results"
+msgstr ""
+
+#: app/templates/auth/register.html:2
+msgid "Register"
+msgstr ""
+
+#: app/templates/blog/add_post.html:4
+msgid "Add notes"
+msgstr ""
+
+#: app/templates/blog/blog.html:4 app/templates/blog/blog.html:9
+#: app/templates/blog/post.html:4
+msgid "Notes"
+msgstr ""
+
+#: app/templates/blog/blog.html:10 app/templates/news/news.html:14
+#: app/templates/proj/project.html:11
+msgid ""
+"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas "
+"porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, "
+"purus lectus malesuada libero, sit amet commodo magna eros quis urna."
+msgstr ""
+
+#: app/templates/blog/blog.html:28
+msgid "Read More"
+msgstr ""
+
+#: app/templates/blog/blog.html:55 app/templates/blog/blog.html:63
+msgid "Tags"
+msgstr ""
+
+#: app/templates/blog/category.html:4
+msgid "Cache"
+msgstr ""
+
+#: app/templates/blog/edit_post.html:4
+msgid "Edit notes"
+msgstr ""
+
+#: app/templates/blog/post.html:99
+msgid "Comments"
+msgstr ""
+
+#: app/templates/blog/post.html:106
+msgid "Author"
+msgstr ""
+
+#: app/templates/blog/post.html:108
+msgid "Replies"
+msgstr ""
+
+#: app/templates/blog/post.html:108
+msgid "says"
+msgstr ""
+
+#: app/templates/blog/post.html:136
+msgid "No comments"
+msgstr ""
+
+#: app/templates/blog/post.html:154
+msgid "Reply to"
+msgstr ""
+
+#: app/templates/blog/post.html:155
+msgid "Cancel"
+msgstr ""
+
+#: app/templates/blog/post.html:182
+msgid "Comment disabled"
+msgstr ""
+
+#: app/templates/blog/post.html:188
+msgid "Access Denied"
+msgstr ""
+
+#: app/templates/blog/post.html:200
+msgid "participants"
+msgstr ""
+
+#: app/templates/news/add_event.html:4
+msgid "Add event"
+msgstr ""
+
+#: app/templates/news/add_news.html:4
+msgid "Add news"
+msgstr ""
+
+#: app/templates/news/news.html:13
+msgid "Recent News"
+msgstr ""
+
+#: app/templates/news/news.html:44 app/templates/news/story.html:80
+msgid "Posted by"
+msgstr ""
+
+#: app/templates/news/story.html:75
+msgid "Time"
+msgstr ""
+
+#: app/templates/news/story.html:78
+msgid "Location"
+msgstr ""
+
+#: app/templates/news/story.html:81
+msgid "Update on"
+msgstr ""
+
+#: app/templates/news/story.html:83
+msgid "Album"
+msgstr ""
+
+#: app/templates/news/story.html:83
+msgid "pcs"
+msgstr ""
+
+#: app/templates/proj/add_project.html:4
+msgid "Add project"
+msgstr ""
+
+#: app/templates/proj/edit_project.html:4
+msgid "Edit project"
+msgstr ""
+
+#: app/templates/proj/project.html:10 app/templates/proj/project_item.html:9
+msgid "Projects"
+msgstr ""
+
+#: app/templates/proj/project_dashboard.html:40
+msgid "Ended"
+msgstr ""
+
+#: app/templates/proj/project_dashboard.html:40
+msgid "In progress"
+msgstr ""
+
+#: app/templates/proj/project_item.html:46
+msgid "Attachments"
+msgstr ""
+
+#: app/templates/proj/project_item.html:53
+msgid "No document available"
+msgstr ""
+
+#: app/templates/proj/project_item.html:59
+msgid "Project participants"
+msgstr ""
+
+#: app/templates/proj/project_item.html:61
+msgid "No claim of this project"
+msgstr ""
+
+#: app/templates/proj/project_item.html:96
+msgid "Previous"
+msgstr ""
+
+#: app/templates/proj/project_item.html:100
+msgid "Next"
+msgstr ""
+
+#: app/templates/proj/project_list.html:7
+msgid "Major projects"
+msgstr ""
+
+#: app/templates/proj/project_list.html:43
+msgid "Thesis projects"
+msgstr ""
+
+#: app/templates/user/reset_password.html:2
+#: app/templates/user/reset_password_request.html:2
+msgid "Reset password"
+msgstr ""
+
+#: app/templates/user/user.html:29
+msgid "Last been here on"
+msgstr ""
+
+#: app/templates/user/user.html:31
+msgid "followers"
+msgstr ""
+
+#: app/templates/user/user.html:31
+msgid "following"
+msgstr ""
+
+#: app/templates/user/user.html:33
+msgid "Edit profile"
+msgstr ""
+
+#: app/templates/user/user.html:35
+msgid "Follow"
+msgstr ""
+
+#: app/templates/user/user.html:37
+msgid "Unfollow"
+msgstr ""
+

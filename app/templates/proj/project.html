@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% set active_page = "project" %}
+
+{% block title %}{{ _('Project')}}{% endblock %}
+
+{% block content %}
+
+<div class="row">
+	<div class="headup col-md-8 {% if get_locale() == 'zh' %}fluffy{% endif %}">
+		<h1>{{ _('Projects') }}</h1>
+		<p>{{ _('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.') }}</p>
+	</div>
+</div>
+
+<div class="buffer"></div>
+
+<div style="margin-top: -50px; height: 50px;">
+	<ul class="nav" style="float: right;">
+		{% set settings_nav = [
+	        ('/project/dashboard', 'dashboard', '<i class="fa fa-th fa-2x" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Card view"></i>'),
+	        ('/project/list', 'list', '<i class="fa fa-th-list fa-2x" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="List view"></i>'),
+	    ] %}
+	    {% for href, id, caption in settings_nav %}
+	    <li class="nav-item">
+	    	<a class="nav-link layout-option {% if id == active_layout %}active{% endif %}" href="{{ href|e }}">{{ caption|safe }}</a>
+	    </li>
+	    {% endfor %}
+	</ul>
+</div>
+
+<div class="projectboard">
+	{% block project_layout %}{% endblock %}
+</div>
+
+{% if current_user.is_authenticated %}
+<a href="{{ url_for('proj.addproject') }}"><button class="btn btn-outline-secondary btn-sm btn-block" style="margin-top: 50px;">Add Project</button></a>
+{% endif %}
+
+{% endblock %}
+

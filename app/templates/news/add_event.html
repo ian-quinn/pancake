@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% set active_page = "news" %}
+
+{% block title %}{{ _('Add event')}}{% endblock %}
+
+{% block content %}
+<div class="main-content logincard">
+    <h1 class="headup">What's your plan?</h1>
+
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.name.label }}<br>
+            {{ form.name(class="form-control", placeholder="Name") }}
+            {% for error in form.name.errors %}
+            <small class="error-bullet">{{ error }}</small>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.location.label }}<br>
+            {{ form.location(class="form-control", placeholder="Location") }}
+            {% for error in form.location.errors %}
+            <small class="error-bullet">{{ error }}</small>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.startdate.label }}<br>
+            {{ form.startdate(class="form-control", placeholder="YYYY-MM-DD") }}
+            {% for error in form.startdate.errors %}
+            <small class="error-bullet">{{ error }}</small>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.enddate.label }}<br>
+            {{ form.enddate(class="form-control", placeholder="YYYY-MM-DD") }}
+            {% for error in form.enddate.errors %}
+            <small class="error-bullet">{{ error }}</small>
+            {% endfor %}
+        </p>
+        {{ form.submit(type="submit", class="btn btn-outline-danger btn-sm btn-block") }}
+    </form>
+</div>
+
+
+{% endblock %}

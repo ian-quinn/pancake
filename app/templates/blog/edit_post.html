@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% set active_page = "blog" %}
+
+{% block title %}{{ _('Edit notes')}}{% endblock %}
+
+{% block styles %}
+<meta name="csrf-token" content="{{ csrf_token() }}">
+{{ simplemde.css }}
+{{ simplemde.js }}
+{% endblock %}
+
+{% block content %}
+<section class="main-content">
+    <h1 style="margin-bottom: 100px;">Craft!</h1>
+    <textarea id="cn"></textarea>
+    <div style="margin: 20px 0px;">
+        <small class="text-muted">Drop files to first canvas to add images, and the links will be appended to the text and mirrored in the text area for English version below. Images will be responsive as default setting, which can be canceled by deleting 'img-responsive' in the brackets.</small>
+    </div>
+    <textarea id="en"></textarea>
+    <div style="margin: 20px 0px;">
+        <a href="{{ url_for('blog.blog') }}" id="submit"><button type="button" class="btn btn-outline-danger btn-sm btn-block">Submit</button></a>
+    </div>
+</section>
+{% endblock %}
+
+
+{% block scripts %}
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/4.0.3/codemirror.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/inline-attachment.js/') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/codemirror-4.inline-attachment.js/') }}"></script>
+<script>
+    //这里有点改变，之前可以参考SimpleMDE-DEMO的结果
+    var csrftoken = $('meta[name=csrf-token]').attr('content')
+
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken)
+            }
+        }
+    })
+    //初始化SimpleMDE
+
+    var simplemde_cn = new SimpleMDE({
+        autosave: {
+            enabled: false, //shut down in case collision happens
+            uniqueId: "MyUniqueID",
+            delay: 1000
+        },
+        status: ["autosave", "lines", "words"],
+        spellChecker: false,
+        element: document.getElementById("cn"), //locate rendering area
+        promptURLs: true,
+        {% if initvalue_cn %}
+        initialValue: "{{ initvalue_cn|safe }}",
+        {% else %}
+        initialValue: "有什么好点子吗？",
+        {% endif %}
+        toolbar: [
+            "heading", "bold", "italic", "strikethrough", "code", "quote", "unordered-list",
+            "ordered-list", "clean-block", "link", "image", "table", "horizontal-rule", "preview"
+        ]
+    });
+
+    var simplemde_en = new SimpleMDE({
+        autosave: {
+            enabled: false, //shut down in case collision happens
+            uniqueId: "MyUniqueID",
+            delay: 1000
+        },
+        status: ["autosave", "lines", "words"],
+        spellChecker: false,
+        element: document.getElementById("en"), //locate rendering area
+        promptURLs: true,
+        {% if initvalue_en %}
+        initialValue: "{{ initvalue_en|safe }}",
+        {% else %}
+        initialValue: "What's the big idea?",
+        {% endif %}
+        toolbar: [
+            "heading", "bold", "italic", "strikethrough", "code", "quote", "unordered-list",
+            "ordered-list", "clean-block", "link", "image", "table", "horizontal-rule", "preview"
+        ]
+    });
+    
+    $("#submit").on('click', function () {
+        var text_cn = simplemde_cn.value();
+        var text_en = simplemde_en.value();
+        {% if post.id %}
+        var post_id = {{ post.id }};
+        {% endif %}
+        $.ajax({
+            type: "POST",
+            url: "{{ url_for('blog.copost') }}",
+            data: JSON.stringify({
+              text_cn: text_cn,
+              text_en: text_en,
+              post_id: post_id
+            }),
+            contentType: 'application/json;charset=UTF-8',
+            success: function(result) {
+                console.log(result);
+                window.location.href = '/'
+            }
+        });
+    });
+
+    simplemde_cn.codemirror.on('drop', function (editor, e) {
+        if (!e.dataTransfer && e.dataTransfer.files) {
+            alert('浏览器不支持此操作');
+            return;
+        }
+        var dataList = e.dataTransfer.files;
+        batchUpload(dataList, editor);
+    });
+
+    simplemde_cn.codemirror.on('paste', function (editor, e) {
+        if (!e.clipboardData && e.clipboardData.files) {
+            alert('浏览器不支持此操作');
+            return;
+        }
+        var dataList = e.clipboardData.items;
+        batchUpload(dataList, editor);
+    });
+
+    function batchUpload(dataList) {
+        for (let i = 0; i < dataList.length; i++) {
+            if (dataList[i].type.indexOf('image') === -1) {
+                continue;
+            }
+            let formData = new FormData();
+            formData.append('image', dataList[i]);
+            fileUpload(formData);
+        }
+    }
+    // ajax上传图片
+    function fileUpload(formData) {
+        formData.append('_token', '{{ csrf_token() }}');
+        $.ajax({
+            url: '/postimg',
+            type: 'POST',
+            cache: false,
+            data: formData,
+            dataType: 'json',
+            timeout: 5000,
+            processData: false,
+            contentType: false,
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function (data) {
+                // 将返回的图片url追加到编辑器内
+               simplemde_cn.value(simplemde_cn.value() + "\n ![img-responsive](" + data.url + ") \n");
+               simplemde_en.value(simplemde_en.value() + "\n ![img-responsive](" + data.url + ") \n");
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("上传图片出错了");
+            }
+        });
+    }
+
+</script>
+
+{% endblock %}

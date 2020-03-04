@@ -1,0 +1,10 @@
+Dear {{ user.username }},
+
+To reset your password click on the following link:
+
+{{ url_for('user.reset_password', token=token, _external=True) }}
+
+If you have not requested a password reset simply ignore this message.
+
+bsim.tongji.edu.cn
+A441 School of Mechanical Engineering, Tongji University

@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% set active_page = "news" %}
+
+{% block title %}{{ _('Add news')}}{% endblock %}
+
+{% block styles %}
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dropzone.css') }}">
+<script src="/static/js/jquery-3.1.1.js"></script>
+<style>
+    .btn-file {
+        position: relative;
+        overflow: hidden;
+    }
+     
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        cursor: inherit;
+        display: block;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="main-content">
+    <h1 style="margin-bottom: 100px;">Craft it!</h1>
+
+    <form role="form" method="post" action="pubnews" enctype="multipart/form-data">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <!-- Form Name -->
+
+        <div class="row" style="margin-left: -5px; margin-right: -5px;">
+            <div class="col-md-6" style="padding: 5px;">
+                <legend>In Chinese</legend>
+                <div class="form-group">
+                    {{ form.title_cn(class="form-control input-md", placeholder="Title in Chinese") }}
+                    {% for error in form.title_cn.errors %}
+                    <small class="error-bullet">{{ error }}</small>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.text_cn(class="form-control", placeholder="Markdown and HTML are both supported but not recommended", style="height: 300px;") }}
+                    {% for error in form.text_cn.errors %}
+                    <small class="error-bullet">{{ error }}</small>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-md-6" style="padding: 5px;">
+                <legend>In English</legend>
+                <div class="form-group">
+                    {{ form.title_en(class="form-control input-md", placeholder="Title in English") }}
+                    {% for error in form.title_en.errors %}
+                    <small class="error-bullet">{{ error }}</small>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.text_en(class="form-control", placeholder="Markdown and HTML are both supported but not recommended", style="height: 300px;") }}
+                    {% for error in form.text_en.errors %}
+                    <small class="error-bullet">{{ error }}</small>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-left: -5px; margin-right: -5px;">
+            <div class="col-md-6" style="padding: 5px;">
+                {{ form.date.label }}<br>
+                {{ form.date(class="form-control", placeholder="YYYY-MM-DD HH:MM") }}
+                {% for error in form.date.errors %}
+                <small class="error-bullet">{{ error }}</small>
+                {% endfor %}
+            </div>
+            <div class="col-md-6" style="padding: 5px;">
+                {{ form.location.label }}<br>
+                {{ form.location(class="form-control") }}
+                {% for error in form.location.errors %}
+                <small class="error-bullet">{{ error }}</small>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="row" style="margin-left: -5px; margin-right: -5px;">
+            <div class="col-md-6" style="padding: 5px;">
+                {{ form.category.label }}<br>
+                {{ form.category(class="form-control") }}<br>
+                {% for error in form.category.errors %}
+                <small class="error-bullet">{{ error }}</small>
+                {% endfor %}
+            </div>
+        </div>
+
+        <button class="add_field_button btn btn-outline-secondary btn-block btn-sm" style="margin-bottom: 10px;">Add photos to gallary</button>
+        <div class="form-group">
+            <div class="input_fields_wrap">
+            </div>
+        </div>
+
+        <!-- Still in testing, function not provided -->
+        <!--
+        <div class="img-box" style="width: auto; height: 200px;">
+            <img id="imgUpload"  class="img-thumbnail"><input type="hidden" name="filePath" id="filePath"></input>
+        </div> \
+        采用和people页面同样的居中缩放裁剪方法 -->
+
+        <!-- Button -->
+        <div class="form-group" style="margin-top: 50px;">
+            <p class="text-center">
+                <input class="btn btn-outline-danger btn-sm btn-block" type="submit" value="Publish"/>
+            </p>
+        </div>
+    </form>
+</section>
+{% endblock %}
+
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dropzone.js') }}"></script>
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/4.0.3/codemirror.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/inline-attachment.js/') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/codemirror-4.inline-attachment.js/') }}"></script>
+
+<script src="/static/js/jquery-3.1.1.js"></script>
+<script src="/static/js/jquery.ui.widget.js"></script>
+  
+<script type="text/javascript" src="/static/js/jquery.fileupload.js"></script>
+<script type="text/javascript" src="/static/js/jquery.fileupload-process.js"></script>
+<script type="text/javascript" src="/static/js/jquery.fileupload-ui.js"></script>
+
+<script>
+    /*
+$(document).on("click", '.btn-file', function() {
+    alert('functioning well');
+    $('.btn-file').fileupload({
+        url: '{{ url_for('news.upload_img')}}',
+        dataType: 'json',
+        add: function(e, data) {
+            data.submit();
+        },
+        success: function(response, status) {
+            console.log(response.filename);
+            var filePath = '{{ url_for('static', filename='newstemp/') }}' + response.filename;
+            $('#imgUpload').attr('src',filePath);
+            $('#filePath').val(filePath);
+            console.log('success');
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+});
+*/
+$(document).ready(function() {
+    var max_fields      = 10; //maximum input boxes allowed
+    var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+    var add_button      = $(".add_field_button"); //Add button ID
+    
+    var x = 1; //initlal text box count
+    $(add_button).click(function(e){ //on add input button click
+        e.preventDefault();
+        if(x < max_fields){ //max input box allowed
+            x++; //text box increment
+            $(wrapper).append('<div class="input-group" style="margin-bottom:10px;"><div class="input-group-prepend"><span class="btn btn-secondary btn-file">Browse…<input type="file" id="fileupload" name="file"></span></div><input type="text" class="form-control" name="note" placeholder="Desriptions about this photo..."></div>'); //add input box
+        }
+    });
+    
+    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parent('div').remove(); x--;
+    })
+});
+</script>
+
+{% endblock %}

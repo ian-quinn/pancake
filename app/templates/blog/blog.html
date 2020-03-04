@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% set active_page = "blog" %}
+
+{% block title %}{{ _('Notes')}}{% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="headup col-md-8 {% if get_locale() == 'zh' %}fluffy{% endif %}">
+		<h1>{{ _('Notes') }}</h1>
+		<p>{{ _('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.') }}</p>
+	</div>
+</div>
+
+<div class="buffer"></div>
+
+<div class="row justify-content-between" style="border-top: 1px solid #a8a8a8;">
+	<div class="col-lg-8 col-md-8">
+	{% if posts %}
+		{% for post in posts %}
+		{% if not post.islocked or current_user.is_authenticated %}
+		<div class="post-list {% if not loop.last %}news-list-break{% endif %}">
+			<h4 class="grey-dark" style="display: inline;">
+				{% if get_locale() == 'zh' %}{{ post.title_cn }}{% else %}{{ post.title_en }}{% endif %}
+			</h4>
+			<small style="float: right; color: #ccc;">{{ moment(post.timestamp).format('YYYY-MM-DD') }}</small>
+			<div class="post-preview">
+				<span>
+					{% if get_locale() == 'zh' %}{{ post.text_cn | truncate(300) | stripout }}{% else %}{{ post.text_en | truncate(300) | stripout }}{% endif %}<a href="{{ url_for('blog.show_post', post_id=post.id) }}">{{ _('Read More')}}</a>
+				</span>
+			</div>
+		</div>
+		{% endif %}
+
+		{% endfor %}
+
+		<div class="pagination-bar">
+            {% if prev_url %}
+            <a href="{{ prev_url }}" class="pagination-button"><i class="fas fa-chevron-left"></i></a>
+            {% endif %}
+            {% if next_url %}
+            <a href="{{ next_url }}" class="pagination-button" style="float: right;"><i class="fas fa-chevron-right"></i></a>
+            {% endif %}
+        </div>
+
+	{% else %}
+		<div>
+			<h5>No posts</h5>
+		</div>
+	{% endif %}
+	</div>
+
+	<div class="col-lg-2 col-md-2">
+		<!--
+		<ul class="stickynote list-group">
+			<li class="list-group-item disabled" aria-disabled="true" style="background-color: #ca3352; color: #fff; text-align: center;">{{ _('Tags')}}</li>
+			{% for category in categories %}
+			{% if category.posts|length > 0 %}
+			<li class="list-group-item  list-group-item-action d-flex justify-content-between align-items-center"><a href="{{ url_for('blog.show_category', category_id=category.id) }}">{{ category.name }}</a><span class="badge badge-secondary badge-pill pull-right" style="float:right;">{{ category.posts|length }}</span></li>
+			{% endif %}
+			{% endfor %}
+		</ul>
+	-->
+		<div class="note-cap"><span><i class="fas fa-hashtag"></i> {{ _('Tags') }}</span></div>
+        {% for category in categories %}
+		{% if category.posts|length > 0 %}
+        <div class="news-bullet"><a href="{{ url_for('blog.show_category', category_id=category.id) }}"># {{ category.name }}:</a><span style="float: right;">{{ category.posts|length }}</span></div>
+        {% endif %}
+		{% endfor %}
+	</div>
+</div>
+
+{% if current_user.is_authenticated %}
+	<div style="margin-top: 100px;">
+		<a href="{{ url_for('blog.newpost') }}"><button type="button" class="btn btn-outline-secondary btn-sm btn-block">Add a new post</button></a>
+	</div>
+{% endif %}
+
+{% endblock %}

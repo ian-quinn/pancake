@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+{% set active_page = "bookshelf" %}
+{% block title %}Bookshelf{% endblock %}
+
+{% block styles %}
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dropzone.css') }}">
+<style type="text/css">
+.dropzone {
+    background: white;
+    border-radius: 8px;
+    border: 2px dashed rgb(250, 180, 180);
+    border-image: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="bookshelf">
+    {% for message in get_flashed_messages(with_categories=True) %}
+    <div class="alert alert-{{ message[0] }}" role="alert" id="faded">
+        {{ message[1] }}
+    </div>
+    {% endfor %}
+    <table>
+        <thead>
+            <!--
+        <tr>
+            <th>Name</th>
+            <th style="text-align: center; max-width: 100px;">Byte</th>
+            <th style="text-align: center; max-width: 100px;">Date</th>
+            <th style="text-align: center; max-width: 100px;">Tool</th>
+        </tr>
+    -->
+        </thead>
+        <tr>
+            <td style="height:10px; background-color: #ccc;"><note style="line-height: 10px;">DOCUMENT</note></td>
+            <td style="height:10px; background-color: #ccc;"></td>
+            <td style="height:10px; background-color: #ccc;"></td>
+            <td style="height:10px; background-color: #ccc;"></td>
+        </tr>
+        {% for f in pdfs %}
+        {% if not f.islocked or current_user.is_authenticated %}
+        <tr>
+            <td>{{ f.name }}</a></td>
+            <td style="text-align: center;">{{ f.size }}</td>
+            <td style="text-align: center;">{{ moment(f.timestamp).format('L') }}</td>
+            <td style="text-align: center;">
+                <form method="get"
+                      action="{{ url_for('download', file_id=f.id) }}" style="display: inline;">
+                    <button class="book-button"><i class="far fa-save"></i></button>
+                </form>
+                {% if current_user.is_authenticated %}
+                    {% if f.islocked %}
+                    <form method="post"
+                          action="{{ url_for('block', file_id=f.id) }}" style="display: inline;">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        <button class="book-button"><i class="far fa-eye-slash"></i></button>
+                    </form>
+                    {% else %}
+                    <form method="post"
+                          action="{{ url_for('block', file_id=f.id) }}" style="display: inline;">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        <button class="book-button"><i class="far fa-eye"></i></button>
+                    </form>
+                    {% endif %}
+                <form method="post"
+                      action="{{ url_for('delete_file', file_id=f.id, next=request.full_path) }}" style="display: inline;">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <button class="book-button" onclick="return confirm('Can not be reversed. Are you sure?');"><i class="far fa-trash-alt"></i></button>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+        <tr>
+            <td style="height:10px; background-color: #ccc;"><span style="line-height: 10px;">RESOURCES PACKAGE</span></td>
+            <td style="height:10px; background-color: #ccc;"></td>
+            <td style="height:10px; background-color: #ccc;"></td>
+            <td style="height:10px; background-color: #ccc;"></td>
+        </tr>
+
+        {% for z in zips %}
+        {% if not z.islocked or current_user.is_authenticated %}
+        <tr>
+            <td>{{ z.name }}</a></td>
+            <td style="text-align: center;">{{ z.size }}</td>
+            <td style="text-align: center;">{{ moment(z.timestamp).format('L') }}</td>
+            <td style="text-align: center;">
+                <form method="get"
+                      action="{{ url_for('download', file_id=z.id) }}" style="display: inline;">
+                    <button class="book-button"><i class="far fa-save"></i></button>
+                </form>
+                {% if current_user.is_authenticated %}
+                    {% if z.islocked %}
+                    <form method="post"
+                          action="{{ url_for('block', file_id=z.id) }}" style="display: inline;">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        <button class="book-button"><i class="far fa-eye-slash"></i></i></button>
+                    </form>
+                    {% else %}
+                    <form method="post"
+                          action="{{ url_for('block', file_id=z.id) }}" style="display: inline;">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        <button class="book-button"><i class="far fa-eye"></i></i></i></button>
+                    </form>
+                    {% endif %}
+                <form method="post"
+                      action="{{ url_for('delete_file', file_id=z.id, next=request.full_path) }}" style="display: inline;">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <button class="book-button" onclick="return confirm('Can not be reversed. Are you sure?');"><i class="far fa-trash-alt"></i></button>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+        <tr>
+            <td style="height:10px; background-color: #ccc;"><span style="line-height: 10px;">VIDEO</span></td>
+            <td style="height:10px; background-color: #ccc;"></td>
+            <td style="height:10px; background-color: #ccc;"></td>
+            <td style="height:10px; background-color: #ccc;"></td>
+        </tr>
+
+        {% for v in mp4s %}
+        {% if not v.islocked or current_user.is_authenticated %}
+        <tr>
+            <td>{{ v.name }}</a></td>
+            <td style="text-align: center;">{{ v.size }}</td>
+            <td style="text-align: center;">{{ moment(v.timestamp).format('L') }}</td>
+            <td style="text-align: center;">
+                <form method="get"
+                      action="{{ url_for('download', file_id=v.id) }}" style="display: inline;">
+                    <button class="book-button"><i class="far fa-save"></i></button>
+                </form>
+                {% if current_user.is_authenticated %}
+                    {% if v.islocked %}
+                    <form method="post"
+                          action="{{ url_for('block', file_id=v.id) }}" style="display: inline;">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        <button class="book-button"><i class="far fa-eye-slash"></i></i></button>
+                    </form>
+                    {% else %}
+                    <form method="post"
+                          action="{{ url_for('block', file_id=v.id) }}" style="display: inline;">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        <button class="book-button"><i class="far fa-eye"></i></i></i></button>
+                    </form>
+                    {% endif %}
+                <form method="post"
+                      action="{{ url_for('delete_file', file_id=v.id, next=request.full_path) }}" style="display: inline;">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <button class="book-button" onclick="return confirm('Can not be reversed. Are you sure?');"><i class="far fa-trash-alt"></i></button>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+</div>
+
+{% if current_user.is_authenticated %}
+    <!-- Change action value to your upload address -->
+    <form action="{{ url_for('uploadfile') }}" class="dropzone" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <DIV class="dz-message needsclick">    
+        Drop files here or click to upload.<BR>
+        <SPAN class="note needsclick">Format: .pdf .doc .docx | .rar .iso .zip | .mp4 .mov .avi .flv</SPAN>
+      </DIV>
+    </form>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dropzone.js') }}"></script>
+{% endblock %}

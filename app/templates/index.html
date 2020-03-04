@@ -1,0 +1,297 @@
+{% extends "base.html" %}
+{% set active_page = "index" %}
+
+{% block styles %}
+	<style type="text/css">
+    html,body{margin:0;padding:0;}
+    .iw_poi_title {color:#CC5522;font-size:14px;font-weight:bold;overflow:hidden;padding-right:13px;white-space:nowrap}
+    .iw_poi_content {font:12px arial,sans-serif;overflow:visible;padding-top:4px;white-space:-moz-pre-wrap;word-wrap:break-word}
+    .BMap_cpyCtrl {display:none;}
+	.anchorBL{display:none;}
+	</style>
+{% endblock %}
+
+{% block title %}{{ _('Homepage') }}{% endblock %}
+
+{% block content %}
+	<div>
+		<small style="margin-left: 0.1em; color: #a9a9a9;"><b>TONGJI UNIVERSITY</b></small>
+		<h1 {% if get_locale() == 'zh' %}fluffy{% endif %} style="margin-top: 0;">{{ _('PAN Research Group') }}</h1>
+		<img src="{{ url_for('static', filename='img/tongji.png') }}" style="top: 100px; height: 150px; width: 150px; position: relative; z-index: -5; margin-top: -210px; margin-left: -60px; opacity: 0.5;">
+	</div>
+	<div class="interval"></div>
+	<div class="row">
+		<div class="col-md-10 col-lg-8">
+			<p>{{ _('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Accumsan sit amet nulla facilisi morbi tempus iaculis urna id. Fermentum leo vel orci porta non pulvinar neque laoreet. Lorem mollis aliquam ut porttitor leo a. Tincidunt dui ut ornare lectus. Justo laoreet sit amet cursus sit amet dictum. Ultrices mi tempus imperdiet nulla malesuada pellentesque elit. Enim eu turpis egestas pretium aenean pharetra. Amet massa vitae tortor condimentum lacinia quis vel eros. Semper viverra nam libero justo laoreet sit amet cursus. Nibh sit amet commodo nulla facilisi.') }}</p>
+			<div class="interval"></div>
+			<div class="card mb-2">
+				<div class="row no-gutters" style="display: flex; align-items: center;">
+					<div class="col-sm-3 figure-box">
+						<img src="{{ url_for('static', filename='img/figure.jpg') }}" class="card-img-top">
+					</div>
+					<div class="col-sm-9">
+						<div class="card-body">
+							<p class="card-title"><b>Yiqun Pan</b></p>
+							<span class="card-text" style="font-size: 0.9em;">Ph.D., Professor. Director/Key Professor, Faculty of Building Technologies Sino-German College of Applied Sciences
+							<br>
+							IBPSA Fellow | ASHRAE Member | ASME Member
+							<br>
+							Post-doctoral researcher (2002), Center for Building Performance & Diagnostics, Carnegie Mellon University (USA)
+							<br>
+							Ph.D. (1992-1997) Heating Ventilation, Gas Supplying and Air-conditioning, Tongji University, Shanghai, China</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-----------------------------Research Area------------------------------->
+
+	<h3 class="interval">{{ _('Research')}}</h3>
+	
+	<div class="row research-card-columns" style="font-size: 0.9em;">
+		<div class="research-card">
+			<div><img src="{{ url_for('static', filename='img/zhuguo.png') }}"></div>
+			<span>{{ _('Building Performance Simulation & System Emulation') }}</span>
+		</div>
+		<div class="research-card">
+			<div><img src="{{ url_for('static', filename='img/kaoxiang.png') }}"></div>
+			<span>{{ _('Load Leveling & Distributed Energy System') }}</span>
+		</div>
+		<div class="research-card">
+			<div><img src="{{ url_for('static', filename='img/hongpeishoutao.png') }}"></div>
+			<span>{{ _('Human Behaviour in Building Operation') }}</span>
+		</div>
+		<div class="research-card" style="border-right: 1px solid #ca3352;">
+			<div><img src="{{ url_for('static', filename='img/shuihu.png') }}"></div>
+			<span>{{ _('Big Data & Energy Management System<') }}</span>
+		</div>
+	</div>
+
+	<!-----------------------------Publication Area------------------------------->
+
+	<div class="interval"></div>
+	<div>
+		<h3 class="interval">{{ _('Publications') }}</h3>
+
+		<!--------------A glance of papers-------------->
+		<div class="row" style="margin-bottom: 30px;">
+			<div class="col-lg-8">
+				{% for paper in papers %}
+				<div class="index-pubs">
+					<b class="card-text text-muted">{{ paper.title }}
+						{% if paper.issci %}
+						<span class="badge badge-danger">SCI</span>
+						{% endif %}
+						{% if paper.isei %}
+						<span class="badge badge-secondary">EI</span>
+						{% endif %}
+					</b>
+					<p style="font-size: 0.7em; padding-top: 6px;" class="text-muted mb-auto">{{ paper.author }}{% if paper.coauthor%}, {{ paper.coauthor }}{% endif %}. {% if paper.journal %}{{ paper.journal }}, {% endif %}{{ paper.date.strftime('%Y-%m') }}</p>
+				</div>		
+				{% endfor %}
+				<div class="index-news">
+					<small><a href="{{ url_for('pubs') }}">{{ _('... More') }}</a></small>
+				</div>
+			</div>
+			<div class="col-lg-4"></div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4" style="margin-top: 25px;">
+				<div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+					<div class="carousel-inner" style="height: 270px;">
+						<div class="carousel-item active">
+							<img src="{{ url_for('static', filename='img/book4.jpg') }}" class="card-book">
+							<div class="card-caption"><b>State-of-the-art Technology and Advanced Application of Building Performance Modeling</b>   <small>Chinese version only</small><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Accumsan sit amet nulla facilisi morbi tempus iaculis urna id. Fermentum leo vel orci porta non pulvinar neque laoreet. Lorem mollis aliquam ut porttitor leo a.</div>
+							<div class="card-cart"><a href="https://shop.glodon.com/1729166330202720.html" target="_blank"><i class="fas fa-shopping-cart"></i></a></div>
+						</div>
+				    	<div class="carousel-item">
+							<img src="{{ url_for('static', filename='img/book3.jpg') }}" class="card-book">
+							<div class="card-caption"><b>Guidelines for Community Energy Planning</b><br>Semper viverra nam libero justo laoreet sit amet cursus. Nibh sit amet commodo nulla facilisi. Et egestas quis ipsum suspendisse ultrices gravida dictum fusce ut. Sollicitudin ac orci phasellus egestas tellus rutrum. Hac habitasse platea dictumst vestibulum rhoncus. Faucibus pulvinar elementum integer enim. Facilisis volutpat est velit egestas dui id ornare. Scelerisque felis imperdiet proin fermentum leo vel orci porta non.</div>
+							<div class="card-cart"><a href="http://product.dangdang.com/1068438917.html" target="_blank"><i class="fas fa-shopping-cart"></i></a></div>
+				    	</div>
+				   		<div class="carousel-item">
+				    		<img src="{{ url_for('static', filename='img/book2.png') }}" class="card-book">
+							<div class="card-caption"><b>Building Energy Simulation Handbook</b>   <small>Chinese version only</small><br>Elit eget gravida cum sociis natoque penatibus et magnis dis. Sit amet justo donec enim diam. Neque gravida in fermentum et sollicitudin ac orci phasellus egestas. Nam libero justo laoreet sit. Tempor nec feugiat nisl pretium fusce. Interdum consectetur libero id faucibus nisl tincidunt eget nullam. Id diam vel quam elementum pulvinar. A lacus vestibulum sed arcu. Aliquet enim tortor at auctor. Sit amet nulla facilisi morbi tempus.</div>
+							<div class="card-cart"><a href="http://product.dangdang.com/23323752.html?ddclick_reco_reco_alsoview" target="_blank"><i class="fas fa-shopping-cart"></i></a></div>
+				    	</div>
+				    	<div class="carousel-item">
+				    		<img src="{{ url_for('static', filename='img/book1.png') }}" class="card-book">
+							<div class="card-caption"><b>ESCO & Building Energy Retrofits</b>   <small>Chinese version only</small><br>Volutpat sed cras ornare arcu. Viverra mauris in aliquam sem fringilla ut. Amet luctus venenatis lectus magna fringilla urna porttitor rhoncus dolor. Aenean euismod elementum nisi quis. Aliquam malesuada bibendum arcu vitae elementum curabitur vitae. Semper risus in hendrerit gravida rutrum quisque. Pellentesque id nibh tortor id. Sapien nec sagittis aliquam malesuada. Neque convallis a cras semper auctor neque vitae tempus. Tellus cras adipiscing enim eu turpis egestas pretium aenean pharetra.</div>
+							<div class="card-cart"><a href="http://product.dangdang.com/1431465813.html" target="_blank"><i class="fas fa-shopping-cart"></i></a></div>
+				    	</div>
+					</div>
+
+					<a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
+			</div>
+			<div class="col-md-1">
+			</div>
+			<div class="col-md-7" style="margin-top: 25px;">
+				<p id="text"><b>State-of-the-art Technology and Advanced Application of Building Performance Modeling</b><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Accumsan sit amet nulla facilisi morbi tempus iaculis urna id. Fermentum leo vel orci porta non pulvinar neque laoreet. Lorem mollis aliquam ut porttitor leo a.</p>
+				<p id="cart"><a href="https://shop.glodon.com/1729166330202720.html" target="_blank"><i class="fas fa-shopping-cart"></i></a></p>
+			</div>
+		</div>
+	</div>
+
+	<!-----------------------------News Area------------------------------->
+
+	<div class="interval"></div>
+	<div>
+		<h3 class="interval" style="text-align: right;">{{ _('Recently') }}</h3>
+		<div class="row">
+			<div class="col-lg-4"></div>
+			<div class="col-lg-8">
+				{% for news in newss %}
+				<div class="index-news">
+					<span class="card-text text-muted"><a href="{{ url_for('news.show_news', news_id=news.id) }}">{% if get_locale() == 'zh' %}{{ news.title_cn }}{% else %}{{ news.title_en }}{% endif %}</a></span>
+				</div>
+				{% endfor %}
+				<div class="index-news">
+					<small><a href="{{ url_for('news.news') }}">{{ _('... More') }}</a></small>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-----------------------------Contacts Area / maps or ...------------------------------->
+
+	<div>
+		<h3 class="interval" style="text-align: right;">{{ _('Contact') }}</h3>
+		<!--<iframe src="https://snazzymaps.com/embed/179183" width="100%" height="300px" style="border:none;"></iframe>-->
+		<div class="row justify-content-between">
+			<div class="col-lg-8 col-md-8" style="width:100%; height:200px;" id="dituContent"></div>
+			<div class="col-lg-3 col-md-3 contact-card">
+				<div class="index-bullet"><span><i class="fas fa-envelope"></i></span><span>bsimtongji@163.com</span></div>
+				<div class="index-bullet"><span><i class="fas fa-phone"></i></span><span>+86-21-69589750</span></div>
+				<div class="index-bullet"><span><i class="fas fa-share-alt"></i></span><span>{{ _('Partners:') }}</span></div>
+				<div class="index-bullet-last"><span><i class="fas fa-map-signs"></i></span><span>{{ _('Room A441, School of Mechanical Engineering, Tongji University') }}<br>{{ _('No.4800 Caoan Rd., Shanghai') }}</span></div>
+
+			</div>
+		</div>
+	</div>
+	
+	<p></p>
+{% endblock %}
+
+
+{% block scripts %}
+
+<script>
+	$('.carousel').on('slid.bs.carousel', function () {
+	   $('#text').html($('.active > .card-caption').html());
+	   $('#cart').html($('.active > .card-cart').html());
+	});
+	$('.carousel').carousel({
+	  interval: false
+	})
+</script>
+<!--      Load Baidu Map API      -->
+<script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.0&services=true"></script>
+<script type="text/javascript">
+    //创建和初始化地图函数：
+    function initMap(){
+        createMap();//创建地图
+        setMapEvent();//设置地图事件
+        addMapControl();//向地图添加控件
+        addMarker();//向地图中添加marker
+    }
+    
+    //创建地图函数：
+    function createMap(){
+        var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
+        var point = new BMap.Point(121.218408,31.295259);//定义一个中心点坐标
+        map.centerAndZoom(point,18);//设定地图的中心点和坐标并将地图显示在地图容器中
+        window.map = map;//将map变量存储在全局
+    }
+    
+    //地图事件设置函数：
+    function setMapEvent(){
+        map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+        map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+        map.disableDoubleClickZoom();//禁用鼠标双击放大
+        map.disableKeyboard();//禁用键盘上下左右键移动地图，默认禁用(可不写)
+    }
+    
+    //地图控件添加函数：
+    function addMapControl(){
+        //向地图中添加缩放控件
+	var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_ZOOM});
+	map.addControl(ctrl_nav);
+        //向地图中添加缩略图控件
+	var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:0});
+	map.addControl(ctrl_ove);
+        //向地图中添加比例尺控件
+	var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT});
+	map.addControl(ctrl_sca);
+    }
+    
+    //标注点数组
+    var markerArr = [{title:"A441",content:"",point:"121.218286|31.295151",isOpen:0,icon:{w:23,h:25,l:46,t:21,x:9,lb:12}}
+		 ];
+    //创建marker
+    function addMarker(){
+        for(var i=0;i<markerArr.length;i++){
+            var json = markerArr[i];
+            var p0 = json.point.split("|")[0];
+            var p1 = json.point.split("|")[1];
+            var point = new BMap.Point(p0,p1);
+			var iconImg = createIcon(json.icon);
+            var marker = new BMap.Marker(point,{icon:iconImg});
+			var iw = createInfoWindow(i);
+			var label = new BMap.Label(json.title,{"offset":new BMap.Size(json.icon.lb-json.icon.x+10,-20)});
+			marker.setLabel(label);
+            map.addOverlay(marker);
+            label.setStyle({
+                        borderColor:"#808080",
+                        color:"#333",
+                        cursor:"pointer"
+            });
+			
+			(function(){
+				var index = i;
+				var _iw = createInfoWindow(i);
+				var _marker = marker;
+				_marker.addEventListener("click",function(){
+				    this.openInfoWindow(_iw);
+			    });
+			    _iw.addEventListener("open",function(){
+				    _marker.getLabel().hide();
+			    })
+			    _iw.addEventListener("close",function(){
+				    _marker.getLabel().show();
+			    })
+				label.addEventListener("click",function(){
+				    _marker.openInfoWindow(_iw);
+			    })
+				if(!!json.isOpen){
+					label.hide();
+					_marker.openInfoWindow(_iw);
+				}
+			})()
+        }
+    }
+    //创建InfoWindow
+    function createInfoWindow(i){
+        var json = markerArr[i];
+        var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json.title + "'>" + json.title + "</b><div class='iw_poi_content'>"+json.content+"</div>");
+        return iw;
+    }
+    //创建一个Icon
+    function createIcon(json){
+        var icon = new BMap.Icon("http://api.map.baidu.com/lbsapi/creatmap/images/us_mk_icon.png", new BMap.Size(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb+5,1),offset:new BMap.Size(json.x,json.h)})
+        return icon;
+    }
+    
+    initMap();//创建和初始化地图
+</script>
+{% endblock %}

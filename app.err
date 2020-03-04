@@ -1,0 +1,20 @@
+/COM,ANSYS RELEASE Release 18.0      BUILD 18.0      UP20161219       00:05:33
+
+ *** ERROR ***                           CP =       0.188   TIME= 00:05:36
+ Data file C:\pan\app.db has incorrect format, is missing READ/WRITE     
+ permission, or is empty for RESUME.                                     
+
+ *** WARNING ***                         CP =       0.188   TIME= 00:05:36
+ WHILE PROCESSING FILE BASED INPUT (/INPUT OR MACRO) AN ERROR HAS        
+ OCCURRED.  SHOULD INPUT PROCESSING BE SUSPENDED?                        
+
+ *** ERROR ***                           CP =       0.188   TIME= 00:06:47
+ An unexpected error ( SIG$BREAK ) has occurred...  ANSYS internal data  
+ has been corrupted.  ANSYS is unable to recover and will terminate.     
+ Previously saved files are unaffected.  Please send the data leading    
+ to this operation to your technical support provider, as this will      
+ allow ANSYS, Inc to improve the program.                                
+
+ *** WARNING ***                         CP =       0.188   TIME= 00:06:47
+ WHILE PROCESSING FILE BASED INPUT (/INPUT OR MACRO) AN ERROR HAS        
+ OCCURRED.  SHOULD INPUT PROCESSING BE SUSPENDED?                        

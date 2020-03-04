@@ -1,0 +1,24 @@
+    <h1>{{ post.title }}</h1>
+    <a href="{{ url_for('user', username=post.author.username) }}">
+        <small>{{ post.author.username }}</small>
+    </a>
+    <div class="row">
+        <div class="col-lg-9">
+            <!--
+            <div>
+            	{% if post.author.avatar_s %}
+            	<img src="{{ url_for('get_avatar', filename=post.author.avatar_s) }}">
+            	{% else %}
+            	<img src="{{ avatars.default(size='s') }}">
+            	{% endif %}
+                <br>
+            </div>
+            -->
+            <div class="col-lg-12">
+	            {{ post.html|safe }}
+	        </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="sticky-top toc_box">{{ post.menu|safe }}</div>
+        </div>
+    </div>

@@ -1,0 +1,65 @@
+{% extends "proj/project.html" %}
+{% set active_layout = "dashboard" %}
+
+{% block project_layout %}
+	<div class="card-columns">
+		{% for project in projects %}
+		<div class="card {% if not project.id|getstatus %}border-secondary{% endif %}" style="box-shadow: 0px 0px 1px #ccc">
+			{% if project.banner %}
+			<div class="img-responsive" style="max-height: 300px;">
+				<img src="{{ url_for('static', filename='projtemp/' + project.banner) }}" class="card-img">
+			</div>
+			{% endif %}
+			<div class="card-body {% if project.id|getstatus %}text-dip{% endif %}">
+
+				{% if project.isthesis %}<div class="project-lab-icon"><i class="fas fa-bong" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Lab project"></i></div>{% endif %}
+				
+				<h5 class="card-title">
+					{% if project.filename %}<a href="{{ url_for('proj.show_project', project_id=project.id) }}">{% endif %}
+					{% if get_locale() == 'zh' %}{{ project.title_cn }}{% else %}{{ project.title_en|capitalize }}{% endif %}
+					{% if project.filename %}</a>{% endif %}
+				</h5>
+				<p class="card-text" style="line-height: 1.6em; font-size: 0.9em;">
+					{% if get_locale() == 'zh' %}
+						{% if project.brief_cn|length > 100 %}
+						<span class="dots">{{ project.brief_cn|truncate(100, True) }}</span><span class="more">{{ project.brief_cn }}</span>
+						<a class="read" style="color: #ca3352; font-weight: 1000;">+</a>
+						{% else %}
+						<span>{{ project.brief_cn }}</span>
+						{% endif %}
+					{% else %}
+						{% if project.brief_en|length > 200 %}
+						<span class="dots">{{ project.brief_en|capitalize|truncate(200, True) }}</span><span class="more">{{ project.brief_en|capitalize }}</span>
+						<a class="read" style="color: #ca3352; font-weight: 1000;">+</a>
+						{% else %}
+						<span>{{ project.brief_en|capitalize }}</span>
+						{% endif %}
+					{% endif %}
+				</p>
+				<small style="text-align: left;">{{ project.startdate.strftime('%Y-%m-%d') }}
+					<span style="float: right;">{% if project.id|getstatus %}{{ _('Ended') }}{% else %}{{ _('In progress')}}{% endif %}</span>
+				</small>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+	$(document).ready(function(){
+		$(".read").click(function(){
+			$(this).prev().toggle();
+			$(this).siblings('.dots').toggle();
+			if($(this).text()=='+'){
+				$(this).text('-');
+			}
+			else{
+				$(this).text('+');
+			}
+		});
+	})
+</script>
+{% endblock %} 
+
+

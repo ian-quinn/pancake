@@ -1,0 +1,329 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+    <title>
+        {% block title %}{% endblock %} - PAN
+    </title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pan.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.mCustomScrollbar.min.css') }}">
+
+    <link href="https://cdn.bootcss.com/font-awesome/5.12.0/css/all.css" rel="stylesheet">
+
+    <!-- to put jQuery here is to ensure every script correctly loaded -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+    {% block styles %}{% endblock %}
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <nav id="sidebar">
+            <!-- temporarily cancel the header, too heavy
+            <div class="sidebar-header">
+                <h4><b>PAN</b><br><small>research group</small></h4>
+            </div>
+            -->
+            
+
+            {% set navigation_bar = [
+                ('/', 'index', _('Home')),
+                ('/news', 'news', _('News')),
+                ('/project/dashboard', 'project', _('Project')),
+                ('/people', 'people', _('People')),
+                ('/pubs', 'pubs', _('Publication')),
+                ('/blog', 'blog', _('Note')),
+                ('/user/settings/profile', 'settings', _('Settings')),
+                ('/bookshelf', 'bookshelf', _('Bookshelf')),
+            ] %}
+
+            <ul class="list-unstyled components">
+                {% for href, id, caption in navigation_bar[0:6] %}
+                <li {% if id == active_page %} class="active"{% endif %}>
+                    <a href="{{ href|e }}">{{ caption|e }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <ul class="list-unstyled components" style="width: 60px;">
+                {% if current_user.is_authenticated %}
+                {% for href, id, caption in navigation_bar[6:8] %}
+                <li {% if id == active_page %} class="active"{% endif %}>
+                    <a href="{{ href|e }}">{{ caption|e }}</a>
+                </li>
+                {% endfor %}
+                <li><a href="{{ url_for('auth.logout') }}">{{ _('Logout')}}</a></li>
+                {% else %}
+                <li><a href="{{ url_for('auth.login') }}">{{ _('Login')}}</a></li>
+                {% endif %}
+
+                {% if get_locale() == 'zh' %}
+                <li><a href="{{ url_for('set_locale', locale='en') }}">English</a><li>
+                {% endif %}
+
+                {% if get_locale() == 'en' %}
+                <li><a href="{{ url_for('set_locale', locale='zh') }}">中文</a></li>
+                {% endif %}
+            </ul>
+
+        </nav>
+
+        <div id="content">
+            <nav class="navbar navbar-expand-md navbar-light {% if active_page != 'index' %}navbar-solid{% else %}navbar-gradient{% endif %}" role="navigation">
+            <!--navbar-light bg-light class can be deleted-->
+            <!--Alpha Budge
+                <div style="position: absolute; top: 0px; left: 0px; margin-right: -40px;"><img src="{{ url_for('static', filename='img/alpha.png') }}"></div>
+                -->
+                <div class="container">
+                    {% if active_page != 'index' %}
+                    <a class="navbar-brand {% if get_locale() == 'zh' %}fluffy{% endif %}" href="#" style="font-size: 1.2rem;">
+                        {{ _('PAN Research Group') }}
+                    </a>
+                    {% else %}
+                    <a class="navbar-brand" href="#">
+                    </a>
+                    {% endif %}
+                    <button class="navbar-toggler justify-content-end" id="sidebarCollapse">
+                    <span class="fa fa-bars"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+                        <ul class="navbar-nav" id="navigation">
+                            {% for href, id, caption in navigation_bar[0:6] %}
+                                <li>
+                                    <div {% if id == active_page %} class="nav-active"{% endif %} style="height: 50px; padding: 0rem 0.2rem;">
+                                    <a class="nav-link" href="{{ href|e }}">{{ caption|e }}</a>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <div class="nav-item" style="margin-right: -10px; font-size: 1.1em;">
+                            {% if get_locale() == 'zh' %}
+                            <a class="nav-link" href="{{ url_for('set_locale', locale='en') }}" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="EN"><i class="fas fa-globe-americas"></i></a>
+                            {% endif %}
+
+                            {% if get_locale() == 'en' %}
+                            <a class="nav-link" href="{{ url_for('set_locale', locale='zh') }}" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="CN"><i class="fas fa-globe-asia"></i></a>
+                            {% endif %}
+                        </div>
+                        <div class="nav-item dropdown" style="margin-left: 10px;">
+                            {% if current_user.is_authenticated %}
+                            <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                {% if current_user.avatar_m %}
+                                <img src="{{ url_for('user.get_avatar', filename=current_user.avatar_m) }}" style="height: 25px; width: 25px; border-radius: 3px;">
+                                {% else %}
+                                <img src="{{ avatars.default(size='s') }}" style="height: 25px; width: 25px; border-radius: 3px;">
+                                {% endif %}
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <div style="text-align: center;"><b class="dropdown-header">{{ current_user.username }}</b></div>
+                                <div class="dropdown-divider"></div>
+                                <!--<p class="dropdown-header">Separated link</p>-->
+                                    <a href="{{ url_for('user.user', username=current_user.username) }}" class="dropdown-item"><span class="fas fa-user" style="height: 20px; width: 20px;"></span>&emsp;{{ _('Profile') }}</a>
+                                    <a href="{{ url_for('user.set_profile') }}" class="dropdown-item"><span class="fas fa-cog" style="height: 20px; width: 20px;"></span>&emsp;{{ _('Settings') }}</a>
+                                    <a href="{{ url_for('bookshelf') }}" class="dropdown-item"><span class="fas fa-book" style="height: 20px; width: 20px;"></span>&emsp;{{ _('Bookshelf') }}</a>
+                                    <a href="{{ url_for('auth.logout') }}" class="dropdown-item"><span class="fas fa-power-off" style="height: 20px; width: 20px;"></span>&emsp;{{ _('Logout') }}</a>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="nav-item" style="font-size: 1.1em;">
+                            {% if current_user.is_anonymous %}
+                            <a class="nav-link" href="{{ url_for('auth.login') }}" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Login"><i class="fas fa-sign-in-alt"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <main class="container" style="margin-bottom: 50px;margin-top: 50px;">
+
+            {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+            <div style="text-align: right; height: 50px; margin-top: -50px;">
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}" role="alert" id="faded" style="height: 50px; margin-right: 0;">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+
+            {% block content %}
+            {% endblock %} 
+            </main>
+
+            <footer class="container">
+                <div class="pan-footer">
+                    <div style="display: inline;"><img src="{{ url_for('static', filename='img/pan.png') }}" style="margin-top: -3px; width: 30px; height: auto;"></div>
+                    <div style="float: right; text-align: right;display: inline;">
+                        <p>© 2020 PAN Research Group<br>
+                        Powered by <a href="http://flask.pocoo.org/">Flask</a> | Follow this project on <a href="https://github.com/ian-quinn">GitHub</a></p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <a class="top-link_hide" id="js-top"><i class="far fa-arrow-alt-circle-up fa-2x"></i></a>
+
+    <div class="overlay"></div>
+
+    <!-- Loading Javascripts following this order -->
+    
+    <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+
+    <!-- jQuery Custom Scroller CDN -->
+    <!-- For sidebar slider  -->
+    <script src="{{ url_for('static', filename='js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+
+    {% block scripts %}{% endblock %}
+
+    <!-- moment settings -->
+    {{ moment.include_moment(local_js=url_for('static', filename='js/moment-with-locales.js')) }}
+    {{ moment.locale(auto_detect=True) }}
+
+    <!-- turn on popper  -->
+    <script>
+        $(function () {
+          $('[data-toggle="popover"]').popover()
+        })
+    </script>
+
+    <!-- fade out flashing messages  -->
+    <script type="text/javascript">
+        $('.alert').delay(2000).slideUp(300);
+    </script>
+
+    <!-- bootstrap sidebar settings -->
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $("#sidebar").mCustomScrollbar({
+            theme: "minimal"
+        });
+
+        $('.overlay').on('click', function () {
+            // hide sidebar
+            $('#sidebar').removeClass('active');
+            // hide overlay
+            $('.overlay').removeClass('active');
+        });
+
+        $('#sidebarCollapse').on('click', function () {
+            // open sidebar
+            $('#sidebar').addClass('active');
+            // fade in the overlay
+            $('.overlay').addClass('active');
+            $('.collapse.in').toggleClass('in');
+            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+        });
+    });
+    </script>
+
+    <!-- sticky scroll up button -->
+    <script>
+        // Set a variable for our button element.
+        const scrollToTopButton = document.getElementById('js-top');
+
+        // Let's set up a function that shows our scroll-to-top button if we scroll beyond the height of the initial window.
+        const scrollFunc = () => {
+          // Get the current scroll value
+          let y = window.scrollY;
+          // If the scroll value is greater than the window height, let's add a class to the scroll-to-top button to show it!
+          if (y > 1000) {
+            scrollToTopButton.className = "top-link_show";
+          } else {
+            scrollToTopButton.className = "top-link_hide";
+          }
+        };
+
+        window.addEventListener("scroll", scrollFunc);
+
+        const scrollToTop = () => {
+          // Let's set a variable for the number of pixels we are from the top of the document.
+          const c = document.documentElement.scrollTop || document.body.scrollTop;
+          
+          // If that number is greater than 0, we'll scroll back to 0, or the top of the document.
+          // We'll also animate that scroll with requestAnimationFrame:
+          // https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+          if (c > 0) {
+            window.requestAnimationFrame(scrollToTop);
+            // ScrollTo takes an x and a y coordinate.
+            // Increase the '10' value to get a smoother/slower scroll!
+            window.scrollTo(0, c - c / 10);
+          }
+        };
+
+        // When the button is clicked, run our ScrolltoTop function above!
+        scrollToTopButton.onclick = function(e) {
+          e.preventDefault();
+          scrollToTop();
+        }
+    </script>
+
+    <!-- sliding nav-bar -->
+    <script>
+        var $el, leftPos, newWidth;
+
+        /* Add Magic Line markup via JavaScript, because it ain't gonna work without */
+        $("#navigation").append("<li id='magic-line'></li>");
+
+        /* Cache it */
+        var $magicLine = $("#magic-line");
+
+        $magicLine
+          .width($(".nav-active").width())
+          .css("left", $(".nav-active a").position().left)
+          .data("origLeft", $magicLine.position().left)
+          .data("origWidth", $magicLine.width());
+
+        $("#navigation li")
+          .find("a")
+          .hover(
+            function() {
+              $el = $(this);
+              leftPos = $el.position().left;
+              newWidth = $el.parent().width();
+
+              $magicLine.stop().animate({
+                left: leftPos,
+                width: newWidth
+              });
+            },
+            function() {
+              $magicLine.stop().animate({
+                left: $magicLine.data("origLeft"),
+                width: $magicLine.data("origWidth")
+              });
+            }
+          );
+    </script>
+
+    <!-- footer fixer suits for pages too short to scroll -->
+    <script type="text/javascript">
+        $(function(){
+            function footerPosition(){
+                $("footer").removeClass("fixed-bottom");
+                    //网页正文全文高度
+                    var contentHeight = document.body.scrollHeight,
+                    //可视窗口高度，不包括浏览器顶部工具栏
+                    winHeight = window.innerHeight;
+                if(!(contentHeight > winHeight)){
+                    //当网页正文高度小于可视窗口高度时，为footer添加类fixed-bottom
+                    $("footer").addClass("fixed-bottom");
+                } else {
+                    $("footer").removeClass("fixed-bottom");
+                }
+            }
+            footerPosition();
+            $(window).resize(footerPosition);
+        });
+    </script>
+
+    </body>
+</html>
+

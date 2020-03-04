@@ -1,0 +1,396 @@
+# Chinese translations for PROJECT.
+# Copyright (C) 2020 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2020-03-04 13:30+0800\n"
+"PO-Revision-Date: 2020-03-04 13:30+0800\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh\n"
+"Language-Team: zh <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+
+#: app/templates/base.html:33
+msgid "Home"
+msgstr "首页"
+
+#: app/templates/base.html:34 app/templates/news/edit_news.html:4
+#: app/templates/news/news.html:4 app/templates/news/story.html:4
+msgid "News"
+msgstr "新闻"
+
+#: app/templates/base.html:35 app/templates/proj/project.html:4
+#: app/templates/proj/project_item.html:4
+msgid "Project"
+msgstr "项目"
+
+#: app/templates/base.html:36
+msgid "People"
+msgstr "成员"
+
+#: app/templates/base.html:37 app/templates/pubs.html:3
+msgid "Publication"
+msgstr "论文"
+
+#: app/templates/base.html:38
+msgid "Note"
+msgstr "博客"
+
+#: app/templates/base.html:39 app/templates/base.html:126
+#: app/templates/user/settings.html:4 app/templates/user/settings.html:8
+msgid "Settings"
+msgstr "设置"
+
+#: app/templates/base.html:40 app/templates/base.html:127
+msgid "Bookshelf"
+msgstr "书架"
+
+#: app/templates/base.html:58 app/templates/base.html:128
+msgid "Logout"
+msgstr "登出"
+
+#: app/templates/auth/login.html:2 app/templates/base.html:60
+msgid "Login"
+msgstr "登入"
+
+#: app/templates/base.html:83 app/templates/index.html:19
+msgid "PAN Research Group"
+msgstr "潘毅群教授课题组"
+
+#: app/templates/base.html:125
+msgid "Profile"
+msgstr "简历"
+
+#: app/templates/index.html:14
+msgid "Homepage"
+msgstr "首页"
+
+#: app/templates/index.html:25
+msgid ""
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
+"tempor incididunt ut labore et dolore magna aliqua. Accumsan sit amet "
+"nulla facilisi morbi tempus iaculis urna id. Fermentum leo vel orci porta"
+" non pulvinar neque laoreet. Lorem mollis aliquam ut porttitor leo a. "
+"Tincidunt dui ut ornare lectus. Justo laoreet sit amet cursus sit amet "
+"dictum. Ultrices mi tempus imperdiet nulla malesuada pellentesque elit. "
+"Enim eu turpis egestas pretium aenean pharetra. Amet massa vitae tortor "
+"condimentum lacinia quis vel eros. Semper viverra nam libero justo "
+"laoreet sit amet cursus. Nibh sit amet commodo nulla facilisi."
+msgstr "潘毅群教授课题组位于同济大学嘉定校区开物馆A441，课题组由3名老师、6名博士生和7名硕士组成。主要研究方向为建筑能耗模拟与系统仿真、区域负荷预测与系统优化、建筑中人的用能行为模拟、建筑大数据分析与能源管理。"
+
+#: app/templates/index.html:51
+msgid "Research"
+msgstr "研究方向"
+
+#: app/templates/index.html:56
+msgid "Building Performance Simulation & System Emulation"
+msgstr "建筑能耗模拟与系统仿真"
+
+#: app/templates/index.html:60
+msgid "Load Leveling & Distributed Energy System"
+msgstr "区域负荷预测与系统优化"
+
+#: app/templates/index.html:64
+msgid "Human Behaviour in Building Operation"
+msgstr "建筑中人的用能行为模拟"
+
+#: app/templates/index.html:68
+msgid "Big Data & Energy Management System<"
+msgstr "建筑大数据分析与能源管理"
+
+#: app/templates/index.html:76
+msgid "Publications"
+msgstr "发表成果"
+
+#: app/templates/index.html:95 app/templates/index.html:160
+msgid "... More"
+msgstr "... 更多"
+
+#: app/templates/index.html:150
+msgid "Recently"
+msgstr "近期要闻"
+
+#: app/templates/index.html:176
+msgid "Partners:"
+msgstr "合作伙伴:"
+
+#: app/templates/index.html:177
+msgid "Room A441, School of Mechanical Engineering, Tongji University"
+msgstr "同济大学机械与能源工程学院, A441室"
+
+#: app/templates/index.html:177
+msgid "No.4800 Caoan Rd., Shanghai"
+msgstr "上海市曹安公路4800号"
+
+#: app/templates/people.html:8
+msgid "This is us"
+msgstr "组内成员"
+
+#: app/templates/people.html:9
+msgid ""
+"The Group has 3 tutors, 6 doctor candidates and 7 master candidates for "
+"now. All members are listed here chronically. Click on the name card to "
+"have a closer look. hahhahahahahahah"
+msgstr "潘毅群教授课题组位于同济大学嘉定校区开物馆A441，课题组由3名老师、6名博士生和7名硕士组成。"
+
+#: app/templates/people.html:17
+msgid "Tutor"
+msgstr "导师"
+
+#: app/templates/people.html:18
+msgid "Doctoral student"
+msgstr "博士生"
+
+#: app/templates/people.html:19
+msgid "Postgraduate"
+msgstr "硕士生"
+
+#: app/templates/people.html:20
+msgid "Alumni"
+msgstr "已毕业"
+
+#: app/templates/pubs.html:9
+msgid "Research Publications"
+msgstr "发表论文"
+
+#: app/templates/pubs.html:10
+msgid ""
+"Free to download and share the published books and papers. Send an email "
+"if some of those are hard to find. Other documents, guidances, installers"
+" that you may be interested in can be found in the"
+msgstr "潘毅群教授课题组位于同济大学嘉定校区开物馆A441，课题组由3名老师、6名博士生和7名硕士组成。"
+
+#: app/templates/pubs.html:24
+msgid "Cached"
+msgstr "已归档"
+
+#: app/templates/pubs.html:29
+msgid "Category"
+msgstr "类别"
+
+#: app/templates/pubs.html:31
+msgid "EN-Journal"
+msgstr "英文期刊"
+
+#: app/templates/pubs.html:32
+msgid "CN-Journal"
+msgstr "中文期刊"
+
+#: app/templates/pubs.html:33
+msgid "Conference"
+msgstr "会议论文"
+
+#: app/templates/pubs.html:34
+msgid "Thesis"
+msgstr "学位论文"
+
+#: app/templates/pubs.html:38
+msgid "Search"
+msgstr "搜索"
+
+#: app/templates/search.html:5
+msgid "Search Results"
+msgstr "匹配结果"
+
+#: app/templates/auth/register.html:2
+msgid "Register"
+msgstr "注册"
+
+#: app/templates/blog/add_post.html:4
+msgid "Add notes"
+msgstr "新增笔记"
+
+#: app/templates/blog/blog.html:4 app/templates/blog/blog.html:9
+#: app/templates/blog/post.html:4
+msgid "Notes"
+msgstr "笔记"
+
+#: app/templates/blog/blog.html:10 app/templates/news/news.html:14
+#: app/templates/proj/project.html:11
+msgid ""
+"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas "
+"porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, "
+"purus lectus malesuada libero, sit amet commodo magna eros quis urna."
+msgstr "潘毅群教授课题组位于同济大学嘉定校区开物馆A441，课题组由3名老师、6名博士生和7名硕士组成。"
+
+#: app/templates/blog/blog.html:28
+msgid "Read More"
+msgstr "更多"
+
+#: app/templates/blog/blog.html:55 app/templates/blog/blog.html:63
+msgid "Tags"
+msgstr "标签"
+
+#: app/templates/blog/category.html:4
+msgid "Cache"
+msgstr "归档"
+
+#: app/templates/blog/edit_post.html:4
+msgid "Edit notes"
+msgstr "编辑笔记"
+
+#: app/templates/blog/post.html:99
+msgid "Comments"
+msgstr "评论"
+
+#: app/templates/blog/post.html:106
+msgid "Author"
+msgstr "楼主"
+
+#: app/templates/blog/post.html:108
+msgid "Replies"
+msgstr "回复"
+
+#: app/templates/blog/post.html:108
+msgid "says"
+msgstr "说道"
+
+#: app/templates/blog/post.html:136
+msgid "No comments"
+msgstr "暂无回复"
+
+#: app/templates/blog/post.html:154
+msgid "Reply to"
+msgstr ""
+
+#: app/templates/blog/post.html:155
+msgid "Cancel"
+msgstr "取消"
+
+#: app/templates/blog/post.html:182
+msgid "Comment disabled"
+msgstr "评论已关闭"
+
+#: app/templates/blog/post.html:188
+msgid "Access Denied"
+msgstr "访问拒绝"
+
+#: app/templates/blog/post.html:200
+msgid "participants"
+msgstr "贡献者"
+
+#: app/templates/news/add_event.html:4
+msgid "Add event"
+msgstr "马克日程"
+
+#: app/templates/news/add_news.html:4
+msgid "Add news"
+msgstr "写新闻稿"
+
+#: app/templates/news/news.html:13
+msgid "Recent News"
+msgstr "近期要闻"
+
+#: app/templates/news/news.html:44 app/templates/news/story.html:80
+msgid "Posted by"
+msgstr "通讯作者"
+
+#: app/templates/news/story.html:75
+msgid "Time"
+msgstr "时间"
+
+#: app/templates/news/story.html:78
+msgid "Location"
+msgstr "地点"
+
+#: app/templates/news/story.html:81
+msgid "Update on"
+msgstr "更新"
+
+#: app/templates/news/story.html:83
+msgid "Album"
+msgstr "相簿"
+
+#: app/templates/news/story.html:83
+msgid "pcs"
+msgstr "张"
+
+#: app/templates/proj/add_project.html:4
+msgid "Add project"
+msgstr "备案项目"
+
+#: app/templates/proj/edit_project.html:4
+msgid "Edit project"
+msgstr "编辑项目"
+
+#: app/templates/proj/project.html:10 app/templates/proj/project_item.html:9
+msgid "Projects"
+msgstr "项目及课题"
+
+#: app/templates/proj/project_dashboard.html:40
+msgid "Ended"
+msgstr "结题"
+
+#: app/templates/proj/project_dashboard.html:40
+msgid "In progress"
+msgstr "在研"
+
+#: app/templates/proj/project_item.html:46
+msgid "Attachments"
+msgstr "项目附件"
+
+#: app/templates/proj/project_item.html:53
+msgid "No document available"
+msgstr "暂无说明文档"
+
+#: app/templates/proj/project_item.html:59
+msgid "Project participants"
+msgstr "参与者"
+
+#: app/templates/proj/project_item.html:61
+msgid "No claim of this project"
+msgstr "暂无参与人员信息"
+
+#: app/templates/proj/project_item.html:96
+msgid "Previous"
+msgstr ""
+
+#: app/templates/proj/project_item.html:100
+msgid "Next"
+msgstr ""
+
+#: app/templates/proj/project_list.html:7
+msgid "Major projects"
+msgstr "纵向及横向课题"
+
+#: app/templates/proj/project_list.html:43
+msgid "Thesis projects"
+msgstr "学生实验项目"
+
+#: app/templates/user/reset_password.html:2
+#: app/templates/user/reset_password_request.html:2
+msgid "Reset password"
+msgstr "重置密码"
+
+#: app/templates/user/user.html:29
+msgid "Last been here on"
+msgstr "上次访问于"
+
+#: app/templates/user/user.html:31
+msgid "followers"
+msgstr "订阅"
+
+#: app/templates/user/user.html:31
+msgid "following"
+msgstr "关注"
+
+#: app/templates/user/user.html:33
+msgid "Edit profile"
+msgstr "编辑简历"
+
+#: app/templates/user/user.html:35
+msgid "Follow"
+msgstr "关注"
+
+#: app/templates/user/user.html:37
+msgid "Unfollow"
+msgstr "取关"
+

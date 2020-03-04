@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% set active_page = "news" %}
+
+{% block title %}{{ _('News')}}{% endblock %}
+
+{% block styles %}
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dropzone.css') }}">
+<script src="/static/js/jquery-3.1.1.js"></script>
+{% endblock %}
+
+{% block content %}
+<section class="main-content">
+    <h1 style="margin-bottom: 100px;">Craft it!</h1>
+
+    <form role="form" method="post" action="{{ url_for('news.edit_news', news_id=news.id) }}" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <!-- Form Name -->
+        <div class="row" style="margin-left: -5px; margin-right: -5px;">
+            <div class="col-md-6" style="padding: 5px;">
+                <legend>In Chinese</legend>
+                <div class="form-group">
+                    {{ form.title_cn(class="form-control input-md", placeholder="Title in Chinese") }}
+                    {% for error in form.title_cn.errors %}
+                    <small clas="error-bullet">{{ error }}</small>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.text_cn(class="form-control", placeholder="Markdown and HTML are both supported but not recommended", style="height: 300px;") }}
+                    {% for error in form.text_cn.errors %}
+                    <small clas="error-bullet">{{ error }}</small>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-md-6" style="padding: 5px;">
+                <legend>In English</legend>
+                <div class="form-group">
+                    {{ form.title_en(class="form-control input-md", placeholder="Title in English") }}
+                    {% for error in form.title_en.errors %}
+                    <small clas="error-bullet">{{ error }}</small>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.text_en(class="form-control", placeholder="Markdown and HTML are both supported but not recommended", style="height: 300px;") }}
+                    {% for error in form.text_en.errors %}
+                    <small clas="error-bullet">{{ error }}</small>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-left: -5px; margin-right: -5px;">
+            <div class="col-md-6" style="padding: 5px;">
+                {{ form.date.label }}<br>
+                {{ form.date(class="form-control", placeholder="YYYY-MM-DD HH:MM") }}
+                {% for error in form.date.errors %}
+                <small clas="error-bullet">{{ error }}</small>
+                {% endfor %}
+            </div>
+            <div class="col-md-6" style="padding: 5px;">
+                {{ form.location.label }}<br>
+                {{ form.location(class="form-control") }}
+                {% for error in form.location.errors %}
+                <small clas="error-bullet">{{ error }}</small>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="row" style="margin-left: -5px; margin-right: -5px;">
+            <div class="col-md-6" style="padding: 5px;">
+                {{ form.category.label }}<br>
+                {{ form.category(class="form-control") }}<br>
+                {% for error in form.category.errors %}
+                <small clas="error-bullet">{{ error }}</small>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 50px;">
+            {{ form.submit(class="btn btn-outline-secondary btn-sm btn-block") }}
+        </div>
+    </form>
+</section>
+{% endblock %}
+
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dropzone.js') }}"></script>
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/4.0.3/codemirror.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/inline-attachment.js/') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/codemirror-4.inline-attachment.js/') }}"></script>
+
+<script src="/static/js/jquery-3.1.1.js"></script>
+<script src="/static/js/jquery.ui.widget.js"></script>
+
+{% endblock %}

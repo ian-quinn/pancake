@@ -1,0 +1,214 @@
+{% extends "base.html" %}
+{% set active_page = "pubs" %}
+{% block title %}{{ _('Publication')}}{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-8 headup {% if get_locale() == 'zh' %}fluffy{% endif %}">
+    	<h1>{{ _('Research Publications') }}</h1>
+    	<p>{{ _('Free to download and share the published books and papers. Send an email if some of those are hard to find. Other documents, guidances, installers that you may be interested in can be found in the') }}</p>
+    </div>
+    <div class="col-md-4">
+		{% if current_user.is_authenticated %}
+		<div class="pub-button">
+			<a data-toggle="collapse" href="#NewPublication" role="button" aria-label="Hey!" aria-controls="NewPublication">
+			<i class="fas fa-plus fa-x" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Add papers"></i>
+			</a>
+		</div>
+		{% endif %}
+	</div>
+</div>
+
+<div style="text-align: right;">
+		<p>{{ _('Cached') }} <span style="font-size: 3em; font-weight: 800; cursor: pointer;" id="all">{{ papers|length }}</span></p>
+	</div>
+
+<div class="row">
+	<div class="col-md-2">
+		<button class="btn btn-outline-dark btn-block btn-sm catetoggle" type="button" data-toggle="collapse" data-target="#category" aria-expanded="false" aria-controls="category">{{ _('Category') }}</button>
+		<div class="filter catebutton" id="category">
+			<button id="sci" type="button" class="btn btn-outline-dark btn-block btn-sm">{{ _('EN-Journal') }}</button>
+			<button id="ei" type="button" class="btn btn-outline-dark btn-block btn-sm">{{ _('CN-Journal') }}</button>
+			<button id="cssci" type="button" class="btn btn-outline-dark btn-block btn-sm">{{ _('Conference') }}</button>
+			<button id="thesis" type="button" class="btn btn-outline-dark btn-block btn-sm">{{ _('Thesis') }}</button>
+		</div>
+
+		<form class="input-group filter active-pink-4" action="{{ url_for('search') }}">
+			<input class="form-control form-control-sm" type="text" placeholder="{{ _('Search') }}" name="q" aria-label="Search" required>
+			<div class="input-group-append">
+				<button type="submit" class="btn btn-outline-danger"><span class="fas fa-search"></span></button>
+			</div>
+		</form>
+	</div>
+
+	<div class="col-md-10">
+
+		<div class="collapse pub-box" id="NewPublication" style="padding-top: 10px;">
+			{% if current_user.is_authenticated %}
+			<form action="{{ url_for('pubs') }}" method="post" enctype="multipart/form-data">
+				{{ form.hidden_tag() }}
+				<div class="form-group">
+					{{ form.title(class="form-control", placeholder="Title") }}
+					{% for error in form.title.errors %}
+	                <small class="error-bullet">{{ error }}</small>
+	                {% endfor %}
+				</div>
+				<div class="form-row">
+					<div class="col-3">
+						{{ form.author(class="form-control", placeholder="Author") }}
+						{% for error in form.author.errors %}
+		                <small class="error-bullet">{{ error }}</small>
+		                {% endfor %}
+					</div>
+					<div class="col">
+						{{ form.coauthor(class="form-control", placeholder="Co-Author") }}
+					</div>
+				</div>
+				<div class="form-row" style="height: 180px; margin-top: 16px; margin-bottom: 16px;">
+					<div class="col-3">
+						<div class="form-group">
+							{{ form.journal(class="form-control", placeholder="Journal") }}
+							{% for error in form.journal.errors %}
+			                <small class="error-bullet">{{ error }}</small>
+			                {% endfor %}
+						</div>
+						<div class="form-group">
+							{{ form.date(class="form-control", placeholder="YYYY-MM") }}
+							{% for error in form.date.errors %}
+			                <small class="error-bullet">{{ error }}</small>
+			                {% endfor %}
+						</div>
+						<div class="input-group">
+							{{ form.category(class="custom-select form-control", id="filtername") }}
+						</div>
+						<div class="row form-group" style="margin-top: 10px;">
+							<div class="col-6 custom-control custom-switch form-group">
+								{{ form.is_sci(type="checkbox", class="custom-control-input", id="SCIswitch") }}
+								<label class="custom-control-label" for="SCIswitch">SCI</label>
+							</div>
+							<div class="col-6 custom-control custom-switch form-group">
+								{{ form.is_ei(type="checkbox", class="custom-control-input", id="EIswitch") }}
+								<label class="custom-control-label" for="EIswitch">EI</label>
+							</div>
+						</div>
+					</div>
+					<div class="col-9">
+						<div class="form-group pubs_box" style="height: 180px;">
+							{{ form.abstract(class="form-control", placeholder="Abstract") }}
+							{% for error in form.abstract.errors %}
+			                <small class="error-bullet">{{ error }}</small>
+			                {% endfor %}
+						</div>
+					</div>
+				</div>
+				<div class="input-group">
+					<div class="custom-file">
+						{{ form.file(onchange="showFilename(this.files[0])", type="file", class="custom-file-input", id="customFile") }}
+						<label class="custom-file-label" for="customFile" id="filename">Choose one PDF file</label>
+						{% for error in form.file.errors %}
+		                <small class="error-bullet">{{ error }}</small>
+		                {% endfor %}
+					</div>
+					<div class="input-group-append">
+					    {{ form.submit(class="btn btn-outline-danger") }}
+					</div>
+				</div>
+			</form>
+			{% endif %}
+		</div>
+
+		<div style="height: 10px;"></div>
+
+		{% for paper in papers %}
+		<div class="pubs row {% if paper.category == 1 %}sci{% endif %}{% if paper.category == 2 %}ei{% endif %}{% if paper.category == 3 %}cssci{% endif %}{% if paper.category == 4 %}thesis{% endif %}">
+			<div class="col-10">
+				<b class="text-muted">{{ paper.title }}
+					{% if paper.issci %}
+					<span class="badge badge-danger">SCI</span>
+					{% endif %}
+					{% if paper.isei %}
+					<span class="badge badge-secondary">EI</span>
+					{% endif %}
+				</b>
+				<p class="pubs-info mb-auto">{{ paper.author }}{% if paper.coauthor %}, {{ paper.coauthor }}{% endif %}. {% if paper.journal %}{{ paper.journal }}, {% endif %}{{ paper.date.strftime('%Y-%m') }}</p>
+			</div>
+
+			<div style="width: 50px; text-align:right;" class="col-2">
+				
+				{% if current_user.is_authenticated %}
+				<form method="post"
+                      action="{{ url_for('delete_pubs', paper_id=paper.id, next=request.full_path) }}" style="display: inline;">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <button class="pubs-button" onclick="return confirm('Can not be reversed. Are you sure?');"><i class="far fa-trash-alt"></i></button>
+                </form>
+                {% endif %}
+                
+				<a data-toggle="collapse" href="#No{{ paper.id }}" role="button" aria-expanded="false" aria-controls="collapseExample" class="pubs-button"><i class="fas fa-asterisk"></i></a>
+
+				<form method="get"
+                  action="{{ url_for('download_pubs', paper_id=paper.id) }}" style="display: inline;">
+                    <button class="pubs-button"><i class="far fa-file"></i></button>
+                </form>
+
+                <!--
+				<a class="pubs-button" href="{{ url_for('static', filename='publications/') }}{{ paper.filename }}"><i class="far fa-file"></a>
+				-->
+
+			</div>
+			<div class="collapse" id="No{{ paper.id }}"> 
+				<p class="pubs-abstract mb-auto text-muted" style="font-size: 0.9em; padding-bottom: 6px; padding-top: 3px;">ABSTRACT | {{ paper.abstract }}</p>
+			</div>
+		</div>		
+		{% endfor %}
+
+	</div>
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+	<script>
+	function showFilename(file){
+	    $("#filename").html(file.name);
+	}
+
+	$("#sci").click(function() {
+		$(".sci").slideDown(500);
+		$(".ei").slideUp(500);
+		$(".cssci").slideUp(500);
+		$(".thesis").slideUp(500);
+	});
+
+	$("#ei").click(function() {
+		$(".sci").slideUp(500);
+		$(".ei").slideDown(500);
+		$(".cssci").slideUp(500);
+		$(".thesis").slideUp(500);
+	});
+
+	$("#cssci").click(function() {
+		$(".sci").slideUp(500);
+		$(".ei").slideUp(500);
+		$(".cssci").slideDown(500);
+		$(".thesis").slideUp(500);
+	});
+
+	$("#thesis").click(function() {
+		$(".sci").slideUp(500);
+		$(".ei").slideUp(500);
+		$(".cssci").slideUp(500);
+		$(".thesis").slideDown(500);
+	});
+
+	$("#all").click(function() {
+		$(".sci").slideDown(500);
+		$(".ei").slideDown(500);
+		$(".cssci").slideDown(500);
+		$(".thesis").slideDown(500);
+	});
+	</script>
+
+
+{% endblock %}

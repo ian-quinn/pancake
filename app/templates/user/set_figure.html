@@ -1,0 +1,34 @@
+{% extends 'user/settings.html' %}
+{% set active_setting = "figure" %}
+
+{% block setting_content %}
+    <div class="settings-card w-100 bg-light">
+        <h3 class="card-header">Upload Photo</h3>
+        <div class="card-body">
+            <form action="{{ url_for('user.set_figure') }}" method="post" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                <div class="input-group">
+                    <div class="custom-file">
+                        {{ form.image(type="file", onchange="showFilename(this.files[0])", class="custom-file-input", id="customFile") }}
+                        <label class="custom-file-label" for="customFile" id="filename">Choose file</label>
+                    </div>
+                    <div class="input-group-append">
+                        {{ form.submit(class="btn btn-outline-secondary") }}
+                    </div>
+                </div>
+                {% for error in form.image.errors %}
+                <small class="error-bullet">{{ error }}</small>
+                {% endfor %}
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+
+    <script>
+        function showFilename(file){
+            $("#filename").html(file.name);
+        }
+    </script>
+{% endblock %}

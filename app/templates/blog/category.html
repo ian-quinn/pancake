@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% set active_page = "blog" %}
+
+{% block title %}{{ _('Cache')}}{% endblock %}
+
+{% block content %}
+<div class="headup {% if get_locale() == 'zh' %}fluffy{% endif %}" style="margin-bottom: 100px;">
+	<h1>Cached</h1>
+</div>
+
+<div class="row justify-content-between" style="border-top: 1px solid #a8a8a8;">
+	<div class="col-lg-8 col-md-8">
+	{% if posts %}
+		{% for post in posts %}
+		{% if not post.islocked or current_user.is_authenticated %}
+		<div class="post-list {% if not loop.last %}news-list-break{% endif %}">
+			<h4 class="grey-dark" style="display: inline;">
+				{% if get_locale() == 'zh' %}{{ post.title_cn }}{% else %}{{ post.title_en }}{% endif %}
+			</h4>
+			<small style="float: right; color: #ccc;">{{ moment(post.timestamp).format('YYYY-MM-DD') }}</small>
+			<div class="post-preview">
+				<span>
+					{% if get_locale() == 'zh' %}{{ post.text_cn | truncate(300) | stripout }}{% else %}{{ post.text_en | truncate(300) | stripout }}{% endif %}<a href="{{ url_for('blog.show_post', post_id=post.id) }}">{{ _('Read More')}}</a>
+				</span>
+			</div>
+		</div>
+		{% endif %}
+
+		{% endfor %}
+
+	{% else %}
+		<div>
+			<h5>No posts</h5>
+		</div>
+	{% endif %}
+	</div>
+
+	<div class="col-lg-2 col-md-2">
+		<div class="note-cap"><span><i class="fas fa-hashtag"></i> {{ category.name }}</span></div>
+	</div>
+</div>
+
+{% if current_user.is_authenticated %}
+	<div style="margin-top: 100px;">
+		<a href="{{ url_for('blog.newpost') }}"><button type="button" class="btn btn-outline-secondary btn-sm btn-block">Add new post!</button></a>
+	</div>
+{% endif %}
+
+{% endblock %}

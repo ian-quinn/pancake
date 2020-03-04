@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+{% set active_page = "news" %}
+
+{% block title %}{{ _('News')}}{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-year-calendar.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="headup col-md-8 {% if get_locale() == 'zh' %}fluffy{% endif %}">
+        <h1>{{ _('Recent News') }}</h1>
+        <p>{{ _('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.') }}</p>
+    </div>
+</div>
+
+<div class="buffer"></div>
+
+<div class="row justify-content-between">
+    <div class="col-lg-8">
+    {% if newss %}
+        {% for news in newss %}
+        <div class="
+        {% if news.category == 1 %}academy{% endif %}
+        {% if news.category == 2 %}amusement{% endif %}
+        {% if news.category == 3 %}appointment{% endif %} news-list {% if not loop.last %}news-list-break{% endif %}" >
+
+            {% if news.date %}
+            <div class="news-schedule text-secondary">
+                <span>{{ news.date.strftime('%Y-%m-%d %H:%M') }}</span>
+                <span style="float: right;">{% if news.location %}{{ news.location }}{% endif %}</span>
+            </div>
+            {% endif %}
+
+            <div 
+            {% if news.category == 1 %}class="category-pin pin-academy"{% endif %}
+            {% if news.category == 2 %}class="category-pin pin-amusement"{% endif %}
+            {% if news.category == 3 %}class="category-pin pin-appointment"{% endif %}></div>
+            <h4 class="text-secondary">
+                <a href="{{ url_for('.show_news', news_id=news.id) }}">{% if get_locale() == 'zh' %}{{ news.title_cn }}{% else %}{{ news.title_en }}{% endif %}</a>
+            </h4>
+
+            <small class="timestamp mute">{{ moment(news.timestamp).format('YYYY-MM-DD') }} {{ _('Posted by')}} {{ news.author.nickname }}</small>
+            <div class="news-preview">
+            {% if news.jumbotron %}
+                {% if news.img_jumbo %}
+                <div class="img-box news-cap">
+                    <img src="{{ url_for('static', filename='newstemp/' + news.img_jumbo) }}" class="card-img-top">
+                </div>
+                {% endif %}
+                <span>{% if get_locale() == 'zh' %}{{ news.text_cn | stripout | truncate(150, true) }}{% else %}{{ news.text_en | stripout | truncate(300) }}{% endif %}</span>
+            {% endif %}
+            </div>
+        </div>
+
+        {% endfor %}
+
+        <div class="pagination-bar">
+            {% if prev_url %}
+            <a href="{{ prev_url }}" class="pagination-button"><i class="fas fa-chevron-left"></i></a>
+            {% endif %}
+            {% if next_url %}
+            <a href="{{ next_url }}" class="pagination-button" style="float: right;"><i class="fas fa-chevron-right"></i></a>
+            {% endif %}
+        </div>
+
+    {% else %}
+        <div>
+            <h5>No news</h5>
+        </div>
+    {% endif %}
+    </div>
+
+    <div class="col-lg-3 calendar-bar" style="opacity: 0.8;">
+        <div id="calendar"></div>
+    </div> 
+</div>
+
+{% if current_user.is_authenticated %}
+<div class="row" style="margin-top: 100px; margin-left: -5px; margin-right: -5px;">
+    <div class="col-6" style="padding: 5px;">
+        <a href="{{ url_for('.whatsnew') }}"><button type="button" class="btn btn-outline-secondary btn-sm btn-block">Write a news release</button></a>
+    </div>
+    <div class="col-6" style="padding: 5px;">
+        <a href="{{ url_for('.whatsplan') }}"><button type="button" class="btn btn-outline-secondary btn-sm btn-block">Schedule an event</button></a>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script src='https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js'></script>
+<script src="{{ url_for('static', filename='js/swipescript.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap-year-calendar.js') }}"></script>
+
+<!-- Bootstrap year calendar -->
+<script type="text/javascript">
+    $('#calendar').calendar({ 
+        dataSource: [{% for i in range(history|length) %}
+        {
+            id: {{ history[i][0]}},
+            name: '{{ history[i][1]}}',
+            location: '{{ history[i][2] }}',
+            startDate: new Date({{ history[i][3] }}),
+            endDate: new Date({{ history[i][4] }}),
+            color: '#c14f4f'
+        }{% if not loop.last %},{% endif %}
+        {% endfor %}],
+
+        mouseOnDay: function(e) {
+                if(e.events.length > 0) {
+                    var content = '';
+                    
+                    for(var i in e.events) {
+                        content += '<div class="event-tooltip-content">'
+                                        + '<div class="event-name" style="color:' + e.events[i].color + '">' + e.events[i].name + '</div>'
+                                        + '<div class="event-location">' + e.events[i].location + '</div>'
+                                    + '</div>';
+                    }
+                
+                    $(e.element).popover({ 
+                        trigger: 'manual',
+                        container: 'body',
+                        html:true,
+                        content: content,
+                        placement: 'bottom',
+                        offset: 1
+                    });
+                    
+                    $(e.element).popover('show');
+                }
+            },
+            mouseOutDay: function(e) {
+                if(e.events.length > 0) {
+                    $(e.element).popover('hide');
+                }
+            },
+            dayContextMenu: function(e) {
+                $(e.element).popover('hide');
+            }
+        })
+</script>
+
+<script>
+  $('#myModal').on('shown.bs.modal', function () {
+  $('#myInput').trigger('focus')
+})
+</script>
+
+<script>
+
+$(".pin-academy").click(function() {
+    if ($(this).hasClass('pin-all')) {
+        $(".academy").slideDown(300);
+        $(".amusement").slideDown(300);
+        $(".appointment").slideDown(300);
+    } else {
+        $(".academy").delay(300).slideDown(300);
+        $(".amusement").slideUp(300);
+        $(".appointment").slideUp(300);
+    }
+    $(this).toggleClass("pin-all");
+    });
+    
+$(".pin-amusement").click(function() {
+    if ($(this).hasClass('pin-all')) {
+        $(".academy").slideDown(300);
+        $(".amusement").slideDown(300);
+        $(".appointment").slideDown(300);
+    } else {
+        $(".academy").slideUp(300);
+        $(".amusement").delay(300).slideDown(300);
+        $(".appointment").slideUp(300);
+    }
+    $(this).toggleClass("pin-all");
+});
+
+$(".pin-appointment").click(function() {
+    if ($(this).hasClass('pin-all')) {
+        $(".academy").slideDown(300);
+        $(".amusement").slideDown(300);
+        $(".appointment").slideDown(300);
+    } else {
+        $(".academy").slideUp(300);
+        $(".amusement").slideUp(300);
+        $(".appointment").delay(300).slideDown(300);
+    }
+    $(this).toggleClass("pin-all");
+});
+
+
+
+</script>
+{% endblock %}

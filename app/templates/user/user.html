@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Resume{% endblock %}
+
+{% block content %}
+
+<div class="profile-banner">
+</div>
+
+<div class="figure-box-horizon align-self-center">
+	{% if user.avatar_jumbo %}
+	<img src="{{ url_for('user.get_avatar', filename=user.avatar_jumbo) }}">
+	{% else %}
+	<img src="{{ url_for('static', filename='img/idbadge.jpg') }}">
+	{% endif %}
+</div>
+
+<div class="row">
+	<div class="col-lg-7 profile-panel">
+		<div class="row">
+			<div style="display: inline-block; margin-right: 10px;">
+				<img src="{{ url_for('user.get_avatar', filename=user.avatar_l) }}" style="height: 100%; width: auto; border: 3px solid white;" class="rounded">
+			</div>
+			<div style="display: inline-block;">
+				<p class="profile-name">{{ user.name_zh }} | {{ user.name_en }} 
+					{% if user.googlescholar %}
+					<a href="{{ user.googlescholar }}" style="color: #fc6564;"><i class="fab fa-google-plus-square"></i></a>
+					{% endif %}
+				</p>
+				{% if user.last_seen %}<span style="font-size: 0.8em;">{{ _('Last been here on') }}: {{ user.last_seen|dateformat("%Y-%m-%d") }}</span>{% endif %}<br>
+				{% if current_user.is_authenticated %}
+					<span style="font-size: 0.8em;">{{ user.followers.count()}} {{ _('followers') }}, {{ user.followed.count() }} {{ _('following') }}. </span>
+					{% if user == current_user %}
+					<span style="font-size: 0.8em;"><a href="{{ url_for('user.set_profile') }}">{{ _('Edit profile') }}</a></span>
+					{% elif not current_user.is_following(user) %}
+					<span style="font-size: 0.8em;"><a href="{{ url_for('user.follow', username=user.username) }}">{{ _('Follow') }}</a></span>
+					{% else %}
+					<span style="font-size: 0.8em;"><a href="{{ url_for('user.unfollow', username=user.username) }}">{{ _('Unfollow') }}</a></span>
+					{% endif %}
+				{% else %}
+					<span style="font-size: 0.8em;">Login to follow</span>
+				{% endif %}
+			</div>
+		</div>
+
+		<div style="margin-top: 15px;" class="infobox">
+			{% if get_locale() == 'zh' %}<p>{{ user.about_zh|safe }}{% endif %}{% if get_locale() == 'en' %}{{ user.about_en|safe }}</p>{% endif %}
+		</div>
+	</div>
+
+	<div class="col-md-5 figure-box-vertical">
+		{% if user.avatar_jumbo %}
+		<img src="{{ url_for('user.get_avatar', filename=user.avatar_jumbo) }}">
+		{% else %}
+		<img src="{{ url_for('static', filename='img/idbadge.jpg') }}">
+		{% endif %}
+	</div>
+	
+</div>
+
+{% endblock %}

@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% set active_page = "news" %}
+
+{% block title %}{{ _('News') }}{% endblock %}
+
+{% block styles %}
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/default-skin/default-skin.min.css'>
+{% endblock %}
+
+{% block content %}
+
+    {% if news.jumbotron %}
+    {% if imgs[0] %}
+    <div class="img-box" style="height: 400px; margin-top: -50px; margin-bottom: 50px;">
+        <img src="{{ url_for('static', filename='newstemp/' + imgs[0]) }}" style="object-fit: cover; min-width: 100%; min-height: 100%; width: 100%; height: auto;">
+    </div>
+    {% endif %}
+    {% endif %}
+
+    <div class="row justify-content-between news-header" > <!-- class not defined! -->
+        
+        <div class="col-8">
+            <span>{% if get_locale() == 'zh' %}{{ news.title_cn }}{% else %}{{ news.title_en }}{% endif %}</span>
+        </div>
+
+        <div class="col-4 ctrl-panel">
+            {% if current_user.is_authenticated %}
+
+            {% if news.jumbotron %}
+            <div class="post-iconlist">
+                <form method="post"
+                      action="{{ url_for('news.jumbo_news', news_id=news.id) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <button class="pubs-button"><i class="far fa-lightbulb" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Highlighted"></i></button>
+                </form>
+            </div>
+            {% else %}
+            <div class="post-iconlist">
+                <form method="post"
+                      action="{{ url_for('news.jumbo_news', news_id=news.id) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <button class="pubs-button"><i class="fas fa-lightbulb" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Dimmed"></i></button>
+                </form>
+            </div>
+            {% endif %}
+            <div class="post-iconlist">
+                <form method="GET"
+                      action="{{ url_for('news.edit_news', news_id=news.id, next=request.full_path) }}">
+                    <button class="pubs-button"><i class="far fa-edit" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Edit"></i></button>
+                </form>
+            </div>
+            <div class="post-iconlist">
+                <form method="POST"
+                      action="{{ url_for('news.delete_news', news_id=news.id, next=request.full_path) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <button class="pubs-button" onclick="return confirm('Can not be reversed. Are you sure?');"><i class="far fa-trash-alt" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Delete"></i></button>
+                </form>
+            </div>
+            
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row justify-content-between">
+
+        <div class="col-lg-8 col-md-8">
+            <div class="news-box">
+                {% if get_locale() == 'zh' %}{{ html_cn|safe }}{% else %}{{ html_en|safe }}{% endif %}
+            </div>
+        </div>
+
+        <div class="col-lg-2 col-md-3" style="text-align: center;">
+            {% if news.date %}
+            <div class="news-bullet">{{ _('Time') }}: <span style="float: right;">{{ news.date.strftime('%Y-%m-%d %H:%M') }}</span></div>
+            {% endif %}
+            {% if news.location %}
+            <div class="news-bullet">{{ _('Location') }}: <span style="float: right;">{{ news.location }}</span></div>
+            {% endif %}
+            <div class="news-bullet">{{ _('Posted by') }}: <span style="float: right;">{{ news.author.username }}</a></span></div>
+            <div class="news-bullet">{{ _('Update on') }}: <span style="float: right;">{{ moment(news.timestamp).format('YYYY-MM-DD') }}</span></div>
+            {% if imgs|length > 1 %}
+            <div class="news-bullet">{{ _('Album') }}: <span style="float: right;">{{ imgs | length }} {{ _('pcs') }}</span></div>
+            <div style="text-align: center;">
+                <div class="my-gallery">
+                    {% for img in imgs %}
+                    <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                        <a href="{{ url_for('static', filename='newstemp/' + img) }}" itemprop="contentUrl" data-size="{{ sizes[loop.index0] }}">
+                        <img src="{{ url_for('static', filename='newstemp/_' + img) }}" itemprop="thumbnail" alt="Image description"/>
+                        </a>
+                        <figcaption itemprop="caption description">{{ notes[loop.index0] }}</figcaption>
+                    </figure>
+                    {% endfor %}
+                </div>
+                <!-- Root element of PhotoSwipe. Must have class pswp. -->
+                <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+                    <!-- Background of PhotoSwipe. 
+                         It's a separate element, as animating opacity is faster than rgba(). -->
+                    <div class="pswp__bg"></div>
+                    <!-- Slides wrapper with overflow:hidden. -->
+                    <div class="pswp__scroll-wrap">
+                        <!-- Container that holds slides. PhotoSwipe keeps only 3 slides in DOM to save memory. -->
+                        <!-- don't modify these 3 pswp__item elements, data is added later on. -->
+                        <div class="pswp__container">
+                            <div class="pswp__item"></div>
+                            <div class="pswp__item"></div>
+                            <div class="pswp__item"></div>
+                        </div>
+                        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+                        <div class="pswp__ui pswp__ui--hidden">
+                            <div class="pswp__top-bar">
+                                <!--  Controls are self-explanatory. Order can be changed. -->
+                                <div class="pswp__counter"></div>
+                                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                                <!--
+                                <button class="pswp__button pswp__button--share" title="Share"></button>
+                                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                                -->
+                                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                                <!-- element will get class pswp__preloader--active when preloader is running -->
+                                <div class="pswp__preloader">
+                                    <div class="pswp__preloader__icn">
+                                      <div class="pswp__preloader__cut">
+                                        <div class="pswp__preloader__donut"></div>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                                <div class="pswp__share-tooltip"></div> 
+                            </div>
+                            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+                            </button>
+                            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+                            </button>
+                            <div class="pswp__caption">
+                                <div class="pswp__caption__center"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src='https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js'></script>
+<script src="{{ url_for('static', filename='js/swipescript.js') }}"></script>
+{% endblock %}

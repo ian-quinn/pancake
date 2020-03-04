@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% set active_page = "pubs" %}
+
+{% block content %}
+    <h1>{{ _('Search Results') }}: [{{ q }}]</h1>
+    <div class="interval"></div>
+
+    {% if papers %}
+    {% for paper in papers %}
+    <div class="pubs row">
+        <div class="col-10">
+          
+            <b class="card-text text-muted">
+                {% if q in paper.title %}
+                {{ paper.title.replace(q, '<span style="background-color: yellow;">{}</span>'.format(q)) | safe }}
+                {% else %}
+                {{ paper.title }}
+                {% endif %}
+                {% if paper.issci %}
+                <span class="badge badge-danger">SCI</span>
+                {% endif %}
+                {% if paper.isei %}
+                <span class="badge badge-secondary">EI</span>
+                {% endif %}
+            </b>
+            <p style="font-size: 0.7em; padding-top: 6px;" class="text-muted mb-auto">
+                {% if q in paper.author %}
+                {{ paper.author.replace(q, '<span style="background-color: yellow;">{}</span>'.format(q)) | safe }}
+                {% else %}
+                {{ paper.author }}
+                {% endif %}
+
+                {% if paper.coauthor %}, {{ paper.coauthor }}{% endif %}. {% if paper.journal %}{{ paper.journal }}, {% endif %}{{ paper.date.strftime('%Y-%m') }}
+            </p>
+        </div>
+        <div style="width: 50px; text-align:right;" class="col-2">
+
+            <a data-toggle="collapse" href="#No{{ paper.id }}" role="button" aria-expanded="false" aria-controls="collapseExample" class="pubs-button"><i class="fas fa-asterisk"></i></a>
+
+            <form method="get"
+              action="{{ url_for('download_pubs', paper_id=paper.id) }}" style="display: inline;">
+                <button class="pubs-button"><i class="far fa-file"></i></button>
+            </form>
+            <!--
+            <a class="pubs-button" href="{{ url_for('static', filename='publications/') }}{{ paper.filename }}"><i class="far fa-file"></a>
+            -->
+        </div>
+        <div class="collapse show" id="No{{ paper.id }}"> 
+            <p class="card-text  mb-auto text-muted" style="font-size: 0.9em; padding-bottom: 6px; padding-top: 3px;">
+                {% if q in paper.abstract %}
+                ABSTRACT | {{ paper.abstract.replace(q, '<span style="background-color: yellow;">{}</span>'.format(q)) | safe }}
+                {% else %}
+                ABSTRACT | {{ paper.abstract }}
+                {% endif %}
+            </p>
+        </div>
+    </div>      
+    {% endfor %}
+
+    {% else %}
+    <p>No matched results for now</p>
+    <p><a href="{{ url_for('pubs') }}">Back</a></p>
+    {% endif %}
+
+{% endblock %}

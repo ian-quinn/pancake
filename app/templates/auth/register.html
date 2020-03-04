@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}{{ _('Register')}}{% endblock %}
+
+
+{% block content %}
+	<div class="logincard">
+		<h1 class="headup">Register</h1>
+
+		<form action="" method="post">
+			{{ form.hidden_tag() }}
+			<p>
+				{{ form.username(class="form-control", placeholder="Username") }}
+				{% for error in form.username.errors %}
+				<small clas="error-bullet">{{ error }}</small>
+				{% endfor %}
+			</p>
+			<p>
+				{{ form.name_zh(class="form-control", placeholder="Chinese name") }}
+				{% for error in form.name_zh.errors %}
+				<small clas="error-bullet">{{ error }}</small>
+				{% endfor %}
+			</p>
+			<p>
+				{{ form.name_en(class="form-control", placeholder="English name") }}
+				{% for error in form.name_en.errors %}
+				<small clas="error-bullet">{{ error }}</small>
+				{% endfor %}
+			</p>
+			<p>
+				{{ form.chronicle(class="form-control", placeholder="Year of enrollment") }}
+				{% for error in form.chronicle.errors %}
+				<small clas="error-bullet">{{ error }}</small>
+				{% endfor %}
+			</p>
+			<p>
+				{{ form.category(class="custom-select form-control") }}
+			</p>
+			<p>
+				{{ form.email(type="email", class="form-control", placeholder="Email address") }}
+				{% for error in form.email.errors %}
+				<small clas="error-bullet">{{ error }}</small>
+				{% endfor %}
+			</p>
+			<p>
+				{{ form.password(type="password", class="form-control", placeholder="Password") }}
+				{% for error in form.password.errors %}
+				<small clas="error-bullet">{{ error }}</small>
+				{% endfor %}
+			</p>
+			<p>
+				{{ form.password2(type="password", class="form-control", placeholder="Confirm password") }}
+				{% for error in form.password2.errors %}
+				<small clas="error-bullet">{{ error }}</small>
+				{% endfor %}
+			</p>
+			{{ form.submit(type="submit", class="btn btn-outline-danger btn-sm btn-block") }}
+		</form>
+	</div>
+{% endblock %}

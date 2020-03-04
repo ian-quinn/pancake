@@ -1,0 +1,12 @@
+<p>{{ user.username }} 您好,</p>
+<br>
+<p>请点击此<a href="{{ url_for('user.reset_password', token=token, _external=True) }}">链接</a>以重置您的密码。</p>
+<br>
+<p>如未响应，也可在浏览器复制并访问以下链接：</p>
+<p>{{ url_for('user.reset_password', token=token, _external=True) }}</p>
+<br>
+<p>若您未进行任何重置密码申请，忽略此邮件。</p>
+<br>
+<br>
+<p>潘毅群教授课题组</p>
+<p>bsim.tongji.edu.cn</p>

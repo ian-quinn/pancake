@@ -1,0 +1,284 @@
+{% extends 'base.html' %}
+{% set active_page = "people" %}
+{% block title %}People{% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="headup col-md-8 {% if get_locale() == 'zh' %}fluffy{% endif %}">
+		<h1>{{ _('This is us') }}</h1>
+		<p>{{ _('The Group has 3 tutors, 6 doctor candidates and 7 master candidates for now. All members are listed here chronically. Click on the name card to have a closer look. hahhahahahahahah') }}</p>
+	</div>
+</div>
+
+<div class="buffer"></div>
+
+<div>
+	<div style="text-align: right; margin-bottom: 20px; margin-top: -40px;">
+		<button id="tutor" type="radio" class="btn btn-outline-secondary btn-sm">{{ _('Tutor') }}</button>
+		<button id="doctor" type="radio" class="btn btn-outline-secondary btn-sm">{{ _('Doctoral student') }}</button>
+		<button id="master" type="radio" class="btn btn-outline-secondary btn-sm">{{ _('Postgraduate') }}</button>
+		<button id="graduate" type="radio" class="btn btn-outline-secondary btn-sm">{{ _('Alumni') }}</button>
+	</div>
+</div>
+
+<nav class="timeline__nav">
+	<ul>
+        <li><span><i class="fas fa-infinity"></i><span></li>
+    </ul>
+    <ul>
+    	{% for i in range(2019,2006,-1) %}
+        <li><span>{{ i }}</span></li>
+        {% endfor %}
+    </ul>
+</nav>
+
+<div class="row">
+	<div class="col-md-1 col-2"></div>
+	<div class="col-md-11 col-10 align-items-stretch timeline__section">
+
+		<div class="card-columns">
+			{% for i in range(4) %}
+			{% for user in users %}
+			{% if user.chronicle == i %}
+			<div class="card border-dark tutor">
+				<div class="img-box" style="height: 150px;">
+					<a data-toggle="modal" data-target="#id{{ user.username }}"><img src="{{ url_for('static', filename='img/default.jpg') }}" data-src="
+						{% if user.avatar_jumbo %}
+						{{ url_for('user.get_avatar', filename=user.avatar_jumbo) }}
+						{% else %}
+						{{ url_for('static', filename='img/default.jpg') }}
+						{% endif %}
+						" class="card-img-top lazyload"></a>
+				</div>
+				<div class="card-body">
+					<!--
+					<a href="{{ url_for('user.user', username=user.username) }}"><strong>{{ user.username }}</strong></a>
+				-->
+					<a href="{{ url_for('user.user', username=user.username) }}"><strong>
+						{% if get_locale() == 'zh' %}{{ user.name_zh }}{% endif %}{% if get_locale() == 'en' %}{{ user.name_en }}{% endif %}
+					</strong></a>
+					<br>
+					<small class="card-text text-muted">{% if get_locale() == 'zh' %}{{ user.about_zh|striptags|truncate(60, True) }}{% endif %}{% if get_locale() == 'en' %}{{ user.about_en|striptags|truncate(150) }}{% endif %}</small>
+				</div>
+			</div>
+
+			<div class="modal fade" id="id{{ user.username }}" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header" style="padding: 0;">
+							<div class="img-box" style="height: 280px;">
+								{% if user.avatar_jumbo %}
+								<img src="{{ url_for('user.get_avatar', filename=user.avatar_jumbo) }}" class="card-img-top">
+								{% else %}
+								<img src="{{ url_for('static', filename='img/idbadge.jpg') }}" class="card-img-top">
+								{% endif %}
+							</div>
+						</div>
+						<div class="modal-body">
+							<div style="margin-right: 20px; margin-top: -50px; text-align: right; ">
+								<img src="{{ url_for('user.get_avatar', filename=user.avatar_l) }}" style="height: 64px; width:64px; border: 3px solid white;" class="rounded">
+							</div>
+							<div>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+						        </button>
+								<p><b>{{ user.name_zh }}</b> | <span>{{ user.name_en }}</span></p>
+							</div>
+							<div class="infobox">
+								<small>{% if get_locale() == 'zh' %}{% if user.about_zh %}{{ user.about_zh|striptags|truncate(300) }}{% endif %}{% endif %}{% if get_locale() == 'en' %}{% if user.about_en %}{{ user.about_en|striptags|truncate(400) }}{% endif %}{% endif %}</small>
+							</div>
+						</div>
+			    	</div>
+			  	</div>
+			</div>
+			{% endif %}
+			{% endfor %}
+			{% endfor %}
+		</div>
+		<hr style="margin: 1.2rem 10rem;">
+
+		{% for i in range(2020,2006,-1) %}
+		<!-- <p style="padding-left: 15px; color: #fff;">{{ i }}</p> -->
+		<div class="card-columns milestone">
+			{% for user in users %}
+			{% if i == user.chronicle %}
+			<div class="card 
+			{% if user.category == 2 %}border-danger{% endif %}
+			{% if user.category == 3 %}border-primary{% endif %}
+			{% if user.category == 4 %}border-secondary{% endif %}
+			{% if user.category == 5 %}border-warning{% endif %} 
+			{% if user.category == 2 %}doctor{% endif %}{% if user.category == 3 %}master{% endif %}{% if user.category == 4 %}graduate{% endif %}{% if user.category == 5 %}friend{% endif %}">
+				<div class="img-box saturate" style="height: 150px;">
+					<a data-toggle="modal" data-target="#id{{ user.username }}"><img src="{{ url_for('static', filename='img/default.jpg') }}" data-src="
+						{% if user.avatar_jumbo %}
+						{{ url_for('user.get_avatar', filename=user.avatar_jumbo) }}
+						{% else %}
+						{{ url_for('static', filename="img/default.jpg") }}
+						{% endif %}
+						" class="card-img-top lazyload"></a>
+				</div>
+				<div class="card-body">
+					<!--
+					<a href="{{ url_for('user.user', username=user.username) }}"><strong>{{ user.username }}</strong></a>
+				-->
+					<a href="{{ url_for('user.user', username=user.username) }}"><strong>
+						{% if get_locale() == 'zh' %}{{ user.name_zh }}{% endif %}{% if get_locale() == 'en' %}{{ user.name_en }}{% endif %}
+					</strong></a>
+					<br>
+					<small class="card-text text-muted">{% if get_locale() == 'zh' %}{{ user.about_zh|striptags|truncate(60, True) }}{% endif %}{% if get_locale() == 'en' %}{{ user.about_en|striptags|truncate(150) }}{% endif %}</small>
+				</div>
+			</div>
+
+			<div class="modal fade" id="id{{ user.username }}" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header" style="padding: 0;">
+							<div class="img-box" style="height: 280px;">
+								{% if user.avatar_jumbo %}
+								<img src="{{ url_for('user.get_avatar', filename=user.avatar_jumbo) }}" class="card-img-top">
+								{% else %}
+								<img src="{{ url_for('static', filename='img/idbadge.jpg') }}" class="card-img-top">
+								{% endif %}
+							</div>
+						</div>
+						<div class="modal-body">
+							<div style="margin-right:20px; margin-top: -50px; text-align: right; ">
+								<img src="{{ url_for('user.get_avatar', filename=user.avatar_l) }}" style="height: 64px; width:64px; border: 3px solid white;" class="rounded">
+							</div>
+							<div>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+						        </button>
+								<p><b>{{ user.name_zh }}</b> | <span>{{ user.name_en }}</span></p>
+							</div>
+							<small>{% if get_locale() == 'zh' %}{% if user.about_zh %}{{ user.about_zh|striptags|truncate(300) }}{% endif %}{% endif %}{% if get_locale() == 'en' %}{% if user.about_en %}{{ user.about_en|striptags|truncate(400) }}{% endif %}{% endif %}</small>
+						</div>
+			    	</div>
+			  	</div>
+			</div>
+			{% endif %}
+			{% endfor %}
+		</div>
+		<hr style="margin: 1.2rem 10rem;">
+			
+		{% endfor %}
+	</div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
+<script>
+	lazyload();
+</script>
+
+<script>
+	$(function () {
+
+	  var stickyTop = 0,
+	      scrollTarget = false;
+	  var timeline = $('.timeline__nav'),
+	      items = $('li', timeline),
+	      milestones = $('.timeline__section .milestone'),
+	      offsetTop = parseInt(timeline.css('top'));
+	  var TIMELINE_VALUES = {
+	    start: 260,
+	    step: 30
+	  };
+
+	  $(window).resize(function () {
+	    timeline.removeClass('fixed');
+	    stickyTop = timeline.offset().top - offsetTop;
+	    $(window).trigger('scroll');
+	  }).trigger('resize');
+
+	  $(window).scroll(function () {
+	    if ($(window).scrollTop() > stickyTop) {
+	      timeline.addClass('fixed');
+	    } else {
+	      timeline.removeClass('fixed');
+	    }
+	  }).trigger('scroll');
+
+	  items.find('span').click(function () {
+	    var li = $(this).parent(),
+	        index = li.index(),
+	        milestone = milestones.eq(index);
+
+	    if (!li.hasClass('active') && milestone.length) {
+	      scrollTarget = index;
+	      var scrollTargetTop = milestone.offset().top - 80;
+	      $('html, body').animate({
+	        scrollTop: scrollTargetTop
+	      }, {
+	        duration: 400,
+	        complete: function complete() {
+	          scrollTarget = false;
+	        }
+	      });
+	    }
+	  });
+
+	  $(window).scroll(function () {
+	    var viewLine = $(window).scrollTop() + $(window).height() / 3,
+	        active = 0;
+
+	    if (scrollTarget === false) {
+	      milestones.each(function () {
+	        if ($(this).offset().top - viewLine > 0) {
+	          return false;
+	        }
+
+	        active++;
+	      });
+	    } else {
+	      active = scrollTarget;
+	    }
+
+	    timeline.css('top', -1 * active * TIMELINE_VALUES.step + TIMELINE_VALUES.start + 50 + 'px');
+	    items.filter('.active').removeClass('active');
+	    items.eq(active != 0 ? active : 0).addClass('active');
+	  }).trigger('scroll');
+	});
+</script>
+
+<script>
+  $('#myModal').on('shown.bs.modal', function () {
+  $('#myInput').trigger('focus')
+})
+</script>
+
+<script>
+$("#doctor").click(function() {
+	$(".doctor").delay(200).fadeIn(200);
+	$(".master").fadeOut(200);
+	$(".graduate").fadeOut(200);
+	$(".tutor").fadeOut(200);
+});
+
+$("#master").click(function() {
+	$(".doctor").fadeOut(200);
+	$(".master").delay(200).fadeIn(200);
+	$(".graduate").fadeOut(200);
+	$(".tutor").fadeOut(200);
+});
+
+$("#graduate").click(function() {
+	$(".doctor").fadeOut(200);
+	$(".master").fadeOut(200);
+	$(".graduate").delay(200).fadeIn(200);
+	$(".tutor").fadeOut(200);
+});
+
+$("#tutor").click(function() {
+	$(".doctor").fadeOut(200);
+	$(".master").fadeOut(200);
+	$(".graduate").fadeOut(200);
+	$(".tutor").delay(200).fadeIn(200);
+});
+</script>
+
+
+{% endblock %}

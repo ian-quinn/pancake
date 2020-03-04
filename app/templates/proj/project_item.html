@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% set active_page = "project" %}
+
+{% block title %}{{ _('Project')}}{% endblock %}
+
+{% block content %}
+
+<div class="headup">
+	<h1>{{ _('Projects') }}</h1>
+</div>
+
+<div class="accordion" id="ProjectAccordion">
+	<div class="row" style="margin-left: -10px; margin-right: -10px;">
+		<div class="col-lg-5 project-info" style="padding-left: 10px; padding-right: 10px; margin-top: 30px;">
+			<h3>{% if get_locale() == 'zh' %}{{ project.title_cn }}{% else %}{{ project.title_en }}{% endif %}</h3>
+
+			<div class="row" style="margin-top: 20px; margin-bottom: -15px;">
+				{% if project.startdate and project.enddate %}
+				<div class="col-6" style="text-align: left;{% if process > 15 %} color: #fff;{% endif %}"><small>{{ project.startdate.strftime('%Y-%m-%d') }}</small></div>
+				<div class="col-6" style="text-align: right;{% if process > 85 %} color: #fff;{% endif %}"><small>{{ project.enddate.strftime('%Y-%m-%d') }}</small></div>
+				{% else %}
+				<div class="col-6" style="text-align: right; color: #000;"><small>Deadline unknown</small></div>
+				{% endif %}
+			</div>
+
+			<!--
+			{% if current_user.is_authenticated %}
+			<form method="post"
+                  action="{{ url_for('proj.delete_project', project_id=project.id, next=request.full_path) }}" style="display: inline;">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <button class="pubs-button" onclick="return confirm('Can not be reversed. Are you sure?');"><i class="far fa-trash-alt"></i></button>
+            </form>
+            {% endif %}
+        -->
+
+            <div class="progress" >
+				<div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: {{ process }}%;" aria-valuenow="{{ process }}" aria-valuemin="0" aria-valuemax="100"></div>
+			</div>
+
+            <div style="margin-top: 20px;">
+				<p>{% if get_locale() == 'zh' %}{{ html_cn|safe }}{% else %}{{ html_en|safe }}{% endif %}</p>
+			</div>
+
+			<div style="margin-top: 20px;">
+				{% if documentlist %}
+				<small class="project-bullet">{{ _('Attachments') }}</small>
+				<ul class="list-group" >
+					{% for document in documentlist %}
+					<li class="list-group-item  py-2"><a href="{{ url_for('static', filename='newstemp/' + document[0]) }}">{{ document[1] }}</a></li>
+					{% endfor %}
+				</ul>
+				{% else %}
+				<small class="project-bullet">{{ _('No document available') }}</small>
+				{% endif %}
+			</div>
+
+			<div style="margin-top: 20px;">
+				{% if memberlist %}
+				<small class="project-bullet">{{ _('Project participants') }}</small>
+				{% else %}
+                <small class="project-bullet">{{ _('No claim of this project') }}</small>
+                {% endif %}
+				<div>
+					{% for member in memberlist %}
+		            <img src="{% if member.avatar_m %}{{ url_for('user.get_avatar', filename=member.avatar_m) }}{% else %}{{ avatars.default(size='s') }}{% endif %}" style="height: 30px; width: 30px; border-radius: 3px; margin: 3px;" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="{% if get_locale() == 'zh' %}{{ member.name_zh }}{% else %}{{ member.name_en }}{% endif %}">
+		            {% endfor %}
+		        	{% if current_user.is_authenticated %}
+		        	<form method="post" action="{{ url_for('proj.show_project', project_id=project.id) }}" style="display: inline; float: right;">
+		                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+		                <button class="pubs-button" style="height: 30px; width: 30px; margin: 3px;"><i class="fas fa-plus fa-x"></i></button>
+		            </form>
+		            {% endif %}
+	            </div>
+			</div>
+
+		</div>
+
+		<div class="col-lg-7"  style="padding-left: 10px; padding-right: 10px; margin-top: 30px;">
+			<div id="carouselPoster" class="carousel slide carousel-fade" data-interval="false" data-ride="carousel">
+				<div class="carousel-inner">
+					{% if posterlist %}
+					{% for poster in posterlist %}
+					<div class="carousel-item {% if loop.index == 1 %}active{% endif %}">
+						<img src="{{ url_for('static', filename='projtemp/' + poster[0]) }}" style="width: 100%;">
+						<div class="card-caption"><p style="text-align: center;">{{ poster[1] }}</p></div>
+					</div>
+					{% endfor %}
+					{% else %}
+					<div class="carousel-item active">
+						<img src="{{ url_for('static', filename='img/default.jpg') }}" style="width: 100%;">
+					</div>
+					{% endif %}
+				</div>
+				<a class="carousel-control-prev" href="#carouselPoster" role="button" data-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="sr-only">{{ _('Previous') }}</span>
+				</a>
+				<a class="carousel-control-next" href="#carouselPoster" role="button" data-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="sr-only">{{ _('Next') }}</span>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

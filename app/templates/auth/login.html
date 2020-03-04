@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}{{ _('Login')}}{% endblock %}
+
+
+{% block content %}
+    <div class="logincard">
+        <h1 class="headup">Sign In</h1>
+        <p></p>
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.username(class="form-control", placeholder="Username") }}
+                {% for error in form.username.errors %}
+                <small clas="error-bullet">{{ error }}</small>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                {{ form.password(type="password", class="form-control", placeholder="Password") }}
+                {% for error in form.password.errors %}
+                <small clas="error-bullet">{{ error }}</small>
+                {% endfor %}
+            </div>
+            <div class="custom-control custom-checkbox mb-3">
+                {{ form.remember_me(type="checkbox", class="custom-control-input", id="RememberMe") }}
+                <label class="custom-control-label" for="RememberMe">Remember Me!</label>
+            </div>
+            <p>{{ form.submit(type="submit", class="btn btn-outline-danger btn-sm btn-block") }}</p>
+            <p>New User? <a href="{{ url_for('auth.register') }}">Click to Register!</a></p>
+            <p>Forgot Your Password?<a href="{{ url_for('user.reset_password_request') }}">Click to Reset It</a></p>
+        </form>
+    </div>
+{% endblock %}
