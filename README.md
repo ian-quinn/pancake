@@ -195,13 +195,6 @@ server {
     }
 }
 ```
-Upload file must be leser than 1M by default. Add this to `http {}`
-```
-# /etc/nginx/nginx.conf
-http {
-	client_max_body_size 50m;
-}
-```
 
 ## Future plans
 More extensions are in development to add more functions, which will be deployed on Aliyun ECS. 
