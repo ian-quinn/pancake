@@ -135,12 +135,14 @@ $ netstat -plunt
 ```
 **Server** Make sure your virtual server opens ports: `22`, `80`, `443`
 
-Concluding work:
+Afterwards:
 ```
 $ systemctl enable supervisord
 Created symlink from /etc/systemd/system/multi-user.target.wants/supervisord.service to /usr/lib/systemd/system/supervisord.service.
 $ systemctl enable nginx
 ```
+Supervisord log file by default: /var/log/supervisor/supervisord.log
+Supervisord conf file: /etc/supervisord.conf
 
 --------
 
