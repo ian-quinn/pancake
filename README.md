@@ -17,6 +17,7 @@
 To setup the website on a clean CentOS 7 system, follow these lines"
 ```
 $ yum -y install python3 python3-venv python3-dev
+# python-venv may be included in python. try python3-devel as alternative
 $ yum -y install supervisor nginx git
 # yum -y install epel-release
 # incase you do not have the source for nginx/supervisor
