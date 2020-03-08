@@ -97,19 +97,6 @@ $ curl 'localhost' # check if application is exposed to port 80 by Nginx
 $ nginx -t # check parsing errors of nginx.conf
 ```
 
---------
-
-**Port** Gunicorn may mal-function when port 8000 is possessed by another process, just kill it anyway. For example:
-```
-$ netstat -tulpn
-Proto Recv-Q Send-Q Local Address  Foreign Address State  PID/Program name
-tcp   0      0      127.0.0.1:8000 0.0.0.0:*       LISTEN 1100/python3
-...   ...    ...    ...            ...             ...    ...
-$ kill -9 1100
-# to check status of all ports use netstat. install net-tools if it not works
-# yum -y install net-tools
-$ netstat -plunt
-```
 **Firewall** If firewall cannot be dismentled and must be set, make sure all ports are served:
 ```
 $ systemctl start firewalld
@@ -127,7 +114,33 @@ $ systemctl disable firewalld # temporarily shut down for test
 $ systemctl status firewalld
 $ systemctl restart firewalld.service
 ```
+**SELinux**
+```
+# Allow file access to certain directory may not work for flask app... should disable it directly
+# chcon -R -t httpd_sys_content_t /home/pancake/
+$ /usr/sbin/sestatus # check the status of SELinux
+$ vi /etc/selinux/config
+config $ SELINUX=disabled
+```
+**Port** Gunicorn may mal-function when port 8000 is possessed by another process, just kill it anyway. For example:
+```
+$ netstat -tulpn
+Proto Recv-Q Send-Q Local Address  Foreign Address State  PID/Program name
+tcp   0      0      127.0.0.1:8000 0.0.0.0:*       LISTEN 1100/python3
+...   ...    ...    ...            ...             ...    ...
+$ kill -9 1100
+# to check status of all ports use netstat. install net-tools if it not works
+# yum -y install net-tools
+$ netstat -plunt
+```
 **Server** Make sure your virtual server opens ports: `22`, `80`, `443`
+
+Concluding work:
+```
+$ systemctl enable supervisord
+Created symlink from /etc/systemd/system/multi-user.target.wants/supervisord.service to /usr/lib/systemd/system/supervisord.service.
+$ systemctl enable nginx
+```
 
 --------
 
