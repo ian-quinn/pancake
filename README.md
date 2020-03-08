@@ -216,6 +216,7 @@ More extensions are in development to add more functions, which will be deployed
 - [ ] Bootstrap Calendar showing the last year
 - [ ] Locale toggle will not appear on certain browsers like 360
 - [ ] Cannot retrieve text via Ajax when it is too long, Post page
+- [ ] Add Optional validator to Profile settings, google scholar url
 
 **Uplifts**
 - [ ] Cancel lazy-loading and use scroll-loading, add thumbnails, People page
