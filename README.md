@@ -16,8 +16,8 @@
 ## Deployment on CentOS 7
 To setup the website on a clean CentOS 7 system, follow these lines"
 ```
-~$ yum -y install python3 python3-venv python3-dev
-~$ yum -y install supervisor nginx git
+$ yum -y install python3 python3-venv python3-dev
+$ yum -y install supervisor nginx git
 # yum -y install epel-release
 # incase you do not have the source for nginx/supervisor
 ~$ cd /home
@@ -86,7 +86,15 @@ $ cd\
 $ systemctl restart supervisord
 $ systemctl restart nginx
 ```
-The Nginx should be running right now and expose your website via 443 port (https). Something else need to check in case of various different server settings.
+The Nginx should be running right now and expose your website via 443 port (https). Something else need to check in case of various different server settings. Useful commands for you to do that:
+```
+$ supervisorctl # get in console to check applications hosted
+pan				RUNNING		pid 2581, uptime 1:02:50
+supervisor> Ctrl~C
+$ curl 'localhost:8000' # check running stat of Supervisord
+$ curl 'localhost' # check if application is exposed to port 80 by Nginx
+$ nginx -t # check parsing errors of nginx.conf
+```
 
 --------
 
@@ -135,6 +143,8 @@ killasgroup=true
 ```
 ```
 # /etc/nginx/conf.d/pancake.conf
+# http {} upper level settings
+client_max_body_size 50m;
 server {
     # listen on port 80 (http)
     listen 80;
@@ -184,4 +194,19 @@ More extensions are in development to add more functions, which will be deployed
 - **Marshball** will be a cloud energy simulation platform for testing. A WebGL modeling interface helps with your basic modeling and teaching work.
 
 ## Updates log
-
+**Bugs**
+- [] Some flashes are not assigned with types
+- [] .docx files are skimed out in the Bookshelf page
+- [] Posts cannot be accessed by browser on portable devices showing Internal Sever Error
+- [] Baidu map API failed
+- [] Bootstrap Calendar showing the last year
+- [] Locale toggle will not appear on certain browsers like 360
+- [] Cannot retrieve text via Ajax when it is too long, Post page
+**Uplifts**
+- [] Cancel lazy-loading and use scroll-loading, add thumbnails, People page
+- [] Refurbishment of Homepage
+- [] Refurbishment of Profile page
+- [] Add album to Bookshelf page
+- [] Allow citation input on Pub page and download on search result page
+- [] Multiple highlights of whooshee's search result
+- [] Reconstruction blueprint for further extension of modules
