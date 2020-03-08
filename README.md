@@ -206,10 +206,10 @@ More extensions are in development to add more functions, which will be deployed
 **Bugs**
 - [ ] Some flashes are not assigned with types
 - [ ] .docx files are skimed out in the Bookshelf page
-- [ ] Posts cannot be accessed by browser on portable devices showing Internal Sever Error
+- [x] Posts cannot be accessed by browser on portable devices showing Internal Sever Error
 - [ ] Baidu map API failed
 - [ ] Bootstrap Calendar showing the last year
-- [ ] Locale toggle will not appear on certain browsers like 360
+- [x] Locale toggle will not appear on certain browsers like 360
 - [ ] Cannot retrieve text via Ajax when it is too long, Post page
 - [ ] Add Optional validator to Profile settings, google scholar url
 
