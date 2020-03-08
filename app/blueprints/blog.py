@@ -255,10 +255,10 @@ def show_post(post_id):
         authorlist.append(User.query.get(int(identity)))
 
     page = request.args.get('page', 1, type=int)
-    if get_locale() == 'zh':
-        title, html, menu, category = grab_markdown(post.text_cn)
     if get_locale() == 'en':
         title, html, menu, category = grab_markdown(post.text_en)
+    else:
+        title, html, menu, category = grab_markdown(post.text_cn)
     pagination = Comment.query.with_parent(post).filter_by(reviewed=True).order_by(
         Comment.timestamp.asc()).paginate(page, app.config['COMMENT_PER_PAGE'], False)
     comments = pagination.items
