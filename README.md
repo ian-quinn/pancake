@@ -158,7 +158,7 @@ stopasgroup=true
 killasgroup=true
 ```
 ```
-# /etc/nginx/conf.d/pancake.conf
+# /etc/nginx/conf.d/pancake_443.conf
 # http {} upper level settings
 client_max_body_size 50m;
 server {
@@ -206,7 +206,7 @@ More extensions are in development to add more functions, which will be deployed
 **Bugs**
 - [ ] Some flashes are not assigned with types
 - [ ] .docx files are skimed out in the Bookshelf page
-- [x] Posts cannot be accessed by browser on portable devices showing Internal Sever Error
+- [x] Posts cannot be accessed by browser on portable devices showing Internal Server Error
 - [ ] Baidu map API failed
 - [ ] Bootstrap Calendar showing the last year
 - [x] Locale toggle will not appear on certain browsers like 360
