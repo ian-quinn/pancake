@@ -21,7 +21,7 @@
 </div>
 
 <div style="text-align: right;">
-		<p>{{ _('Cached') }} <span style="font-size: 3em; font-weight: 800; cursor: pointer;" id="all">{{ papers|length }}</span></p>
+		<p>{{ _('Cached') }}&emsp;<span style="font-size: 3em; font-weight: 800; cursor: pointer;" id="all">{{ papers|length }}</span></p>
 	</div>
 
 <div class="row">
@@ -65,7 +65,7 @@
 						{{ form.coauthor(class="form-control", placeholder="Co-Author") }}
 					</div>
 				</div>
-				<div class="form-row" style="height: 180px; margin-top: 16px; margin-bottom: 16px;">
+				<div class="form-row" style="height: 225px; margin-top: 16px; margin-bottom: 16px;">
 					<div class="col-3">
 						<div class="form-group">
 							{{ form.journal(class="form-control", placeholder="Journal") }}
@@ -82,23 +82,24 @@
 						<div class="input-group">
 							{{ form.category(class="custom-select form-control", id="filtername") }}
 						</div>
-						<div class="row form-group" style="margin-top: 10px;">
-							<div class="col-6 custom-control custom-switch form-group">
-								{{ form.is_sci(type="checkbox", class="custom-control-input", id="SCIswitch") }}
-								<label class="custom-control-label" for="SCIswitch">SCI</label>
-							</div>
-							<div class="col-6 custom-control custom-switch form-group">
-								{{ form.is_ei(type="checkbox", class="custom-control-input", id="EIswitch") }}
-								<label class="custom-control-label" for="EIswitch">EI</label>
-							</div>
+						<div class="col-6 custom-control custom-switch form-group" style="margin-top: 20px;">
+							{{ form.is_sci(type="checkbox", class="custom-control-input", id="SCIswitch") }}
+							<label class="custom-control-label" for="SCIswitch">SCI</label>
+						</div>
+						<div class="col-6 custom-control custom-switch form-group">
+							{{ form.is_ei(type="checkbox", class="custom-control-input", id="EIswitch") }}
+							<label class="custom-control-label" for="EIswitch">EI</label>
 						</div>
 					</div>
 					<div class="col-9">
-						<div class="form-group pubs_box" style="height: 180px;">
+						<div class="form-group pubs_box" style="height: 150px;">
 							{{ form.abstract(class="form-control", placeholder="Abstract") }}
 							{% for error in form.abstract.errors %}
 			                <small class="error-bullet">{{ error }}</small>
 			                {% endfor %}
+						</div>
+						<div class="form-group pubs_box" style="height: 60px;">
+							{{ form.abstract(class="form-control", placeholder="Citation") }}
 						</div>
 					</div>
 				</div>
@@ -139,7 +140,7 @@
 				{% if current_user.is_authenticated %}
 				<form method="post"
                       action="{{ url_for('delete_pubs', paper_id=paper.id, next=request.full_path) }}" style="display: inline;">
-                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <button class="pubs-button" onclick="return confirm('Can not be reversed. Are you sure?');"><i class="far fa-trash-alt"></i></button>
                 </form>
                 {% endif %}
@@ -169,7 +170,7 @@
 
 
 {% block scripts %}
-	<script>
+<script>
 	function showFilename(file){
 	    $("#filename").html(file.name);
 	}
@@ -208,7 +209,7 @@
 		$(".cssci").slideDown(500);
 		$(".thesis").slideDown(500);
 	});
-	</script>
+</script>
 
 
 {% endblock %}
