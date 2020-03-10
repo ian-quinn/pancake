@@ -10,6 +10,11 @@
 
 ## Scheduled tasks
 - Update dictionary for search engine whooshee
+```
+(venv) $ flask shell
+>>> from app import whooshee
+>>> whooshee.reindex()
+```
 - Update translation files
 - Update project by Git
 
@@ -205,19 +210,19 @@ More extensions are in development to add more functions, which will be deployed
 ## Updates log
 **Bugs**
 - [ ] Some flashes are not assigned with types
-- [ ] .docx files are skimed out in the Bookshelf page
+- [x] .docx files are skimed out in the Bookshelf page
 - [x] Posts cannot be accessed by browser on portable devices showing Internal Server Error
 - [ ] Baidu map API failed
 - [ ] Bootstrap Calendar showing the last year
 - [x] Locale toggle will not appear on certain browsers like 360
 - [ ] Cannot retrieve text via Ajax when it is too long, Post page
-- [ ] Add Optional validator to Profile settings, google scholar url
+- [x] Add Optional validator to Profile settings, google scholar url
 
 **Uplifts**
 - [ ] Cancel lazy-loading and use scroll-loading, add thumbnails, People page
 - [ ] Refurbishment of Homepage
 - [ ] Refurbishment of Profile page
 - [ ] Add album to Bookshelf page
-- [ ] Allow citation input on Pub page and download on search result page
+- [x] Allow citation input on Pub page and download on search result page
 - [ ] Multiple highlights of whooshee's search result
 - [ ] Reconstruction blueprint for further extension of modules
