@@ -17,6 +17,18 @@
 ```
 - Update translation files
 - Update project by Git
+```
+(venv) $ git pull                              # download the new version
+# to abandon your local changes type these:
+# git reset --hard
+# git pull
+# or you wanna backup all changes:
+# git stash
+# git pull
+# git stash pop
+(venv) $ flask db migrate -m 'comment'         # migrate if needed
+(venv) $ flask db upgrade                      # upgrade the database
+```
 
 ## Deployment on CentOS 7
 To setup the website on a clean CentOS 7 system, follow these lines"
