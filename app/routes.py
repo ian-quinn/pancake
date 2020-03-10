@@ -16,7 +16,7 @@ from flask_babel import lazy_gettext as _l
 from werkzeug.urls import url_parse
 from werkzeug.utils import secure_filename
 
-#from pypinyin import lazy_pinyin
+from pypinyin import lazy_pinyin
 from babel import Locale
 
 # ------------from current app-------------
@@ -104,6 +104,7 @@ def pubs():
         title = str.capitalize(form.title.data)
         author = str.title(form.author.data)
         coauthor = str.title(form.coauthor.data)
+        citation = form.citation.data
         issci = form.is_sci.data
         isei = form.is_ei.data
         filename = re.sub('\s', '_', str.capitalize(title[0:32]), 0) + '.pdf'
@@ -114,7 +115,7 @@ def pubs():
         f.save(os.path.join(app.config['PUBS_UPLOAD_PATH'], filename))
         paper = Paper(title=title, author=author, coauthor=coauthor, filename=filename, 
             journal=form.journal.data, date=form.date.data, category=form.category.data,
-            abstract=form.abstract.data, issci=issci, isei=isei)
+            abstract=form.abstract.data, citation=citation, issci=issci, isei=isei)
         db.session.add(paper)
         db.session.commit()
         flash('Paper cached!', 'success')
@@ -149,12 +150,22 @@ def download_pubs(paper_id):
     return send_from_directory(directory=uploads, filename=paper.filename, as_attachment=True, attachment_filename="%s.pdf" % paper.title)
 
 
-@app.route('/search')
+@app.route('/search', methods=['GET', 'POST'])
 def search():
     q = request.args.get('q', '')
     if q == '':
-        return redirect_back()
+        return redirect(url_for('pubs'))
     papers = Paper.query.whooshee_search(q).all()
+
+    f = open(os.path.join(app.config['PUBS_UPLOAD_PATH'], 'Citation.txt'), 'w+', encoding = 'utf-8')
+    for paper in papers:
+        if paper.citation:
+            f.write(paper.citation)
+            f.write('\n')
+        else:
+            f.write(paper.author + ', ' + paper.coauthor + '. ' + paper.title + '. ' + paper.journal + ', ' 
+                + paper.date.strftime('%Y-%m') + '. (Not formatted)\n')
+    f.close()
     #for hit in papers:
     #    print(hit.highlights("title"), file=sys.stderr)
     return render_template('search.html', q=q, papers=papers)
@@ -223,22 +234,24 @@ def people():
 def bookshelf():
     #list = os.listdir(app.config['BOOKSHELF_PATH'])
     files = File.query.all()
-    zips = File.query.filter_by(bookend='zip').order_by(File.timestamp.desc()).all()
-    pdfs = File.query.filter_by(bookend='pdf').order_by(File.timestamp.desc()).all()
-    mp4s = File.query.filter_by(bookend='mp4').order_by(File.timestamp.desc()).all()
-    return render_template('bookshelf.html', files=files, zips=zips, pdfs=pdfs, mp4s=mp4s)
+    document = File.query.filter_by(category=1).order_by(File.name.desc()).all()
+    package = File.query.filter_by(category=2).order_by(File.name.desc()).all()
+    video = File.query.filter_by(category=3).order_by(File.name.desc()).all()
+    photo = File.query.filter_by(category=4).order_by(File.name.desc()).all()
+    miscs = File.query.filter_by(category=0).order_by(File.name.desc()).all()
+    return render_template('bookshelf.html', files=files, document=document, package=package, video=video, photo=photo, miscs=miscs)
 
 
 @app.route('/bookshelf/<int:file_id>/delete', methods=['POST'])
 @login_required
 def delete_file(file_id):
     file = File.query.get_or_404(file_id)
-    file_path = os.path.join(app.config['BOOKSHELF_PATH'], file.name)
+    file_path = os.path.join(app.config['BOOKSHELF_PATH'], file.link)
     if os.path.exists(file_path):
         os.remove(file_path)
     db.session.delete(file)
     db.session.commit()
-    flash('Publication item deleted.', 'danger')
+    flash('File deleted.', 'danger')
     return redirect(url_for('bookshelf'))
 
 
@@ -246,7 +259,7 @@ def delete_file(file_id):
 def download(file_id):
     file = File.query.get_or_404(file_id)
     uploads = os.path.join(current_app.root_path, app.config['BOOKSHELF_PATH'])
-    return send_from_directory(directory=uploads, filename=file.link, as_attachment=True)
+    return send_from_directory(directory=uploads, filename=file.link, as_attachment=True, attachment_filename="%s" % file.name)
 
 
 @app.route('/bookshelf/<int:file_id>/block', methods=['GET', 'POST'])
@@ -264,30 +277,40 @@ def uploadfile():
     if request.method == 'POST':
         for f in request.files.getlist('file'):
             name = f.filename
-            if f.filename.startswith('.'):
+            # Skim out duplicated files
+            if File.query.filter_by(name=name).first() is None:
+                
+                # Security stuff
                 surname = os.path.splitext(name)[0]
-                ext = os.path.splitext(name)[1]
-                tempname = '_'.join(lazy_pinyin(name)) + '.' + ext
-                tempname = secure_filename(tempname)
-            else:
-                tempname = secure_filename(name)
-            if File.query.filter_by(name=tempname).first() is not None:
-                tempname = os.path.splitext(tempname)[0] + '_DUPS' + os.path.splitext(tempname)[1]
-            path = os.path.join(app.config['BOOKSHELF_PATH'], tempname)
-            f.save(path)
-            link = tempname
-            size = os.stat(path).st_size
-            if size > 1000:
-                if size > 1000000:
-                    size = str(round(size/1024/1024, 2)) + ' MB'
+                bookend = os.path.splitext(name)[1]
+                tempname = ''.join(lazy_pinyin(name))
+                link = secure_filename(tempname)
+                
+                if bookend in ['.doc', '.docx', '.ppt', '.pptx', '.xml', '.xmls', '.pdf', '.txt', '.md', '.csv']:
+                    category = 1
+                elif bookend in ['.zip', '.rar', '.7z', '.iso']:
+                    category = 2
+                elif bookend in ['.mp4', '.mov', '.rmvb', '.mkv', '.mp3', '.avi', '.flv']:
+                    category = 3
+                elif ['.jpg', '.png', '.gif', '.jpeg', '.tif', '.tiff']:
+                    category = 4
                 else:
-                    size = str(int(size/1024)) + ' KB'
-            else:
-                size = str(size) + ' B'
-            bookend = os.path.splitext(name)[1].split('.')[1]
-            file = File(name=tempname, link=link, size=size, bookend=bookend)
-            db.session.add(file)
-            db.session.commit()
+                    category = 0
+
+                path = os.path.join(app.config['BOOKSHELF_PATH'], link)
+                f.save(path)
+                size = os.stat(path).st_size
+                if size > 1000:
+                    if size > 1000000:
+                        size = str(round(size/1024/1024, 2)) + ' MB'
+                    else:
+                        size = str(int(size/1024)) + ' KB'
+                else:
+                    size = str(size) + ' B'
+
+                file = File(name=name, link=link, size=size, bookend=bookend, category=category)
+                db.session.add(file)
+                db.session.commit()
     return ('', 204)
 
 

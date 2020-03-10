@@ -295,7 +295,7 @@ class Category(db.Model):
 
 #############################  publication  ###################################
 
-@whooshee.register_model('title', 'author', 'coauthor', 'abstract')
+@whooshee.register_model('title', 'author', 'coauthor', 'abstract', 'date', 'journal')
 class Paper(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(128))
@@ -305,6 +305,7 @@ class Paper(db.Model):
     date = db.Column(db.DateTime)
     category = db.Column(db.Integer)
     abstract = db.Column(db.Text)
+    citation = db.Column(db.String(1024))
     filename = db.Column(db.String(64))
     issci = db.Column(db.Boolean, default=False)
     isei = db.Column(db.Boolean, default=False)
@@ -334,6 +335,7 @@ class File(db.Model):
     name = db.Column(db.String(64))
     size = db.Column(db.String(64))
     bookend = db.Column(db.String(8))
+    category = db.Column(db.Integer)
     link = db.Column(db.String(64))
     timestamp = db.Column(db.DateTime, default=datetime.utcnow, index=True)
     islocked = db.Column(db.Boolean, default=False)

@@ -88,9 +88,10 @@ class AddPubsForm(FlaskForm):
 	coauthor = StringField('Co-Author')
 	journal = StringField('Journal', validators=[DataRequired(message="Journal info is necessary")])
 	date = DateField('Publish date', format='%Y-%m')
-	category = SelectField('Category', choices=[(1,'英文期刊'), (2,'中文期刊'), (3,'会议论文'), (4,'课题论文')], default=1, coerce=int)
+	category = SelectField('Category', choices=[(1,'英文期刊'), (2,'中文期刊'), (3,'会议论文'), (4,'学位论文')], default=1, coerce=int)
 	file = FileField('Choose PDF file...', validators=[FileRequired(), FileAllowed(['pdf', 'PDF'], message='PDF only!')])
 	abstract = TextAreaField('Briefing', validators=[Length(min=64, message="Please enrich the abstract")])
+	citation = TextAreaField('Citation')
 	is_sci = BooleanField('SCI?')
 	is_ei = BooleanField('EI?')
 	submit = SubmitField('Go!')
@@ -126,7 +127,7 @@ class EditProfileForm(FlaskForm):
 	chronicle = IntegerField('Enrollment year', validators=[DataRequired()])
 	name_zh = StringField('姓名')
 	name_en = StringField('Name')
-	googlescholar = StringField('Google Scholar Profile', validators=[URL(message='URL not valid')])
+	googlescholar = StringField('Google Scholar Profile', validators=[URL(message='URL not valid'), Optional()])
 	submit = SubmitField('Submit')
 
 	def __init__(self, original_username, original_email, *args, **kwargs):
