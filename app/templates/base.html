@@ -1,17 +1,17 @@
 <html>
 <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-
+    <meta content="建筑节能, 绿色建筑, 暖通空调, 能耗模拟, 系统控制, 大数据, 潘毅群, 建筑智能, BSIM, Simulation, Tongji University, 同济大学" name="keywords"/>
     <title>
         {% block title %}{% endblock %} - PAN
     </title>
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pan.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.mCustomScrollbar.min.css') }}">
 
-    <link href="https://cdn.bootcss.com/font-awesome/5.12.0/css/all.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/5.12.0/css/all.min.css" rel="stylesheet">
 
     <!-- to put jQuery here is to ensure every script correctly loaded -->
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
@@ -171,7 +171,7 @@
     <!-- Loading Javascripts following this order -->
     
     <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 
     <!-- jQuery Custom Scroller CDN -->
     <!-- For sidebar slider  -->
@@ -180,7 +180,7 @@
     {% block scripts %}{% endblock %}
 
     <!-- moment settings -->
-    {{ moment.include_moment(local_js=url_for('static', filename='js/moment-with-locales.js')) }}
+    {{ moment.include_moment(local_js=url_for('static', filename='js/moment.min.js')) }}
     {{ moment.locale(auto_detect=True) }}
 
     <!-- turn on popper  -->
