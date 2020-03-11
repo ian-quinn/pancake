@@ -2,8 +2,6 @@
 {% set active_page = "index" %}
 
 {% block styles %}
-<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=rpMkFPGwbIfb350tNlcPG8Nkrp5IynaM"></script>
-<style type="text/css">.anchorBL{display:none;}</style>
 {% endblock %}
 
 {% block title %}{{ _('Homepage') }}{% endblock %}
@@ -165,8 +163,7 @@
 		<!--<iframe src="https://snazzymaps.com/embed/179183" width="100%" height="300px" style="border:none;"></iframe>-->
 		<div class="row justify-content-between">
 			<div class="col-lg-8 col-md-8 img-box" style="width:100%; height:200px; overflow: hidden;" id="map">
-				<!--
-				<a href='https://map.baidu.com/poi/同济大学嘉定校区-机械工程学院/@13494258.042665428,3648377.323531406,16.2z?uid=f8b70a2d0d3826e56f3e1bd3&ugc_type=3&ugc_ver=1&device_ratio=2&compat=1&querytype=detailConInfo&da_src=shareurl' target='_blank'><img src="http://api.map.baidu.com/staticimage/v2?ak=rpMkFPGwbIfb350tNlcPG8Nkrp5IynaM&center=121.218293,31.294981&width=1000&height=200&markers=A441|121.218293,31.294981&zoom=16&markerStyles=m,A441,red"/></a>-->
+				<a href='https://map.baidu.com/poi/同济大学嘉定校区-机械工程学院/@13494258.042665428,3648377.323531406,16.2z?uid=f8b70a2d0d3826e56f3e1bd3&ugc_type=3&ugc_ver=1&device_ratio=2&compat=1&querytype=detailConInfo&da_src=shareurl' target='_blank'><img src="{{ url_for('static', filename='img/map.jpg') }}"/></a>
 			</div>
 			<div class="col-lg-3 col-md-3 contact-card">
 				<div class="index-bullet"><span><i class="fas fa-envelope"></i></span><span>bsimtongji@163.com</span></div>
@@ -181,54 +178,4 @@
 {% endblock %}
 
 {% block scripts %}
-<script type="text/javascript">
-    function initMap(){
-      createMap();
-      setMapEvent();
-      addMapOverlay();
-    }
-    function createMap(){ 
-      map = new BMap.Map("map"); 
-      map.centerAndZoom(new BMap.Point(121.218626,31.29429),16);
-    }
-    function setMapEvent(){
-      map.enableScrollWheelZoom();
-      map.enableDragging();
-    }
-    function addClickHandler(target,window){
-      target.addEventListener("click",function(){
-        target.openInfoWindow(window);
-      });
-    }
-    function addMapOverlay(){
-      var markers = [
-      ];
-      for(var index = 0; index < markers.length; index++ ){
-        var point = new BMap.Point(markers[index].position.lng,markers[index].position.lat);
-        var marker = new BMap.Marker(point,{icon:new BMap.Icon("http://api.map.baidu.com/lbsapi/createmap/images/icon.png",new BMap.Size(20,25),{
-          imageOffset: new BMap.Size(markers[index].imageOffset.width,markers[index].imageOffset.height)
-        })});
-        var label = new BMap.Label(markers[index].title,{offset: new BMap.Size(25,5)});
-        var opts = {
-          width: 200,
-          title: markers[index].title,
-          enableMessage: false
-        };
-        var infoWindow = new BMap.InfoWindow(markers[index].content,opts);
-        marker.setLabel(label);
-        addClickHandler(marker,infoWindow);
-        map.addOverlay(marker);
-      };
-      var labels = [
-        {position:{lng:121.21832,lat:31.29537},content:"A441"}
-      ];
-      for(var index = 0; index < labels.length; index++){
-        var opt = { position: new BMap.Point(labels[index].position.lng,labels[index].position.lat )};
-        var label = new BMap.Label(labels[index].content,opt);
-        map.addOverlay(label);
-      };
-    }
-    var map;
-      initMap();
-  </script>
 {% endblock %}
