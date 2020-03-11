@@ -81,7 +81,7 @@
 
     <div class="row">
         {% if not post.islock or current_user.is_authenticated %}
-        <div class="col-lg-9" style="padding-right: 15px;">
+        <div class="col-lg-9">
             <div class="post-box list-group" data-spy="scroll" data-target="#menuspied" data-offset="">
                 {{ html|safe }}
             </div>
