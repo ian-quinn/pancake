@@ -1,0 +1,251 @@
+{% extends 'base.html' %}
+{% set active_page = "blog" %}
+
+{% block title %}{{ _('Notes')}}{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/emojionearea.min.css') }}">
+<script src="{{ url_for('static', filename='js/emojionearea.min.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="page-header row"> <!-- class not defined! -->
+        <div class="col-10">
+            <h1>{{ title }}</h1>
+            <!-- title is rendered at backend -->
+            <small><a href="{{ url_for('user.user', username=post.author.username) }}">{{ post.author.nickname }}</a> | {{ moment(post.timestamp).format('YYYY-MM-DD') }} | <a href="{{ url_for('blog.show_category', category_id=post.category.id) }}">@{{ post.category.name }}</a></small>
+        </div>
+
+        <div class="col-2">
+            {% if current_user.is_authenticated %}
+            {% if post.can_comment %}
+            <div class="post-iconlist">
+                <form method="post"
+                      action="{{ url_for('blog.mute_post', post_id=post.id) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <button class="pubs-button"><i class="fa fa-microphone" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Chat"></i></button>
+                </form>
+            </div>
+            {% else %}
+            <div class="post-iconlist">
+                <form method="post"
+                      action="{{ url_for('blog.mute_post', post_id=post.id) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <button class="pubs-button"><i class="fa fa-microphone-slash" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Mute"></i></button>
+                </form>
+            </div>
+            {% endif %}
+
+            {% if post.islocked %}
+            <div class="post-iconlist">
+                <form method="post"
+                      action="{{ url_for('blog.block_post', post_id=post.id) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <button class="pubs-button"><i class="far fa-eye-slash" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Hidden"></i></button>
+                </form>
+            </div>
+            {% else %}
+            <div class="post-iconlist">
+                <form method="post"
+                      action="{{ url_for('blog.block_post', post_id=post.id) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <button class="pubs-button"><i class="far fa-eye" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Visible"></i></button>
+                </form>
+            </div>
+            {% endif %}
+
+            <div class="post-iconlist">
+                <form method="GET"
+                      action="{{ url_for('blog.download', post_id=post.id, next=request.full_path) }}" style="display: inline;">
+                    <button class="pubs-button"><i class="far fa-save" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Grab Markdown"></i></button>
+                </form>
+            </div>
+
+            <div class="post-iconlist">
+                <form method="GET"
+                      action="{{ url_for('blog.edit_post', post_id=post.id, next=request.full_path) }}">
+                    <button class="pubs-button"><i class="far fa-edit" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Edit"></i></a>
+                </form>
+            </div>
+
+            <div class="post-iconlist">
+                <form method="POST"
+                      action="{{ url_for('blog.delete_post', post_id=post.id, next=request.full_path) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <button class="pubs-button" onclick="return confirm('Can not be reversed. Are you sure?');"><i class="far fa-trash-alt" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Delete"></i></button>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row">
+        {% if not post.islock or current_user.is_authenticated %}
+        <div class="col-lg-9">
+            <div class="post-box list-group" data-spy="scroll" data-target="#menuspied" data-offset="">
+                {{ html|safe }}
+            </div>
+
+            <hr style="margin: 50px 0px;" id="commentop">
+
+            {% for message in get_flashed_messages(with_categories=True) %}
+            <div class="alert alert-{{ message[0] }}" role="alert" id="faded">
+                {{ message[1] }}
+            </div>
+            {% endfor %}
+                
+            <div>
+            {% if comments %}
+                <h4>{{ pagination.total }} {{ _('Comments') }}</h4>
+                
+                <ul class="list-group">
+                {% for comment in comments %}
+                    <li class="list-group-item list-group-item-action flex-column comment-box">
+                        <p style="display: inline;">{{ comment.author }}
+                        {% if comment.from_author %}
+                        <span class="badge badge-secondary">{{ _('Author') }}</span>
+                        {% endif %}
+                            {% if comment.replied %} {{ _('Replies') }} #{{ comment.replied_id }} {% else %} {{ _('says') }}: {% endif %}
+                        </p>
+                        <small style="display: inline; float: right;">{{ moment(comment.timestamp).fromNow(refresh=False) }}</small>
+                        <div class="row">
+                            <div class="col-11">
+                                <p style="display: inline;">{{ comment.body }}</p>
+                            </div>
+                            <div class="col-1">
+                                <div class="post-iconlist">
+                                    <form>
+                                        <a href="{{ url_for('blog.reply_comment', comment_id=comment.id) }}" class="pubs-button"><i class="far fa-comment-dots"></i></a>
+                                    </form>
+                                </div>
+                                {% if current_user.is_authenticated %}
+                                <div>
+                                    <form method="post"
+                                      action="{{ url_for('blog.delete_comment', comment_id=comment.id, next=request.full_path) }}">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                        <button class="pubs-button" onclick="return confirm('Are you sure?');"><i class="far fa-trash-alt"></i></button>
+                                    </form>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <div class="tip"><h4>{{ _('No comments') }}</h4></div>
+            {% endif %}
+            </div>
+
+            <div>
+            {% if prev_url %}
+                <a href="{{ prev_url }}"><<</a>
+            {% endif %}
+            {% if next_url %}
+                <a href="{{ next_url }}">>></a>
+            {% endif %}
+            </div>
+
+            <div style="margin-top: 20px;">
+            {% if post.can_comment %}
+                <form action="" method="post">
+                    {% if request.args.get('reply') %}
+                    <div class="replymark">
+                        <span>{{ _('Reply to') }} {{ request.args.get('author') }}:</span>
+                        <span style="float: right;" ><a href="{{ url_for('blog.show_post', post_id=post.id) }}">{{ _('Cancel') }}</a></span>
+                    </div>
+                    {% endif %}
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        {{ form.body(class="form-control", placeholder="What's the big idea?", id="CommentArea") }}
+                        {% for error in form.body.errors %}
+                        <small clas="error-bullet">{{ error }}</small>
+                        {% endfor %}
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            {{ form.author(class="form-control", placeholder="Name") }}
+                            {% for error in form.author.errors %}
+                            <small clas="error-bullet">{{ error }}</small>
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-8 mb-3">
+                            {{ form.email(class="form-control", placeholder="Email") }}
+                            {% for error in form.email.errors %}
+                            <small clas="error-bullet">{{ error }}</small>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {{ form.submit(class="btn btn-outline-secondary btn-sm btn-block") }}
+                </form>
+            {% else %}
+                <div><small>{{ _('Comment disabled') }}</small></div>
+            {% endif %}
+            </div>
+        </div>
+        {% else %}
+        <div class="col-lg-9 post-box" style="padding-right: 15px;">
+            <h2>{{ _('Access Denied') }}</h2>
+        </div>
+        {% endif %}
+
+        {% if not post.islock or current_user.is_authenticated %}
+        <div class="col-lg-3 menu">
+            <div class="sticky-top" style="top: 20px">
+                {% if menu %}
+                <div class="toc-box list-group" id="menuspied">
+                    {{ menu|safe }}
+                </div>
+                {% endif %}
+                <div class="post-bullet">{{ authorlist|length }} {{ _('participants') }}</div>
+                <div>
+                {% for author in authorlist %}
+                <img src="{% if author.avatar_m %}{{ url_for('user.get_avatar', filename=author.avatar_m) }}{% else %}{{ avatars.default(size='s') }}{% endif %}" style="height: 25px; width: 25px; border-radius: 3px; margin-right: : 3px;" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="{% if get_locale() == 'zh' %}{{ author.name_zh }}{% else %}{{ author.name_en }}{% endif %}">
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    {% if menu %}
+    <a class="pop-button" id="toggle"><i class="far fas fa-bullseye fa-2x"></i></a>
+    <div id="pop-menu">
+        <div class="pop-box">
+            {{ menu|safe }}
+        </div>
+        <div style="height: 18px;"></div>
+    </div>
+    {% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+<!-- Get Smooth scroller -->
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15.0.0/dist/smooth-scroll.polyfills.min.js"></script>
+
+<script>
+  var scroll = new SmoothScroll('a[href*="#"]');
+
+  $("#toggle").click(function() {
+    $(this).toggleClass("on");
+    $("#pop-menu").slideToggle("fast");
+  });
+</script>
+
+<script type="text/javascript">
+    $('body').scrollspy({ target: '#menuspied', offset: 50 });
+    /* data-offset is not working. have to set it up manually here. */
+    $('[data-spy="scroll"]').each(function () {
+        var $spy = $(this).scrollspy('refresh')
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#CommentArea").emojioneArea({
+            autoHideFilters: true
+        });
+    });
+</script>
+{% endblock %}
