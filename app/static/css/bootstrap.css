@@ -12,7 +12,7 @@
   --indigo: #6610f2;
   --purple: #6f42c1;
   --pink: #e83e8c;
-  --red: #dc3545;
+  --red: #ca3352;
   --orange: #fd7e14;
   --yellow: #ffc107;
   --green: #28a745;
@@ -567,7 +567,7 @@ pre code {
 
 @media (min-width: 1200px) {
   .container {
-    max-width: 1000px;
+    max-width: 960px;
   }
 }
 
