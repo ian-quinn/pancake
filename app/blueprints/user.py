@@ -51,14 +51,14 @@ def user(username):
 def follow(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
-        flash('User {} not found.'.format(username))
+        flash('User {} not found.'.format(username), 'warning')
         return redirect(url_for('blog.blog'))
     if user == current_user:
         flash('You cannnot follow yourself', 'warning')
         return redirect(url_for('.user', username=username))
     current_user.follow(user)
     db.session.commit()
-    flash('You are following {}'.format(username))
+    flash('You are following {}'.format(username), 'warning')
     return redirect(url_for('.user', username=username))
 
 @user_bp.route('/unfollow/<username>')
@@ -66,14 +66,14 @@ def follow(username):
 def unfollow(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
-        flash('User {} not found.'.format(username))
+        flash('User {} not found.'.format(username), 'warning')
         return redirect(url_for('blog.blog'))
     if user == current_user:
         flash('You cannot unfollow yourself', 'warning')
         return redirect(url_for('.user', username=username))
     current_user.unfollow(user)
     db.session.commit()
-    flash('You are not following {}.'.format(username))
+    flash('You are not following {}.'.format(username), 'warning')
     return redirect(url_for('.user', username=username))
 
 @user_bp.route('/settings/profile', methods=['GET', 'POST'])
@@ -192,7 +192,7 @@ def reset_password_request():
         user = User.query.filter_by(email=form.email.data).first()
         if user:
             send_password_reset_email(user)
-        flash('Check your email for the instructions to reset your password')
+        flash('Check your email for the instructions to reset your password', 'success')
         return redirect(url_for('auth.login'))
     return render_template('user/reset_password_request.html', title='Reset Password', form=form)
 
@@ -207,7 +207,7 @@ def reset_password(token):
     if form.validate_on_submit():
         user.set_password(form.password.data)
         db.session.commit()
-        flash('Your password has been reset.')
+        flash('Your password has been reset.', 'success')
         return redirect(url_for('auth.login'))
     return render_template('user/reset_password.html', form=form)
 

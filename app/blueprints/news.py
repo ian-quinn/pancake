@@ -170,7 +170,7 @@ def pubnews():
             img_jumbo=img_jumbo, img_path="*".join(img_path), img_note="*".join(img_note), img_size="*".join(img_size))
         db.session.add(news)
         db.session.commit()
-        flash('Newsletter released!', 'success')
+        flash('News released!', 'success')
     return redirect(url_for('.news'))
 
 @news_bp.route('/whatsplan', methods=['GET', 'POST'])
@@ -189,7 +189,7 @@ def whatsplan():
             startdate=form.startdate.data, enddate=form.enddate.data)
         db.session.add(history)
         db.session.commit()
-        flash('Circled on calendar', 'success')
+        flash('Circled on calendar.', 'success')
         return redirect(url_for('.whatsplan'))
     return render_template('news/add_event.html', title='Add Schedule', form=form)
 
@@ -214,7 +214,7 @@ def delete_news(news_id):
     news_del = news.id
     db.session.delete(news)
     db.session.commit()
-    flash('Newsletter deleted.', 'danger')
+    flash('News deleted.', 'danger')
     return redirect(url_for('.news'))
 
 

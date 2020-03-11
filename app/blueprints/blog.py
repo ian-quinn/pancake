@@ -336,7 +336,7 @@ def mute_post(post_id):
 def reply_comment(comment_id):
     comment = Comment.query.get_or_404(comment_id)
     if not comment.post.can_comment:
-        flash('Comment is disabled.', 'warning')
+        flash('Comment disabled.', 'warning')
         return redirect(url_for('.show_post', post_id=comment.post.id))
     return redirect(
         url_for('.show_post', post_id=comment.post_id, reply=comment_id, author=comment.author) + '#commentop')
