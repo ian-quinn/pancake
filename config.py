@@ -13,7 +13,7 @@ class Config(object):
 
     AVATARS_SAVE_PATH = os.path.join(basedir,'app/static/avatars')
     AVATARS_SIZE_TUPLE = (20, 50, 100)
-    PUBS_UPLOAD_PATH = os.path.join(basedir,'app/tatic/publications')
+    PUBS_UPLOAD_PATH = os.path.join(basedir,'app/static/publications')
     IMG_PATH = os.path.join(basedir,'app/static/img')
     POST_IMG_PATH = os.path.join(basedir,'app/static/postemp')
     NEWS_IMG_PATH = os.path.join(basedir,'app/static/newstemp')
