@@ -234,7 +234,8 @@ More extensions are in development to add more functions, which will be deployed
 - [ ] Cancel lazy-loading and use scroll-loading, add thumbnails, People page
 - [ ] Refurbishment of Homepage
 - [ ] Refurbishment of Profile page
-- [ ] Add album to Bookshelf page
+- [ ] Add additional Album page / PhotoSwipe
 - [x] Allow citation input on Pub page and download on search result page
 - [ ] Multiple highlights of whooshee's search result
 - [ ] Reconstruction blueprint for further extension of modules
+- [ ] Consider sub-page loading papers
