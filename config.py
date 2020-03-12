@@ -11,15 +11,15 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL')
 
-    AVATARS_SAVE_PATH = os.path.join(basedir,'app\\static\\avatars')
+    AVATARS_SAVE_PATH = os.path.join(basedir,'app/static/avatars')
     AVATARS_SIZE_TUPLE = (20, 50, 100)
-    PUBS_UPLOAD_PATH = os.path.join(basedir,'app\\static\\publications')
-    IMG_PATH = os.path.join(basedir,'app\\static\\img')
-    POST_IMG_PATH = os.path.join(basedir,'app\\static\\postemp')
-    NEWS_IMG_PATH = os.path.join(basedir,'app\\static\\newstemp')
-    PROJECT_PATH = os.path.join(basedir,'app\\static\\projtemp')
-    BOOKSHELF_PATH = os.path.join(basedir,'app\\static\\bookshelf')
-    ALBUM_PATH = os.path.join(basedir,'app\\static\\album')
+    PUBS_UPLOAD_PATH = os.path.join(basedir,'app/tatic/publications')
+    IMG_PATH = os.path.join(basedir,'app/static/img')
+    POST_IMG_PATH = os.path.join(basedir,'app/static/postemp')
+    NEWS_IMG_PATH = os.path.join(basedir,'app/static/newstemp')
+    PROJECT_PATH = os.path.join(basedir,'app/static/projtemp')
+    BOOKSHELF_PATH = os.path.join(basedir,'app/static/bookshelf')
+    ALBUM_PATH = os.path.join(basedir,'app/static/album')
     
     LOCALES = ['en', 'zh']
     BABEL_DEFAULT_LOCALE = LOCALES[1]
