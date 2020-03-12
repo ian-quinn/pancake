@@ -82,7 +82,7 @@
             {% if imgs|length > 1 %}
             <div class="news-bullet">{{ _('Album') }}: <span style="float: right;">{{ imgs | length }} {{ _('pcs') }}</span></div>
             <div style="text-align: center;">
-                <div class="my-gallery">
+                <div class="my-gallery news-gallery">
                     {% for img in imgs %}
                     <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
                         <a href="{{ url_for('static', filename='newstemp/' + img) }}" itemprop="contentUrl" data-size="{{ sizes[loop.index0] }}">
@@ -144,14 +144,12 @@
             </div>
             {% endif %}
         </div>
-
     </div>
-
 {% endblock %}
 
 {% block scripts %}
-<!--<script src='https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js'></script>-->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js'></script>
 <script src="{{ url_for('static', filename='js/swipescript.js') }}"></script>
-<script src="{{ url_for('static', filename='js/photoswipe.min.js') }}"></script>
+<!--<script src="{{ url_for('static', filename='js/photoswipe.min.js') }}"></script>-->
 {% endblock %}
