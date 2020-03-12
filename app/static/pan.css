@@ -81,6 +81,11 @@ button>i:hover {
 /* ###########################   whole website   ######################### */
 /* ####################################################################### */
 
+.dropdown-icon {
+  height: 20px;
+  width: 20px;
+}
+
 .logincard {
   max-width: 500px;
   margin: 1.75rem auto;
@@ -709,9 +714,11 @@ code {
 }
 
 .pubs-abstract {
-  line-height: 1.3em;
+  line-height: 1.5em;
   margin-top: 10px;
-  font-size: 1em;
+  font-size: 0.9em;
+  padding-bottom: 6px;
+  padding-top: 3px;
 }
 
 .pubs_box textarea.form-control { height: 100%; }
@@ -975,6 +982,7 @@ code {
   display: block;
   padding: 0rem 0.5rem;
   line-height: 50px;
+  color: #fff;
 }
 
 #magic-line { 
@@ -1152,7 +1160,7 @@ code {
   }
 }
 
-/* #########################   Bookshelf style   ######################### */
+/* #########################   Bookshelf & Album style   ######################### */
 /* ####################################################################### */
 
 .bookshelf table {
@@ -1232,6 +1240,81 @@ code {
   min-width: 5px;
 }
 
+.bookshelf-shack {
+  color: #fff;
+  height: 15px;
+  background-color: #1e1e1e;
+  line-height: 15px;
+}
+
+.album figure {
+  margin: 0;
+}
+.album-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.album figcaption {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .album {
+  display: grid;
+  grid-template-columns: repeat(5, 182px);
+  grid-template-rows: repeat(6, 182px);
+  grid-gap: 5px;
+  }
+}
+
+@media (max-width:992px) {
+  .album {
+  display: grid;
+  grid-template-columns: repeat(4, 169px);
+  grid-template-rows: repeat(8, 169px);
+  grid-gap: 5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .album {
+  display: grid;
+  grid-template-columns: repeat(3, 167px);
+  grid-template-rows: repeat(10, 167px);
+  grid-gap: 5px;
+  }
+}
+
+@media (max-width: 576px) {
+  .album {
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  grid-template-rows: repeat(15, 170px);
+  grid-gap: 5px;
+  }
+}
+
+.drop-button {
+  font-size: 1.2em;
+  border: none;
+  text-align: left;
+  width: 100%;
+  height: 20px;
+  margin-top: -50px;
+  background-color: #ca3352;
+  color: #fff;
+  opacity: 0;
+  z-index: 100;
+  cursor: pointer;
+}
+.drop-button:hover {
+  opacity: 1;
+}
+
+.caption {
+  text-align: center;
+}
 
 /* #########################   Index page style   ######################## */
 /* ####################################################################### */
@@ -1495,16 +1578,16 @@ code {
   border-left: 3px solid #ccc;font-size: 0.8rem;}
 .newsletter blockquote p{margin-bottom: 0px;}
 
-.my-gallery {
+.news-gallery {
   width: 100%;
   float: left;
 }
-.my-gallery img {
+.news-gallery img {
   object-fit: cover;
   width: 100%;
   height: auto;
 }
-.my-gallery figure {
+.news-gallery figure {
   justify-content: center;
   align-items: center;
   overflow: hidden;
@@ -1515,7 +1598,7 @@ code {
   height: 72px;
   width: auto;
 }
-.my-gallery figcaption {
+.news-gallery figcaption {
   display: none;
 }
 
