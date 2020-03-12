@@ -4,7 +4,6 @@ from PIL import Image
 from bs4 import BeautifulSoup
 from datetime import datetime
 import time #for the project process calculation
-import sys
 
 from flask import flash, render_template, send_from_directory, current_app, redirect, url_for, request, make_response, jsonify
 from flask import get_flashed_messages, g
@@ -21,7 +20,7 @@ from babel import Locale
 
 # ------------from current app-------------
 from app import app, db, avatars
-from app.models import User, Paper, Post, Comment, News, File, Project, History, Category
+from app.models import User, Paper, Post, Comment, News, File, Project, History, Category, Photo
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, AddPubsForm, PostForm, CommentForm, UserCommentForm, AddProjectForm
 from app.forms import CropAvatarForm, UploadAvatarForm, JumboAvatarForm, EditPasswordForm, AddNewsForm, AddEventForm, SearchForm
 
@@ -101,7 +100,7 @@ def pubs():
         # filename = random_filename(f.filename)
         # f.save(os.path.join(app.config['PUBS_UPLOAD_PATH'], filename))
     if form.validate_on_submit():
-        title = str.capitalize(form.title.data)
+        title = str.title(form.title.data)
         author = str.title(form.author.data)
         coauthor = str.title(form.coauthor.data)
         citation = form.citation.data
@@ -237,9 +236,8 @@ def bookshelf():
     document = File.query.filter_by(category=1).order_by(File.name.desc()).all()
     package = File.query.filter_by(category=2).order_by(File.name.desc()).all()
     video = File.query.filter_by(category=3).order_by(File.name.desc()).all()
-    photo = File.query.filter_by(category=4).order_by(File.name.desc()).all()
     miscs = File.query.filter_by(category=0).order_by(File.name.desc()).all()
-    return render_template('bookshelf.html', files=files, document=document, package=package, video=video, photo=photo, miscs=miscs)
+    return render_template('bookshelf.html', files=files, document=document, package=package, video=video, miscs=miscs)
 
 
 @app.route('/bookshelf/<int:file_id>/delete', methods=['POST'])
@@ -311,6 +309,47 @@ def uploadfile():
                 file = File(name=name, link=link, size=size, bookend=bookend, category=category)
                 db.session.add(file)
                 db.session.commit()
+    return ('', 204)
+
+
+# ---------------------------------------------------------------------------------
+
+@app.route('/album')
+def album():
+    photos = Photo.query.order_by(Photo.timestamp.desc()).all()
+    return render_template('album.html', photos=photos)
+
+
+@app.route('/album/<int:photo_id>/delete', methods=['POST'])
+@login_required
+def delete_photo(photo_id):
+    photo = Photo.query.get_or_404(photo_id)
+    photo_path = os.path.join(app.config['ALBUM_PATH'], photo.link)
+    if os.path.exists(photo_path):
+        os.remove(photo_path)
+    db.session.delete(photo)
+    db.session.commit()
+    flash('Photo deleted.', 'danger')
+    return redirect(url_for('album'))
+
+@app.route('/album/uploadfile', methods=['GET', 'POST'])
+@login_required
+def uploadphoto():
+    if request.method == 'POST':
+        for f in request.files.getlist('file'):
+            prefix = datetime.now().strftime('%C%m%d')
+            # Security stuff
+            link = prefix + '_' + random_filename(f.filename)
+            path = os.path.join(app.config['ALBUM_PATH'], link)
+            f.save(path)
+            image = Image.open(path)
+            size = str(image.size[0]) + 'x' + str(image.size[1])
+            image.thumbnail((300,300))
+            image.save(os.path.join(app.config['ALBUM_PATH'], 'thumbnail/' + link))
+
+            photo = Photo(link=link, size=size)
+            db.session.add(photo)
+            db.session.commit()
     return ('', 204)
 
 

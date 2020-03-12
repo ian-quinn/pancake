@@ -340,6 +340,13 @@ class File(db.Model):
     timestamp = db.Column(db.DateTime, default=datetime.utcnow, index=True)
     islocked = db.Column(db.Boolean, default=False)
 
+############# album supporting  ########################
+class Photo(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+    link = db.Column(db.String(64))
+    size = db.Column(db.String(16))
+
 
 @login.user_loader
 def load_user(id):
