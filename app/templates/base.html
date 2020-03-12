@@ -9,7 +9,7 @@
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pan.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.mCustomScrollbar.min.css') }}">
+    <!--<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.mCustomScrollbar.min.css') }}">-->
 
     <link href="https://cdn.bootcss.com/font-awesome/5.12.0/css/all.min.css" rel="stylesheet">
 
@@ -27,8 +27,6 @@
                 <h4><b>PAN</b><br><small>research group</small></h4>
             </div>
             -->
-            
-
             {% set navigation_bar = [
                 ('/', 'index', _('Home')),
                 ('/news', 'news', _('News')),
@@ -38,6 +36,7 @@
                 ('/blog', 'blog', _('Note')),
                 ('/user/settings/profile', 'settings', _('Settings')),
                 ('/bookshelf', 'bookshelf', _('Bookshelf')),
+                ('/album', 'album', _('Album')),
             ] %}
 
             <ul class="list-unstyled components">
@@ -48,9 +47,9 @@
                 {% endfor %}
             </ul>
 
-            <ul class="list-unstyled components" style="width: 60px;">
+            <ul class="list-unstyled components" style="width: 100%;">
                 {% if current_user.is_authenticated %}
-                {% for href, id, caption in navigation_bar[6:8] %}
+                {% for href, id, caption in navigation_bar[6:9] %}
                 <li {% if id == active_page %} class="active"{% endif %}>
                     <a href="{{ href|e }}">{{ caption|e }}</a>
                 </li>
@@ -66,7 +65,6 @@
                 <li><a href="{{ url_for('set_locale', locale='en') }}">English</a><li>
                 {% endif %}
             </ul>
-
         </nav>
 
         <div id="content">
@@ -118,10 +116,11 @@
                                 <div style="text-align: center;"><b class="dropdown-header">{{ current_user.username }}</b></div>
                                 <div class="dropdown-divider"></div>
                                 <!--<p class="dropdown-header">Separated link</p>-->
-                                    <a href="{{ url_for('user.user', username=current_user.username) }}" class="dropdown-item"><span class="fas fa-user" style="height: 20px; width: 20px;"></span>&emsp;{{ _('Profile') }}</a>
-                                    <a href="{{ url_for('user.set_profile') }}" class="dropdown-item"><span class="fas fa-cog" style="height: 20px; width: 20px;"></span>&emsp;{{ _('Settings') }}</a>
-                                    <a href="{{ url_for('bookshelf') }}" class="dropdown-item"><span class="fas fa-book" style="height: 20px; width: 20px;"></span>&emsp;{{ _('Bookshelf') }}</a>
-                                    <a href="{{ url_for('auth.logout') }}" class="dropdown-item"><span class="fas fa-power-off" style="height: 20px; width: 20px;"></span>&emsp;{{ _('Logout') }}</a>
+                                    <a href="{{ url_for('user.user', username=current_user.username) }}" class="dropdown-item"><span class="fas fa-user dropdown-icon"></span>&emsp;{{ _('Profile') }}</a>
+                                    <a href="{{ url_for('user.set_profile') }}" class="dropdown-item"><span class="fas fa-cog dropdown-icon"></span>&emsp;{{ _('Settings') }}</a>
+                                    <a href="{{ url_for('bookshelf') }}" class="dropdown-item"><span class="fas fa-book dropdown-icon"></span>&emsp;{{ _('Bookshelf') }}</a>
+                                    <a href="{{ url_for('album') }}" class="dropdown-item"><span class="fas fa-image dropdown-icon"></span>&emsp;{{ _('Album') }}</a>
+                                    <a href="{{ url_for('auth.logout') }}" class="dropdown-item"><span class="fas fa-power-off dropdown-icon"></span>&emsp;{{ _('Logout') }}</a>
                             </div>
                             {% endif %}
                         </div>

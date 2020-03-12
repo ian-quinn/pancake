@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% set active_page = "album" %}
+{% block title %}{{ _('Album') }}{% endblock %}
+
+{% block styles %}
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/default-skin/default-skin.min.css'>
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dropzone.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 headup {% if get_locale() == 'zh' %}fluffy{% endif %}">
+        <h1>{{ _('Album') }}</h1>
+        <p>{{ _('Free to download and share the published books and papers. Send an email if some of those are hard to find. Other documents, guidances, installers that you may be interested in can be found in the') }}</p>
+    </div>
+    <div class="col-md-4">
+        {% if current_user.is_authenticated %}
+        <div class="pub-button">
+            <a data-toggle="collapse" href="#NewPhoto" role="button" aria-label="Add photos!" aria-controls="Add photos">
+            <i class="fas fa-image fa-2x" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Add photos"></i>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% if current_user.is_authenticated %}
+<div class="collapse" id="NewPhoto" style="padding-top: 10px;">
+    <!-- Change action value to your upload address -->
+    <form action="{{ url_for('uploadphoto') }}" class="dropzone" method="POST" enctype="multipart/form-data" id="photocollect" style="border: 2px dashed #eee; border-radius: 8px;">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <div class="dz-message needsclick">    
+        Drop files here or click to upload.<br>
+        <small class="note needsclick">.jpg .png .gif .tif</small>
+        </div>
+    </form>
+</div>
+{% endif %}
+
+
+<div>
+    <div class="my-gallery album">
+        {% for p in photos %}
+        <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+            <a href="{{ url_for('static', filename='album/' + p.link) }}" itemprop="contentUrl" data-size="{{ p.size }}" style="z-index: 1;">
+            <img src="{{ url_for('static', filename='album/thumbnail/' + p.link) }}" itemprop="thumbnail" alt="Image description" class="album-img"/>
+            </a>
+            <figcaption itemprop="caption description">
+                <span style="text-align: center;">{{ moment(p.timestamp).format('YYYY-MM-DD') }}</span>
+                {% if current_user.is_authenticated %}
+                <form method="post"
+                      action="{{ url_for('delete_photo', photo_id=p.id, next=request.full_path) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <button class="drop-button"><span class="far fa-trash-alt" onclick="return confirm('Can not be reversed. Are you sure?');"></span></button>
+                </form>
+                {% endif %}
+            </figcaption>
+        </figure>
+
+
+        
+        {% endfor %}
+    </div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+        <!-- Background of PhotoSwipe. 
+             It's a separate element, as animating opacity is faster than rgba(). -->
+        <div class="pswp__bg"></div>
+        <!-- Slides wrapper with overflow:hidden. -->
+        <div class="pswp__scroll-wrap">
+            <!-- Container that holds slides. PhotoSwipe keeps only 3 slides in DOM to save memory. -->
+            <!-- don't modify these 3 pswp__item elements, data is added later on. -->
+            <div class="pswp__container">
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+            </div>
+            <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+            <div class="pswp__ui pswp__ui--hidden">
+                <div class="pswp__top-bar">
+                    <!--  Controls are self-explanatory. Order can be changed. -->
+                    <div class="pswp__counter"></div>
+                    <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                    <!--
+                    <button class="pswp__button pswp__button--share" title="Share"></button>
+                    <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                    <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                    -->
+                    <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                    <!-- element will get class pswp__preloader--active when preloader is running -->
+                    <div class="pswp__preloader">
+                        <div class="pswp__preloader__icn">
+                          <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                    <div class="pswp__share-tooltip"></div> 
+                </div>
+                <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+                </button>
+                <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+                </button>
+                <div class="pswp__caption">
+                    <div class="pswp__caption__center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dropzone.js') }}"></script>
+<script type="text/javascript">
+    Dropzone.options.photocollect = {
+    acceptedFiles: ".jpg, .png, .gif, .tif",
+};
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js'></script>
+<script src="{{ url_for('static', filename='js/swipescript.js') }}"></script>
+<!--<script src="{{ url_for('static', filename='js/photoswipe.min.js') }}"></script>-->
+{% endblock %}

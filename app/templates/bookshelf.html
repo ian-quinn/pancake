@@ -1,23 +1,45 @@
 {% extends 'base.html' %}
 {% set active_page = "bookshelf" %}
-{% block title %}Bookshelf{% endblock %}
+{% block title %}{{ _('Bookshelf') }}{% endblock %}
 
 {% block styles %}
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/dropzone.css') }}">
-<style type="text/css">
-.dropzone {
-    background: white;
-    border-radius: 8px;
-    border: 2px dashed rgb(250, 180, 180);
-    border-image: none;
-    margin-left: auto;
-    margin-right: auto;
-}
-</style>
 {% endblock %}
 
 {% block content %}
+<div class="row">
+    <div class="col-md-8 headup {% if get_locale() == 'zh' %}fluffy{% endif %}">
+        <h1>{{ _('Bookshelf') }}</h1>
+        <p>{{ _('Free to download and share the published books and papers. Send an email if some of those are hard to find. Other documents, guidances, installers that you may be interested in can be found in the') }}</p>
+    </div>
+    <div class="col-md-4">
+        {% if current_user.is_authenticated %}
+        <div class="pub-button">
+            <a data-toggle="collapse" href="#NewFile" role="button" aria-label="Add files!" aria-controls="Add files!">
+            <i class="fas fa-file-archive fa-2x" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Add files"></i>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% if current_user.is_authenticated %}
+<div class="collapse" id="NewFile" style="padding-top: 10px;">
+    <!-- Change action value to your upload address -->
+    <form action="{{ url_for('uploadfile') }}" class="dropzone" method="POST" enctype="multipart/form-data" id="bookcollect" style="border: 2px dashed #eee; border-radius: 8px;">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <div class="dz-message needsclick">    
+        Drop files here or click to upload.<br>
+        <small class="note needsclick">
+            .pdf .doc .docx .xls .xlsx .ppt. pptx .txt .md .csv<br>
+            .zip .rar .iso .7z<br>
+            .mp4 .mov .mkv .avi .flv .rmvb .mp3</small>
+        </div>
+    </form>
+</div>
+{% endif %}
+
 <div class="bookshelf">
     <table>
         <thead>
@@ -31,17 +53,17 @@
     -->
         </thead>
         <tr>
-            <td style="height:10px; background-color: #ccc;"><note style="line-height: 10px;">DOCUMENT</note></td>
-            <td style="height:10px; background-color: #ccc;"></td>
-            <td style="height:10px; background-color: #ccc;"></td>
-            <td style="height:10px; background-color: #ccc;"></td>
+            <td class="bookshelf-shack"><span>DOCUMENT</span></td>
+            <td class="bookshelf-shack"></td>
+            <td class="bookshelf-shack"></td>
+            <td class="bookshelf-shack"></td>
         </tr>
         {% for f in document %}
         {% if not f.islocked or current_user.is_authenticated %}
         <tr>
             <td>{{ f.name }}</a></td>
-            <td style="text-align: center;">{{ f.size }}</td>
-            <td style="text-align: center;">{{ moment(f.timestamp).format('L') }}</td>
+            <td style="text-align: right;">{{ f.size }}</td>
+            <td style="text-align: center;">{{ moment(f.timestamp).format('YYYY-MM-DD') }}</td>
             <td style="text-align: center;">
                 <form method="get"
                       action="{{ url_for('download', file_id=f.id) }}" style="display: inline;">
@@ -72,18 +94,18 @@
         {% endif %}
         {% endfor %}
         <tr>
-            <td style="height:10px; background-color: #ccc;"><span style="line-height: 10px;">PACKAGE</span></td>
-            <td style="height:10px; background-color: #ccc;"></td>
-            <td style="height:10px; background-color: #ccc;"></td>
-            <td style="height:10px; background-color: #ccc;"></td>
+            <td class="bookshelf-shack"><span>PACKAGE</span></td>
+            <td class="bookshelf-shack"></td>
+            <td class="bookshelf-shack"></td>
+            <td class="bookshelf-shack"></td>
         </tr>
 
         {% for z in package %}
         {% if not z.islocked or current_user.is_authenticated %}
         <tr>
             <td>{{ z.name }}</a></td>
-            <td style="text-align: center;">{{ z.size }}</td>
-            <td style="text-align: center;">{{ moment(z.timestamp).format('L') }}</td>
+            <td style="text-align: right;">{{ z.size }}</td>
+            <td style="text-align: center;">{{ moment(z.timestamp).format('YYYY-MM-DD') }}</td>
             <td style="text-align: center;">
                 <form method="get"
                       action="{{ url_for('download', file_id=z.id) }}" style="display: inline;">
@@ -114,18 +136,18 @@
         {% endif %}
         {% endfor %}
         <tr>
-            <td style="height:10px; background-color: #ccc;"><span style="line-height: 10px;">VIDEO</span></td>
-            <td style="height:10px; background-color: #ccc;"></td>
-            <td style="height:10px; background-color: #ccc;"></td>
-            <td style="height:10px; background-color: #ccc;"></td>
+            <td class="bookshelf-shack"><span>VIDEO</span></td>
+            <td class="bookshelf-shack"></td>
+            <td class="bookshelf-shack"></td>
+            <td class="bookshelf-shack"></td>
         </tr>
 
         {% for v in video %}
         {% if not v.islocked or current_user.is_authenticated %}
         <tr>
             <td>{{ v.name }}</a></td>
-            <td style="text-align: center;">{{ v.size }}</td>
-            <td style="text-align: center;">{{ moment(v.timestamp).format('L') }}</td>
+            <td style="text-align: right;">{{ v.size }}</td>
+            <td style="text-align: center;">{{ moment(v.timestamp).format('YYYY-MM-DD') }}</td>
             <td style="text-align: center;">
                 <form method="get"
                       action="{{ url_for('download', file_id=v.id) }}" style="display: inline;">
@@ -158,27 +180,14 @@
     </table>
 </div>
 
-{% if current_user.is_authenticated %}
-    <!-- Change action value to your upload address -->
-    <form action="{{ url_for('uploadfile') }}" class="dropzone" method="POST" enctype="multipart/form-data" id="bookcollect">
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-        <div class="dz-message needsclick">    
-        Drop files here or click to upload.<br>
-        <small class="note needsclick">
-            .pdf .doc .docx .xls .xlsx .ppt. pptx .txt .md .csv<br>
-            .zip .rar .iso .7z<br>
-            .mp4 .mov .mkv .avi .flv .rmvb .mp3<br>
-            .jpg .png .gif .tif</small>
-      </div>
-    </form>
-{% endif %}
+
 {% endblock %}
 
 {% block scripts %}
 <script src="{{ url_for('static', filename='js/dropzone.js') }}"></script>
 <script type="text/javascript">
     Dropzone.options.bookcollect = {
-    acceptedFiles: ".mp4, .mov, .mkv, .avi, .flv, .rmvb, .mp3, .pdf, .docx, .doc, .xls, .xlsx, .ppt, .pptx, .txt, .md, .csv, .rar, .iso, .zip, .7z, .jpg, .jpeg, .png, .gif, .tif, .tiff",
+    acceptedFiles: ".mp4, .mov, .mkv, .avi, .flv, .rmvb, .mp3, .pdf, .docx, .doc, .xls, .xlsx, .ppt, .pptx, .txt, .md, .csv, .rar, .iso, .zip, .7z",
 };
 </script>
 {% endblock %}

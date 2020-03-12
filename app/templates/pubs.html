@@ -158,7 +158,7 @@
 
 			</div>
 			<div class="collapse" id="No{{ paper.id }}"> 
-				<p class="pubs-abstract mb-auto text-muted" style="font-size: 0.9em; padding-bottom: 6px; padding-top: 3px;">ABSTRACT | {{ paper.abstract }}</p>
+				<p class="pubs-abstract mb-auto text-muted">{{ _('ABSTRACT') }} | {{ paper.abstract }}</p>
 			</div>
 		</div>		
 		{% endfor %}
@@ -176,38 +176,38 @@
 	}
 
 	$("#sci").click(function() {
-		$(".sci").slideDown(500);
-		$(".ei").slideUp(500);
-		$(".cssci").slideUp(500);
-		$(".thesis").slideUp(500);
+		$(".sci").show();
+		$(".ei").hide();
+		$(".cssci").hide();
+		$(".thesis").hide();
 	});
 
 	$("#ei").click(function() {
-		$(".sci").slideUp(500);
-		$(".ei").slideDown(500);
-		$(".cssci").slideUp(500);
-		$(".thesis").slideUp(500);
+		$(".sci").hide();
+		$(".ei").show();
+		$(".cssci").hide();
+		$(".thesis").hide();
 	});
 
 	$("#cssci").click(function() {
-		$(".sci").slideUp(500);
-		$(".ei").slideUp(500);
-		$(".cssci").slideDown(500);
-		$(".thesis").slideUp(500);
+		$(".sci").hide();
+		$(".ei").hide();
+		$(".cssci").show();
+		$(".thesis").hide();
 	});
 
 	$("#thesis").click(function() {
-		$(".sci").slideUp(500);
-		$(".ei").slideUp(500);
-		$(".cssci").slideUp(500);
-		$(".thesis").slideDown(500);
+		$(".sci").hide();
+		$(".ei").hide();
+		$(".cssci").hide();
+		$(".thesis").show();
 	});
 
 	$("#all").click(function() {
-		$(".sci").slideDown(500);
-		$(".ei").slideDown(500);
-		$(".cssci").slideDown(500);
-		$(".thesis").slideDown(500);
+		$(".sci").show();
+		$(".ei").show();
+		$(".cssci").show();
+		$(".thesis").show();
 	});
 </script>
 
