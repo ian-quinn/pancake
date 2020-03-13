@@ -36,7 +36,7 @@
 						{% endif %}
 					{% endif %}
 				</p>
-				<small style="text-align: left;">{{ project.startdate.strftime('%Y-%m-%d') }}
+				<small style="text-align: left;">{% if project.startdate %}{{ project.startdate.strftime('%Y-%m-%d') }}{% elif project.enddate %}{{ project.enddate.strftime('%Y-%m-%d') }}{% else %}????-??-??{% endif %}
 					<span style="float: right;">{% if project.id|getstatus %}{{ _('Ended') }}{% else %}{{ _('In progress')}}{% endif %}</span>
 				</small>
 			</div>

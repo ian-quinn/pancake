@@ -15,11 +15,11 @@
 			<h3>{% if get_locale() == 'zh' %}{{ project.title_cn }}{% else %}{{ project.title_en }}{% endif %}</h3>
 
 			<div class="row" style="margin-top: 20px; margin-bottom: -15px;">
-				{% if project.startdate and project.enddate %}
-				<div class="col-6" style="text-align: left;{% if process > 15 %} color: #fff;{% endif %}"><small>{{ project.startdate.strftime('%Y-%m-%d') }}</small></div>
-				<div class="col-6" style="text-align: right;{% if process > 85 %} color: #fff;{% endif %}"><small>{{ project.enddate.strftime('%Y-%m-%d') }}</small></div>
+				{% if project.startdate or project.enddate %}
+				<div class="col-6" style="text-align: left;{% if process > 15 %} color: #fff;{% endif %}"><small>{% if project.startdate %}{{ project.startdate.strftime('%Y-%m-%d') }}{% endif %}</small></div>
+				<div class="col-6" style="text-align: right;{% if process > 85 %} color: #fff;{% endif %}"><small>{% if project.enddate %}{{ project.enddate.strftime('%Y-%m-%d') }}{% endif %}</small></div>
 				{% else %}
-				<div class="col-6" style="text-align: right; color: #000;"><small>Deadline unknown</small></div>
+				<div class="col-12" style="text-align: center; color: #000;"><small>{{ _('No info') }}</small></div>
 				{% endif %}
 			</div>
 
@@ -34,7 +34,7 @@
         -->
 
             <div class="progress" >
-				<div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: {{ process }}%;" aria-valuenow="{{ process }}" aria-valuemin="0" aria-valuemax="100"></div>
+				<div class="progress-bar progress-bar-striped {% if process < 100 %}progress-bar-animated{% endif %} bg-danger" role="progressbar" style="width: {{ process }}%;" aria-valuenow="{{ process }}" aria-valuemin="0" aria-valuemax="100">{% if process==100 %}{{ _('Complete') }}{% endif %}</div>
 			</div>
 
             <div style="margin-top: 20px;">
@@ -44,9 +44,28 @@
 			<div style="margin-top: 20px;">
 				{% if documentlist %}
 				<small class="project-bullet">{{ _('Attachments') }}</small>
-				<ul class="list-group" >
+				<ul class="list-group" style="border-bottom: 1px solid #1e1e1e;">
 					{% for document in documentlist %}
-					<li class="list-group-item  py-2"><a href="{{ url_for('static', filename='newstemp/' + document[0]) }}">{{ document[1] }}</a></li>
+					{% if not document.islocked or current_user.is_authenticated %}
+					<li class="document-bullet">
+						<a href="{{ url_for('.download', document_id=document.id) }}">{{ document.filenote }}</a>
+						{% if current_user.is_authenticated %}
+	                    {% if document.islocked %}
+	                    <form method="post"
+	                          action="{{ url_for('.block', document_id=document.id) }}" class="document-blocker">
+	                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+	                        <button class="book-button"><i class="far fa-eye-slash"></i></button>
+	                    </form>
+	                    {% else %}
+	                    <form method="post"
+	                          action="{{ url_for('.block', document_id=document.id) }}" class="document-blocker">
+	                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+	                        <button class="book-button"><i class="far fa-eye"></i></button>
+	                    </form>
+	                    {% endif %}
+		                {% endif %}
+					</li>
+					{% endif %}
 					{% endfor %}
 				</ul>
 				{% else %}
@@ -82,7 +101,7 @@
 					{% for poster in posterlist %}
 					<div class="carousel-item {% if loop.index == 1 %}active{% endif %}">
 						<img src="{{ url_for('static', filename='projtemp/' + poster[0]) }}" style="width: 100%;">
-						<div class="card-caption"><p style="text-align: center;">{{ poster[1] }}</p></div>
+						<div class="card-caption"><p style="text-align: center; padding-top: 15px;">{{ poster[1] }}</p></div>
 					</div>
 					{% endfor %}
 					{% else %}
