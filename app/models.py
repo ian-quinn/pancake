@@ -325,8 +325,16 @@ class Project(db.Model):
     banner = db.Column(db.String(64))
     isthesis = db.Column(db.Boolean, default=False)
     members = db.Column(db.String(64))
+    # new line here to identify document references
+    documents = db.relationship('Document', backref='project', lazy='dynamic')
 
-    # further function is to add followers to this project
+class Document(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String(256))
+    filenote = db.Column(db.String(256))
+    islocked = db.Column(db.Boolean, default=False)
+    # new lines here to link projects
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
 
 ############# bookshelf supporting  ########################
 class File(db.Model):
