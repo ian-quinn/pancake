@@ -86,7 +86,7 @@
                     {% for img in imgs %}
                     <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
                         <a href="{{ url_for('static', filename='newstemp/' + img) }}" itemprop="contentUrl" data-size="{{ sizes[loop.index0] }}">
-                        <img src="{{ url_for('static', filename='newstemp/_' + img) }}" itemprop="thumbnail" alt="Image description"/>
+                        <img src="{{ url_for('static', filename='newstemp/thumbnail/' + img) }}" itemprop="thumbnail" alt="Image description"/>
                         </a>
                         <figcaption itemprop="caption description">{{ notes[loop.index0] }}</figcaption>
                     </figure>
