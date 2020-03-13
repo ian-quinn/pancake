@@ -3,8 +3,9 @@ import mistune
 from PIL import Image
 from datetime import datetime
 import time #for the project process calculation
+import sys
 
-from flask import flash, render_template, current_app, redirect, url_for, request
+from flask import flash, render_template, current_app, redirect, url_for, request, send_from_directory
 from flask import get_flashed_messages, g
 from flask_login import current_user, login_required
 from flask_dropzone import random_filename
@@ -16,7 +17,7 @@ from babel import Locale
 
 # ------------from current app-------------
 from app import app, db
-from app.models import Project, User
+from app.models import Project, User, Document
 from app.forms import AddProjectForm
 
 from flask import Blueprint
@@ -49,15 +50,15 @@ def get_locale():
 
 #------------------------BLOG PAGE -------------------------------
 
-@proj_bp.route('/dashboard', methods=['GET', 'POST'])
+@proj_bp.route('/list', methods=['GET', 'POST'])
 def project():
     projects = Project.query.order_by(Project.startdate.desc()).all()
-    return render_template('proj/project_dashboard.html', title='Project', projects=projects)
-
-@proj_bp.route('/list', methods=['GET', 'POST'])
-def project_manage():
-    projects = Project.query.order_by(Project.startdate.desc()).all()
     return render_template('proj/project_list.html', title='Project', projects=projects)
+
+@proj_bp.route('/dashboard', methods=['GET', 'POST'])
+def project_dashboard():
+    projects = Project.query.order_by(Project.startdate.desc()).all()
+    return render_template('proj/project_dashboard.html', title='Project', projects=projects)
 
 # custom filter for outdated projects
 @app.template_filter('getstatus')
@@ -88,6 +89,7 @@ def delete_project(project_id):
 @proj_bp.route('/<int:project_id>', methods=['GET', 'POST'])
 def show_project(project_id):
     project = Project.query.get_or_404(project_id)
+    documents = Document.query.filter_by(project_id=project_id).all()
     filename = str(project.filename).split("*") if project.filename else []
     filenote = str(project.filenote).split("*") if project.filenote else []
     checklist = project.members.split("*") if project.members else []
@@ -107,9 +109,16 @@ def show_project(project_id):
                 process = round((now - project.startdate) * 100 / (project.enddate - project.startdate))
         else:
             process = 100
+    elif project.startdate and not project.enddate:
+        process = 80
+    elif project.enddate and not project.startdate:
+        if (now < project.enddate):
+            process = 50
+        else:
+            process = 100
     else:
-        process = 5
-
+        process = 0
+    """
     documentlist = []
     posterlist = []
     if len(filename) > 0:
@@ -120,6 +129,8 @@ def show_project(project_id):
             else:
                 note = note + os.path.splitext(name)[1]
                 documentlist.append((name, note))
+                """
+    posterlist = list(zip(filename, filenote))
 
     title_cn = project.title_cn
     title_en = project.title_en
@@ -138,7 +149,22 @@ def show_project(project_id):
         return redirect(url_for('.show_project', project_id=project.id))
     
     return render_template('proj/project_item.html', project=project, html_cn=html_cn, html_en=html_en, 
-        documentlist=documentlist, posterlist=posterlist, process=process, memberlist=memberlist)
+        documentlist=documents, posterlist=posterlist, process=process, memberlist=memberlist)
+
+@proj_bp.route('/attachment:<int:document_id>/block', methods=['GET', 'POST'])
+@login_required
+def block(document_id):
+    document = Document.query.get_or_404(document_id)
+    document.islocked = not document.islocked
+    db.session.commit()
+    return redirect(url_for('.show_project', project_id=document.project_id))
+
+@proj_bp.route('/attachment:<int:document_id>/download', methods=['GET', 'POST'])
+def download(document_id):
+    document = Document.query.get_or_404(document_id)
+    uploads = os.path.join(current_app.root_path, app.config['PROJECT_PATH'])
+    extension = os.path.splitext(document.filename)[1]
+    return send_from_directory(directory=uploads, filename=document.filename, as_attachment=True, attachment_filename=document.filenote + extension)
 
 @proj_bp.route('/addproject', methods=['GET', 'POST'])
 @login_required
@@ -149,23 +175,30 @@ def addproject():
 @proj_bp.route('/kickoff', methods=['GET', 'POST'])
 @login_required
 def kickoff():
-    filename = []
-    filenote = []
-    posters =[]
+    posters = []
+    poster_notes = []
+    documents = []
+    document_notes = []
     form = AddProjectForm()
     if request.method == 'POST':
         uploadlist_file = request.files.getlist('file')
         uploadlist_note = request.form.getlist('note')
-        project_prefix = datetime.now().strftime('%C%m%d%H%M')
-        for f in uploadlist_file:
-            if f:
-                f_name = project_prefix + '_' + random_filename(f.filename) # this function will remain the original extension, don't bother using os.path
+        # uploadlist_note will be like ['', ''] when inputs are left blank
+        project_prefix = datetime.now().strftime('%m%d%H%M')
+        for i in range(len(uploadlist_file)):
+            if uploadlist_file[i]:
+                f_name = project_prefix + '_' + random_filename(uploadlist_file[i].filename)[-12:] # this function will remain the original extension, don't bother using os.path
                 if f_name.lower().endswith(('.png', '.jpg', '.jpeg')):
                     posters.append(f_name)
-                filename.append(f_name)
-                f.save(os.path.join(app.config['PROJECT_PATH'], f_name))
-                index = uploadlist_file.index(f)
-                filenote.append(uploadlist_note[index])
+                    poster_notes.append(uploadlist_note[i])
+                else:
+                    documents.append(f_name)
+                    if uploadlist_note[i]:
+                        document_notes.append(uploadlist_note[i])
+                    else:
+                        document_notes.append(os.path.splitext(uploadlist_file[i].filename)[0])
+                        # set default filenote same as the filename
+                uploadlist_file[i].save(os.path.join(app.config['PROJECT_PATH'], f_name))
 
         title_cn = form.title_cn.data
         title_en = form.title_en.data
@@ -176,8 +209,14 @@ def kickoff():
         isthesis = bool(form.isthesis.data)
         banner = posters[0] if posters else ""
         project = Project(title_cn=title_cn, title_en=title_en, brief_cn=brief_cn, brief_en=brief_en, 
-            startdate=startdate, enddate=enddate, filename="*".join(filename), filenote="*".join(filenote), banner=banner, isthesis=isthesis)
+            startdate=startdate, enddate=enddate, filename="*".join(posters), filenote="*".join(poster_notes), banner=banner, isthesis=isthesis)
+        # filename & filenote are misleading but the model of database is set, no way to change it.
         db.session.add(project)
+        db.session.flush()
+
+        for i in range(len(documents)):
+            document = Document(filename=documents[i], filenote=document_notes[i], project=project)
+            db.session.add(document)
         db.session.commit()
         flash('New project launched!', 'success')
     return redirect(url_for('.project'))

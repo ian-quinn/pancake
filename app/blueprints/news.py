@@ -151,7 +151,7 @@ def pubnews():
                 img_size.append(str(image.size[0]) + 'x' + str(image.size[1]))
                 sizo = 300;
                 image.thumbnail((sizo,sizo))
-                image.save(os.path.join(app.config['NEWS_IMG_PATH'], '_' + f_name))
+                image.save(os.path.join(app.config['NEWS_IMG_PATH'], 'thumbnail/' + f_name))
         for n in request.form.getlist('note'):
             img_note.append(n)
         if img_path:
