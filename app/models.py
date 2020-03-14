@@ -324,6 +324,7 @@ class Project(db.Model):
     filenote = db.Column(db.String(256))
     banner = db.Column(db.String(64))
     isthesis = db.Column(db.Boolean, default=False)
+    category = db.Column(db.Integer)
     members = db.Column(db.String(64))
     # new line here to identify document references
     documents = db.relationship('Document', backref='project', lazy='dynamic')

@@ -316,8 +316,14 @@ def uploadfile():
 
 @app.route('/album')
 def album():
-    photos = Photo.query.order_by(Photo.timestamp.desc()).all()
-    return render_template('album.html', photos=photos)
+    page = request.args.get('page', 1, type=int)
+    photos = Photo.query.order_by(Photo.timestamp.desc()).paginate(page, 30 , False)
+    # can also define 'pagination' then pass items attribute like posts=pagination.items, much more clear
+    next_url = url_for('album', page=photos.next_num) \
+        if photos.has_next else None
+    prev_url = url_for('album', page=photos.prev_num) \
+        if photos.has_prev else None
+    return render_template('album.html', photos=photos.items, next_url=next_url, prev_url=prev_url) # .items is crucial
 
 
 @app.route('/album/<int:photo_id>/delete', methods=['POST'])

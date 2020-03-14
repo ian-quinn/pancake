@@ -79,7 +79,7 @@ class AddProjectForm(FlaskForm):
 	brief_en = TextAreaField('BriefingEN')
 	startdate = DateTimeField('Start', format='%Y-%m-%d', validators=[Optional()])
 	enddate = DateTimeField('End', format='%Y-%m-%d', validators=[Optional()])
-	isthesis = BooleanField('Thesis project?')
+	category = SelectField('Category', choices=[(1,'重点专项'), (2,'模拟咨询'), (3,'课题企划')], default=1, coerce=int)
 	submit = SubmitField('Done!')
 
 class AddPubsForm(FlaskForm):
