@@ -30,6 +30,24 @@
 (venv) $ flask db upgrade                      # upgrade the database
 ```
 
+## Server Init Checking
+```
+$ passwd # change default account password
+$ vi /etc/profile # prompt timeout setup, add this line
+export TMOUT=600
+$ vi /etc/sysctl.conf # Ping forbidden, add this line
+net.ipv4.icmp_echo_ignore_all=1
+$ vi /etc/pam.d/system-auth # sys lockup in case of login failure
+auth required  pam_tally2.so onerr=fail deny=5 unlock_time=300
+$ usermod -G wheel  win2user #把win2user 加到whell组 限制su为root的用户，
+$ vi /etc/pam.d/su # add these lines
+auth required  pam_wheel.so use_uid
+auth required pam_wheel.so group=wheel
+authconfig --passminlen=8 --update # limit the password length
+grep "^minlen" /etc/security/pwquality.conf # 8 will appear here
+#开启系统日志、开启防火墙
+```
+
 ## Deployment on CentOS 7
 To setup the website on a clean CentOS 7 system, follow these lines"
 ```
