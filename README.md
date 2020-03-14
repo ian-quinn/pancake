@@ -221,20 +221,24 @@ More extensions are in development to add more functions, which will be deployed
 
 ## Updates log
 **Bugs**
-- [x] Some flashes are not assigned with types
-- [x] .docx files are skimed out in the Bookshelf page
-- [x] Posts cannot be accessed by browser on portable devices showing Internal Server Error
-- [x] Baidu map API failed
-- [ ] Bootstrap Calendar showing the last year
-- [x] Locale toggle will not appear on certain browsers like 360
+- [x] .docx files are skimed out in the Bookshelf page. + Restrict file types uploading and retrieving
+- [x] Posts cannot be accessed by browser on portable devices showing Internal Server Error. Locale toggle will not appear on certain browsers like 360. + Reprogram the logic of function `get_locale()`
+- [x] Baidu map API failed. + Use img for stable access.
+- [x] Bootstrap Calendar showing the last year. + Filter events within 6 months at server side
 - [ ] Cannot retrieve text via Ajax when it is too long, Post page
 - [x] Add Optional validator to Profile settings, google scholar url
+- [x] Pagination buttons spread out of the div
+- [x] Some flashes are not assigned with types
 
 **Uplifts**
+- [x] Downsize some vendor dependencies: moment.js and phoswipe.js. Remove sidebarScroll.js
+- [x] Support blocking documents of projects by adding Document Model. Add project category selection.
+- [x] Easy visiting. Update favicon.ico, stop carousels, cancel animation sliding...
+- [x] Add thumbnails to photos under News and Album +
 - [ ] Cancel lazy-loading and use scroll-loading, add thumbnails, People page
 - [ ] Refurbishment of Homepage
 - [ ] Refurbishment of Profile page
-- [ ] Add additional Album page / PhotoSwipe
+- [x] Add additional Album page with grid view
 - [x] Allow citation input on Pub page and download on search result page
 - [ ] Multiple highlights of whooshee's search result
 - [ ] Reconstruction blueprint for further extension of modules
