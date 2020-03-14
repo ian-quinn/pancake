@@ -57,12 +57,8 @@
         {% endfor %}
 
         <div class="pagination-bar">
-            {% if prev_url %}
-            <a href="{{ prev_url }}" class="pagination-button"><i class="fas fa-chevron-left"></i></a>
-            {% endif %}
-            {% if next_url %}
-            <a href="{{ next_url }}" class="pagination-button" style="float: right;"><i class="fas fa-chevron-right"></i></a>
-            {% endif %}
+            <a {% if prev_url %}href="{{ prev_url }}" class="pagination-button"{% else %}class="pagination-button-disabled"{% endif %}><i class="fas fa-chevron-left"></i></a>
+            <a {% if next_url %}href="{{ next_url }}" class="pagination-button"{% else %}class="pagination-button-disabled"{% endif %} style="float: right;"><i class="fas fa-chevron-right"></i></a>
         </div>
 
     {% else %}
@@ -90,14 +86,12 @@
 {% endblock %}
 
 {% block scripts %}
-<script src='https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js'></script>
-<script src="{{ url_for('static', filename='js/swipescript.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bootstrap-year-calendar.js') }}"></script>
 
 <!-- Bootstrap year calendar -->
 <script type="text/javascript">
     $('#calendar').calendar({ 
+
         dataSource: [{% for i in range(history|length) %}
         {
             id: {{ history[i][0]}},
@@ -105,7 +99,7 @@
             location: '{{ history[i][2] }}',
             startDate: new Date({{ history[i][3] }}),
             endDate: new Date({{ history[i][4] }}),
-            color: '#c14f4f'
+            color: '#ca3352'
         }{% if not loop.last %},{% endif %}
         {% endfor %}],
 
@@ -144,13 +138,6 @@
 </script>
 
 <script>
-  $('#myModal').on('shown.bs.modal', function () {
-  $('#myInput').trigger('focus')
-})
-</script>
-
-<script>
-
 $(".pin-academy").click(function() {
     if ($(this).hasClass('pin-all')) {
         $(".academy").slideDown(300);
@@ -162,8 +149,7 @@ $(".pin-academy").click(function() {
         $(".appointment").slideUp(300);
     }
     $(this).toggleClass("pin-all");
-    });
-    
+    }); 
 $(".pin-amusement").click(function() {
     if ($(this).hasClass('pin-all')) {
         $(".academy").slideDown(300);
@@ -176,7 +162,6 @@ $(".pin-amusement").click(function() {
     }
     $(this).toggleClass("pin-all");
 });
-
 $(".pin-appointment").click(function() {
     if ($(this).hasClass('pin-all')) {
         $(".academy").slideDown(300);
@@ -189,8 +174,5 @@ $(".pin-appointment").click(function() {
     }
     $(this).toggleClass("pin-all");
 });
-
-
-
 </script>
 {% endblock %}

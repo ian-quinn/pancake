@@ -949,7 +949,7 @@
 
             $('#calendar .month-container').each(function (idx, el) { 
                 if (idx < currentMonth) { $(this).css("display", "none"); } 
-                if (idx > currentMonth + 2) { $(this).css("display", "none"); } 
+                if (idx > currentMonth + 5) { $(this).css("display", "none"); } 
             }); 
         } });
  }(window.jQuery));

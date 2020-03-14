@@ -171,9 +171,9 @@ button>i:hover {
 .pagination-button {
   height: 30px;
   width: 30px;
-  border: 1px solid #ccc;
+  border: 1px solid #aaa;
   border-radius: 2px;
-  padding: 6px;
+  padding: 7px;
   text-align: center;
   display: inline-block;
 }
@@ -181,6 +181,18 @@ button>i:hover {
   background-color: #ca3352;
   color: #fff;
   border: 1px solid #fff;
+}
+.pagination-button-disabled {
+  height: 30px;
+  width: 30px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  padding: 7px;
+  text-align: center;
+  display: inline-block;
+}
+.pagination-button-disabled i {
+  color: #ccc;
 }
 
 /*--note that adding this media monitor may criple the sidebar response----*/
@@ -822,6 +834,25 @@ code {
 
 .projectboard {
   margin-top: 0px;
+}
+
+.document-bullet {
+  text-align: left;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-top: 1px solid #1e1e1e;
+  list-style-type: none;
+}
+
+.document-bullet:hover > .document-blocker{
+  opacity: 1;
+}
+.document-blocker {
+  margin: 0;
+  padding: auto;
+  display: inline;
+  font-size: 0.8em;
+  opacity: 0;
 }
 
 

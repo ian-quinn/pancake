@@ -78,9 +78,15 @@ def getstatus(id):
 @login_required
 def delete_project(project_id):
     project = Project.query.get_or_404(project_id)
-    filelist = str(project.filename).split("*") if project.filename else []
-    for file in filelist:
-        os.remove(os.path.join(app.config['PROJECT_PATH'], file))
+    documents = Document.query.filter_by(project_id=project_id).all()
+    for document in documents:
+        if os.path.exists(os.path.join(app.config['PROJECT_PATH'], document.filename)):
+            os.remove(os.path.join(app.config['PROJECT_PATH'], document.filename))
+        db.session.delete(document)
+    posters = str(project.filename).split("*") if project.filename else []
+    for poster in posters:
+        if os.path.exists(os.path.join(app.config['PROJECT_PATH'], poster)):
+            os.remove(os.path.join(app.config['PROJECT_PATH'], poster))
     db.session.delete(project)
     db.session.commit()
     flash('Project deleted.', 'danger')
@@ -91,7 +97,8 @@ def show_project(project_id):
     project = Project.query.get_or_404(project_id)
     documents = Document.query.filter_by(project_id=project_id).all()
     filename = str(project.filename).split("*") if project.filename else []
-    filenote = str(project.filenote).split("*") if project.filenote else []
+    filenote = str(project.filenote).split("*") if project.filenote else ['']
+
     checklist = project.members.split("*") if project.members else []
 
     # render the member list. not the same with the check list
@@ -147,7 +154,7 @@ def show_project(project_id):
         else:
             flash('Enrolled already.', 'warning')
         return redirect(url_for('.show_project', project_id=project.id))
-    
+
     return render_template('proj/project_item.html', project=project, html_cn=html_cn, html_en=html_en, 
         documentlist=documents, posterlist=posterlist, process=process, memberlist=memberlist)
 
@@ -206,10 +213,10 @@ def kickoff():
         brief_en = form.brief_en.data if form.brief_en.data else 'No information available'
         startdate = form.startdate.data
         enddate = form.enddate.data
-        isthesis = bool(form.isthesis.data)
+        category = form.category.data
         banner = posters[0] if posters else ""
         project = Project(title_cn=title_cn, title_en=title_en, brief_cn=brief_cn, brief_en=brief_en, 
-            startdate=startdate, enddate=enddate, filename="*".join(posters), filenote="*".join(poster_notes), banner=banner, isthesis=isthesis)
+            startdate=startdate, enddate=enddate, filename="*".join(posters), filenote="*".join(poster_notes), banner=banner, category=category)
         # filename & filenote are misleading but the model of database is set, no way to change it.
         db.session.add(project)
         db.session.flush()
@@ -232,7 +239,7 @@ def edit_project(project_id):
         project.brief_en = form.brief_en.data
         project.startdate = form.startdate.data
         project.enddate = form.enddate.data
-        project.isthesis = form.isthesis.data
+        project.category = form.category.data
         db.session.commit()
         flash('Revised', 'success')
         return redirect(url_for('.show_project', project_id=project.id))
@@ -243,5 +250,5 @@ def edit_project(project_id):
         form.brief_en.data = project.brief_en
         form.startdate.data = project.startdate
         form.enddate.data = project.enddate
-        form.isthesis.data = project.isthesis
+        form.category.data = project.category
     return render_template('proj/edit_project.html', title='Edit Project', form=form, project=project)

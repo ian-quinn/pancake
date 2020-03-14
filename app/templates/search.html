@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% set active_page = "pubs" %}
+{% block title %}{{ _('Search')}}{% endblock %}
 
 {% block content %}
     <h1 class="headup">{{ _('Search Results') }}: [{{ q }}]</h1>
@@ -13,14 +14,12 @@
     {% for paper in papers %}
     <div class="pubs row">
         <div class="col-10">
-          
             <b class="card-text text-muted">
                 {% if q in paper.title %}
                 {{ paper.title.replace(q, '<span style="background-color: yellow;">{}</span>'.format(q)) | safe }}
                 {% else %}
                 {{ paper.title }}
                 {% endif %}
-
                 {% if paper.issci %}
                 <span class="badge badge-danger">SCI</span>
                 {% endif %}
@@ -34,12 +33,10 @@
                 {% else %}
                 {{ paper.author }}
                 {% endif %}
-
-                {% if paper.coauthor %}, {% if q in paper.coauthor %}{{ paper.coauthor.replace(q, '<span style="background-color: yellow;">{}</span>'.format(q)) | safe }}{% else %}{{ paper.coauthor }}{% endif %}%{% endif %}. {% if paper.journal %}{% if q in paper.journal %}{{ paper.journal.replace(q, '<span style="background-color: yellow;">{}</span>'.format(q)) | safe }}{% else %}{{ paper.journal }}{% endif %}, {% endif %}{% if q in paper.date.strftime('%Y-%m') %}{{ paper.date.strftime('%Y-%m').replace(q, '<span style="background-color: yellow;">{}</span>'.format(q)) | safe }}{% else %}{{ paper.date.strftime('%Y-%m') }}{% endif %}
+                {% if paper.coauthor %}, {% if q in paper.coauthor %}{{ paper.coauthor.replace(q, '<span style="background-color: yellow;">{}</span>'.format(q)) | safe }}{% else %}{{ paper.coauthor }}{% endif %}{% endif %}. {% if paper.journal %}{% if q in paper.journal %}{{ paper.journal.replace(q, '<span style="background-color: yellow;">{}</span>'.format(q)) | safe }}{% else %}{{ paper.journal }}{% endif %}, {% endif %}{% if q in paper.date.strftime('%Y-%m') %}{{ paper.date.strftime('%Y-%m').replace(q, '<span style="background-color: yellow;">{}</span>'.format(q)) | safe }}{% else %}{{ paper.date.strftime('%Y-%m') }}{% endif %}
             </p>
         </div>
         <div style="width: 50px; text-align:right;" class="col-2">
-
             {% if current_user.is_authenticated %}
             <form method="post"
                   action="{{ url_for('delete_pubs', paper_id=paper.id, next=request.full_path) }}" style="display: inline;">
@@ -57,15 +54,6 @@
             <!--
             <a class="pubs-button" href="{{ url_for('static', filename='publications/') }}{{ paper.filename }}"><i class="far fa-file"></a>
             -->
-        </div>
-        <div class="collapse show" id="No{{ paper.id }}"> 
-            <p class="card-text  mb-auto text-muted" style="font-size: 0.9em; padding-bottom: 6px; padding-top: 3px;">
-                {% if q in paper.abstract %}
-                ABSTRACT | {{ paper.abstract.replace(q, '<span style="background-color: yellow;">{}</span>'.format(q)) | safe }}
-                {% else %}
-                ABSTRACT | {{ paper.abstract }}
-                {% endif %}
-            </p>
         </div>
     </div>      
     {% endfor %}

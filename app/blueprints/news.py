@@ -96,11 +96,20 @@ def news():
 
     events = History.query.all()
     history = []
+    def split_date(date):
+        split = date.strftime('%Y,%m,%d').split(',')
+        monthoffset = int(split[1]) - 1
+        assembly = ','.join([split[0], str(monthoffset), split[2]])
+        return assembly
+
     for event in events:
-        valuelist = [event.id, event.name, event.location, event.startdate.strftime('%Y,%m,%d'), event.enddate.strftime('%Y,%m,%d')]
-        history.append(valuelist)
-    return render_template('news/news.html', title='News', history=history, newss=newss.items, next_url=next_url, prev_url=prev_url)
-# this is only one static page, at least for now. We will add more loading stuff to it.
+        delta = (event.enddate - datetime.now()).days
+        if -30 < delta < 180:
+            startdate = split_date(event.startdate)
+            valuelist = [event.id, event.name, event.location, split_date(event.startdate), split_date(event.enddate)]
+            history.append(valuelist)
+    return render_template('news/news.html', history=history, newss=newss.items, next_url=next_url, prev_url=prev_url)
+
 
 """
 @news_bp.route('/news/upload_img', methods=['GET', 'POST'])
@@ -183,6 +192,7 @@ def whatsplan():
         recdate = '-'.join([splitdate[0],str(month),splitdate[2]])
         return recdate
     """
+    events = History.query.order_by(History.startdate.desc()).all()
     form = AddEventForm()
     if form.validate_on_submit():
         history = History(name=form.name.data, location=form.location.data, 
@@ -191,7 +201,16 @@ def whatsplan():
         db.session.commit()
         flash('Circled on calendar.', 'success')
         return redirect(url_for('.whatsplan'))
-    return render_template('news/add_event.html', title='Add Schedule', form=form)
+    return render_template('news/add_event.html', title='Add Schedule', form=form, events=events)
+
+@news_bp.route('/erase_event/<int:event_id>', methods=['GET', 'POST'])
+@login_required
+def delete_event(event_id):
+    event = History.query.get_or_404(event_id)
+    db.session.delete(event)
+    db.session.commit()
+    flash('Event erased from calendar.', 'danger')
+    return redirect(url_for('.whatsplan'))
 
 
 @news_bp.route('/upload_img', methods=['GET', 'POST'])
@@ -209,8 +228,10 @@ def delete_news(news_id):
     news = News.query.get_or_404(news_id)
     filelist = str(news.img_path).split("*") if news.img_path else []
     for file in filelist:
-        os.remove(os.path.join(app.config['NEWS_IMG_PATH'], file))
-        os.remove(os.path.join(app.config['NEWS_IMG_PATH'], '_' + file))
+        if os.path.exists(os.path.join(app.config['NEWS_IMG_PATH'], file)):
+            os.remove(os.path.join(app.config['NEWS_IMG_PATH'], file))
+        if os.path.exists(os.path.join(app.config['NEWS_IMG_PATH'], 'thumbnail/' + file)):
+            os.remove(os.path.join(app.config['NEWS_IMG_PATH'], 'thumbnail/' + file))
     news_del = news.id
     db.session.delete(news)
     db.session.commit()

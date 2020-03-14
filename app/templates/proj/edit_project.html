@@ -51,26 +51,30 @@
             </div>
         </div>
 
-        <div class="row col-md-6">
-            <div class="col-6 form-group" style="padding-right: 5px;">
-                {{ form.startdate.label }}<br>
-                {{ form.startdate(class="form-control", placeholder="YYYY-MM-DD") }}
-                {% for error in form.startdate.errors %}
-                <small class="error-bullet">{{ error }}</small>
-                {% endfor %}
+        <div class="row" style="margin-left: -5px; margin-right: -5px;">
+            <div class="row col-md-6" style="padding: 5px;">
+                <div class="col-6 form-group" style="padding-right: 5px;">
+                    {{ form.startdate.label }}<br>
+                    {{ form.startdate(class="form-control", placeholder="YYYY-MM-DD") }}
+                    {% for error in form.startdate.errors %}
+                    <small class="error-bullet">{{ error }}</small>
+                    {% endfor %}
+                </div>
+                <div class="col-6 form-group" style="padding-left: 5px;">
+                    {{ form.enddate.label }}<br>
+                    {{ form.enddate(class="form-control", placeholder="YYYY-MM-DD") }}
+                    {% for error in form.enddate.errors %}
+                    <small class="error-bullet">{{ error }}</small>
+                    {% endfor %}
+                </div>
             </div>
-            <div class="col-6 form-group" style="padding-left: 5px;">
-                {{ form.enddate.label }}<br>
-                {{ form.enddate(class="form-control", placeholder="YYYY-MM-DD") }}
-                {% for error in form.enddate.errors %}
-                <small class="error-bullet">{{ error }}</small>
-                {% endfor %}
-            </div>
-        </div>
 
-        <div class="custom-control custom-switch form-group">
-            {{ form.isthesis(class="custom-control-input", type="checkbox", id="THESISswitch", value="1") }}
-            {{ form.isthesis.label(class="custom-control-label", for="THESISswitch") }}
+            <div class="col-md-6" style="padding: 5px;">
+                <div class="form-group">
+                    {{ form.category.label }}<br>
+                    {{ form.category(class="custom-select form-control") }}
+                </div>
+            </div>
         </div>
 
         <div class="form-group" style="margin-top: 50px;">
