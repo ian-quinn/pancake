@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-03-04 13:30+0800\n"
+"POT-Creation-Date: 2020-03-15 14:14+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,115 +17,227 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
 
-#: app/templates/base.html:33
+#: app/templates/album.html:3 app/templates/album.html:15
+#: app/templates/base.html:39 app/templates/base.html:122
+#: app/templates/news/story.html:83
+msgid "Album"
+msgstr ""
+
+#: app/templates/base.html:31
 msgid "Home"
 msgstr ""
 
-#: app/templates/base.html:34 app/templates/news/edit_news.html:4
-#: app/templates/news/news.html:4 app/templates/news/story.html:4
+#: app/templates/base.html:32 app/templates/index.html:140
+#: app/templates/news/edit_news.html:4 app/templates/news/news.html:4
+#: app/templates/news/story.html:4
 msgid "News"
 msgstr ""
 
-#: app/templates/base.html:35 app/templates/proj/project.html:4
+#: app/templates/base.html:33 app/templates/proj/project.html:4
 #: app/templates/proj/project_item.html:4
 msgid "Project"
 msgstr ""
 
-#: app/templates/base.html:36
+#: app/templates/base.html:34
 msgid "People"
 msgstr ""
 
-#: app/templates/base.html:37 app/templates/pubs.html:3
+#: app/templates/base.html:35 app/templates/pubs.html:3
 msgid "Publication"
 msgstr ""
 
-#: app/templates/base.html:38
-msgid "Note"
+#: app/templates/base.html:36 app/templates/blog/blog.html:4
+#: app/templates/blog/blog.html:9 app/templates/blog/post.html:4
+msgid "Blog"
 msgstr ""
 
-#: app/templates/base.html:39 app/templates/base.html:126
+#: app/templates/base.html:37 app/templates/base.html:120
 #: app/templates/user/settings.html:4 app/templates/user/settings.html:8
 msgid "Settings"
 msgstr ""
 
-#: app/templates/base.html:40 app/templates/base.html:127
+#: app/templates/base.html:38 app/templates/base.html:121
+#: app/templates/bookshelf.html:3 app/templates/bookshelf.html:13
 msgid "Bookshelf"
 msgstr ""
 
-#: app/templates/base.html:58 app/templates/base.html:128
+#: app/templates/base.html:57 app/templates/base.html:123
 msgid "Logout"
 msgstr ""
 
-#: app/templates/auth/login.html:2 app/templates/base.html:60
+#: app/templates/auth/login.html:2 app/templates/base.html:59
 msgid "Login"
 msgstr ""
 
-#: app/templates/base.html:83 app/templates/index.html:19
-msgid "PAN Research Group"
+#: app/templates/base.html:79 app/templates/index.html:12
+msgid "Building Performance Simulation Lab"
 msgstr ""
 
-#: app/templates/base.html:125
+#: app/templates/base.html:119 app/templates/user/user.html:2
 msgid "Profile"
 msgstr ""
 
-#: app/templates/index.html:14
+#: app/templates/bookshelf.html:14
+msgid "Shared documents and softwares"
+msgstr ""
+
+#: app/templates/index.html:7
 msgid "Homepage"
 msgstr ""
 
-#: app/templates/index.html:25
+#: app/templates/index.html:18
 msgid ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Accumsan sit amet "
-"nulla facilisi morbi tempus iaculis urna id. Fermentum leo vel orci porta"
-" non pulvinar neque laoreet. Lorem mollis aliquam ut porttitor leo a. "
-"Tincidunt dui ut ornare lectus. Justo laoreet sit amet cursus sit amet "
-"dictum. Ultrices mi tempus imperdiet nulla malesuada pellentesque elit. "
-"Enim eu turpis egestas pretium aenean pharetra. Amet massa vitae tortor "
-"condimentum lacinia quis vel eros. Semper viverra nam libero justo "
-"laoreet sit amet cursus. Nibh sit amet commodo nulla facilisi."
+"Building Performance Simulation Lab locates in the School of Mechanical "
+"Engineering fo Tongji University, directed by Prof. Yiqun Pan. The whole "
+"research group consists of 3 tutors, 6 PhD candidates and 7 MSc "
+"candidates. Main research areas include: Building Performance Simulation "
+"& System Emulation, Load Leveling & Distributed Energy System "
+"Optimization, Human Behaviour in Building Operation, Big Data & Energy "
+"Management System."
 msgstr ""
 
-#: app/templates/index.html:51
+#: app/templates/index.html:27
+msgid "Yiqun Pan"
+msgstr ""
+
+#: app/templates/index.html:28
+msgid "IBPSA Fellow | ASHRAE Member | ASME Member"
+msgstr ""
+
+#: app/templates/index.html:29
+msgid ""
+"Ph.D., Full professor in the School of Mechanical Engineering, Tongji "
+"University."
+msgstr ""
+
+#: app/templates/index.html:30
+msgid ""
+"Post-doctoral researcher (2002), Center for Building Performance & "
+"Diagnostics, Carnegie Mellon University (USA)"
+msgstr ""
+
+#: app/templates/index.html:31
+msgid ""
+"Ph.D. (1992-1997) Heating Ventilation, Gas Supplying and Air-"
+"conditioning, Tongji University, Shanghai, China"
+msgstr ""
+
+#: app/templates/index.html:41
 msgid "Research"
 msgstr ""
 
-#: app/templates/index.html:56
+#: app/templates/index.html:46
 msgid "Building Performance Simulation & System Emulation"
 msgstr ""
 
-#: app/templates/index.html:60
+#: app/templates/index.html:50
 msgid "Load Leveling & Distributed Energy System"
 msgstr ""
 
-#: app/templates/index.html:64
+#: app/templates/index.html:54
 msgid "Human Behaviour in Building Operation"
 msgstr ""
 
-#: app/templates/index.html:68
-msgid "Big Data & Energy Management System<"
+#: app/templates/index.html:58
+msgid "Big Data & Energy Management System"
 msgstr ""
 
-#: app/templates/index.html:76
+#: app/templates/index.html:66
 msgid "Publications"
 msgstr ""
 
-#: app/templates/index.html:95 app/templates/index.html:160
+#: app/templates/index.html:85 app/templates/index.html:150
 msgid "... More"
 msgstr ""
 
-#: app/templates/index.html:150
-msgid "Recently"
+#: app/templates/index.html:97 app/templates/index.html:130
+msgid ""
+"State-of-the-art Technology and Advanced Application of Building "
+"Performance Modeling"
 msgstr ""
 
-#: app/templates/index.html:176
+#: app/templates/index.html:97 app/templates/index.html:130
+msgid ""
+"This book focuses on the most recent research work, softwares and "
+"relevant applications in the field of building performance simulation. "
+"The three-part book is a guide for those who are already envolved in this"
+" industry and prepared for a deep dive in various topics more cutting-"
+"edge and theoretical. Starting with introductions to basic math model "
+"like physical model and data-driven model theoretically, the book then "
+"briefs tools to fulfill the needs of various simulation tasks, concerning"
+" BIM application, parametric design and cloud compute supports... The "
+"third and the last part of the book goes deep into some buzz topics in "
+"this field: human behaviour in building operation, simulation assisted "
+"green building labeling, load prediction on urban scale, HVAC system "
+"simulation commisssioning, demand reponse, co-simulation, object-oriented"
+" simulation and so on. Cases are studied in conjunction with each method "
+"introduced."
+msgstr ""
+
+#: app/templates/index.html:102
+msgid "Guidelines for Community Energy Planning"
+msgstr ""
+
+#: app/templates/index.html:102
+msgid ""
+"This book systematically introduces readers to the operator method, which"
+" can be used in different stages of urban planning. Energy planning "
+"should ideally be accompanied by urban planning, ranging from "
+"comprehensive planning and detailed planning, to the design of individual"
+" construction projects. This book discusses a range of methods and models"
+" for defining energy planning objectives; analyzing and predicting energy"
+" demand; assessing available energy resources; optimizing integrated "
+"energy systems; analyzing the cost-effectiveness of proposals; "
+"implementation management; and post-assessment. Part one focuses on "
+"energy planning in different urban planning stages, while part two "
+"provides detailed discussions of key issues related to energy planning."
+msgstr ""
+
+#: app/templates/index.html:107
+msgid "Building Energy Simulation Handbook"
+msgstr ""
+
+#: app/templates/index.html:107
+msgid ""
+"First academic book in China talking about building performance "
+"simulation(BPS). In this book we will walk you through the development of"
+" BPS, standards both foreign and domestic, basic theories and principles,"
+" softwares and how to use them. Mainly based on eQUEST, EnergyPlus and "
+"TRNSYS, 25 cases of various building and system types will be present "
+"step by step to help you accquire basic skills of BPS, including typical "
+"simulation routines, LEED labeling, co-simulation, calibrated simulation "
+"and district load estimation... All IO files are packed within the disk "
+"attached with this book. You may also download them on our website."
+msgstr ""
+
+#: app/templates/index.html:112
+msgid "ESCO & Building Energy Retrofits"
+msgstr ""
+
+#: app/templates/index.html:112
+msgid ""
+"We proposed practical methods for mesurement and verification of energy "
+"savings under the circumstances of Chinese industry, based on GB/T "
+"28750-2012 of China and foreign guidelines such as IPMVP and ASHRAE "
+"Guideline14. Abundant cases may act as references for energy management "
+"contract. First part of the book introduces our methods in format of "
+"guideline.The second part compiles all the pilot-study cases cencerning "
+"EMC."
+msgstr ""
+
+#: app/templates/index.html:159
+msgid "Contact"
+msgstr ""
+
+#: app/templates/index.html:168
 msgid "Partners:"
 msgstr ""
 
-#: app/templates/index.html:177
+#: app/templates/index.html:169
 msgid "Room A441, School of Mechanical Engineering, Tongji University"
 msgstr ""
 
-#: app/templates/index.html:177
+#: app/templates/index.html:169
 msgid "No.4800 Caoan Rd., Shanghai"
 msgstr ""
 
@@ -133,26 +245,19 @@ msgstr ""
 msgid "This is us"
 msgstr ""
 
-#: app/templates/people.html:9
-msgid ""
-"The Group has 3 tutors, 6 doctor candidates and 7 master candidates for "
-"now. All members are listed here chronically. Click on the name card to "
-"have a closer look. hahhahahahahahah"
-msgstr ""
-
-#: app/templates/people.html:17
+#: app/templates/people.html:18
 msgid "Tutor"
 msgstr ""
 
-#: app/templates/people.html:18
-msgid "Doctoral student"
-msgstr ""
-
 #: app/templates/people.html:19
-msgid "Postgraduate"
+msgid "PhD Candidates"
 msgstr ""
 
 #: app/templates/people.html:20
+msgid "MSc Candidates"
+msgstr ""
+
+#: app/templates/people.html:21
 msgid "Alumni"
 msgstr ""
 
@@ -160,42 +265,39 @@ msgstr ""
 msgid "Research Publications"
 msgstr ""
 
-#: app/templates/pubs.html:10
-msgid ""
-"Free to download and share the published books and papers. Send an email "
-"if some of those are hard to find. Other documents, guidances, installers"
-" that you may be interested in can be found in the"
-msgstr ""
-
-#: app/templates/pubs.html:24
+#: app/templates/pubs.html:25
 msgid "Cached"
 msgstr ""
 
-#: app/templates/pubs.html:29
+#: app/templates/pubs.html:30
 msgid "Category"
 msgstr ""
 
-#: app/templates/pubs.html:31
+#: app/templates/pubs.html:32
 msgid "EN-Journal"
 msgstr ""
 
-#: app/templates/pubs.html:32
+#: app/templates/pubs.html:33
 msgid "CN-Journal"
 msgstr ""
 
-#: app/templates/pubs.html:33
+#: app/templates/pubs.html:34
 msgid "Conference"
 msgstr ""
 
-#: app/templates/pubs.html:34
+#: app/templates/pubs.html:35
 msgid "Thesis"
 msgstr ""
 
-#: app/templates/pubs.html:38
+#: app/templates/pubs.html:39 app/templates/search.html:3
 msgid "Search"
 msgstr ""
 
-#: app/templates/search.html:5
+#: app/templates/pubs.html:162
+msgid "ABSTRACT"
+msgstr ""
+
+#: app/templates/search.html:6
 msgid "Search Results"
 msgstr ""
 
@@ -207,24 +309,11 @@ msgstr ""
 msgid "Add notes"
 msgstr ""
 
-#: app/templates/blog/blog.html:4 app/templates/blog/blog.html:9
-#: app/templates/blog/post.html:4
-msgid "Notes"
-msgstr ""
-
-#: app/templates/blog/blog.html:10 app/templates/news/news.html:14
-#: app/templates/proj/project.html:11
-msgid ""
-"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas "
-"porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, "
-"purus lectus malesuada libero, sit amet commodo magna eros quis urna."
-msgstr ""
-
-#: app/templates/blog/blog.html:28
+#: app/templates/blog/blog.html:29 app/templates/blog/category.html:23
 msgid "Read More"
 msgstr ""
 
-#: app/templates/blog/blog.html:55 app/templates/blog/blog.html:63
+#: app/templates/blog/blog.html:52 app/templates/blog/blog.html:60
 msgid "Tags"
 msgstr ""
 
@@ -288,7 +377,7 @@ msgstr ""
 msgid "Recent News"
 msgstr ""
 
-#: app/templates/news/news.html:44 app/templates/news/story.html:80
+#: app/templates/news/news.html:45 app/templates/news/story.html:80
 msgid "Posted by"
 msgstr ""
 
@@ -302,10 +391,6 @@ msgstr ""
 
 #: app/templates/news/story.html:81
 msgid "Update on"
-msgstr ""
-
-#: app/templates/news/story.html:83
-msgid "Album"
 msgstr ""
 
 #: app/templates/news/story.html:83
@@ -324,6 +409,22 @@ msgstr ""
 msgid "Projects"
 msgstr ""
 
+#: app/templates/proj/project.html:11
+msgid ""
+"The Building Performance Simulation Lab is involved in a variety of "
+"projects ranging from traditional building system emulation to most "
+"nascent fields like human behaviour and big data analysis on city scale. "
+"Here you may learn about the strengths of our group and the techniques "
+"equiped to dig into the cutting-edge issues. Key research areas of the "
+"Building Performance Simulation Lab include: Building performance "
+"simulation & mechanical system emulation; Load Leveling & Distributed "
+"Energy System; Human Behaviour in Building Operation; City-scale big data"
+" analysis & Energy management system. The Building Performance Simulation"
+" Lab at Tonji University also colllaborates with many research "
+"institutions and groups as well as industry partners. Here we brief some "
+"of our projects attached with documents for reference."
+msgstr ""
+
 #: app/templates/proj/project_dashboard.html:40
 msgid "Ended"
 msgstr ""
@@ -332,36 +433,48 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
+#: app/templates/proj/project_item.html:22
+msgid "No info"
+msgstr ""
+
+#: app/templates/proj/project_item.html:37
+msgid "Complete"
+msgstr ""
+
 #: app/templates/proj/project_item.html:46
 msgid "Attachments"
 msgstr ""
 
-#: app/templates/proj/project_item.html:53
+#: app/templates/proj/project_item.html:72
 msgid "No document available"
 msgstr ""
 
-#: app/templates/proj/project_item.html:59
+#: app/templates/proj/project_item.html:78
 msgid "Project participants"
 msgstr ""
 
-#: app/templates/proj/project_item.html:61
+#: app/templates/proj/project_item.html:80
 msgid "No claim of this project"
 msgstr ""
 
-#: app/templates/proj/project_item.html:96
+#: app/templates/proj/project_item.html:115
 msgid "Previous"
 msgstr ""
 
-#: app/templates/proj/project_item.html:100
+#: app/templates/proj/project_item.html:119
 msgid "Next"
 msgstr ""
 
 #: app/templates/proj/project_list.html:7
-msgid "Major projects"
+msgid "Research Projects"
 msgstr ""
 
-#: app/templates/proj/project_list.html:43
-msgid "Thesis projects"
+#: app/templates/proj/project_list.html:44
+msgid "Consulting Projects"
+msgstr ""
+
+#: app/templates/proj/project_list.html:81
+msgid "Thesis Projects"
 msgstr ""
 
 #: app/templates/user/reset_password.html:2

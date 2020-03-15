@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-03-04 13:30+0800\n"
-"PO-Revision-Date: 2020-03-04 13:30+0800\n"
+"POT-Creation-Date: 2020-03-15 14:14+0800\n"
+"PO-Revision-Date: 2020-03-15 14:15+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh\n"
 "Language-Team: zh <LL@li.org>\n"
@@ -18,187 +18,289 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
 
-#: app/templates/base.html:33
+#: app/templates/album.html:3 app/templates/album.html:15
+#: app/templates/base.html:39 app/templates/base.html:122
+#: app/templates/news/story.html:83
+msgid "Album"
+msgstr "相簿"
+
+#: app/templates/base.html:31
 msgid "Home"
 msgstr "首页"
 
-#: app/templates/base.html:34 app/templates/news/edit_news.html:4
-#: app/templates/news/news.html:4 app/templates/news/story.html:4
+#: app/templates/base.html:32 app/templates/index.html:140
+#: app/templates/news/edit_news.html:4 app/templates/news/news.html:4
+#: app/templates/news/story.html:4
 msgid "News"
 msgstr "新闻"
 
-#: app/templates/base.html:35 app/templates/proj/project.html:4
+#: app/templates/base.html:33 app/templates/proj/project.html:4
 #: app/templates/proj/project_item.html:4
 msgid "Project"
 msgstr "项目"
 
-#: app/templates/base.html:36
+#: app/templates/base.html:34
 msgid "People"
 msgstr "成员"
 
-#: app/templates/base.html:37 app/templates/pubs.html:3
+#: app/templates/base.html:35 app/templates/pubs.html:3
 msgid "Publication"
 msgstr "论文"
 
-#: app/templates/base.html:38
-msgid "Note"
+#: app/templates/base.html:36 app/templates/blog/blog.html:4
+#: app/templates/blog/blog.html:9 app/templates/blog/post.html:4
+msgid "Blog"
 msgstr "博客"
 
-#: app/templates/base.html:39 app/templates/base.html:126
+#: app/templates/base.html:37 app/templates/base.html:120
 #: app/templates/user/settings.html:4 app/templates/user/settings.html:8
 msgid "Settings"
 msgstr "设置"
 
-#: app/templates/base.html:40 app/templates/base.html:127
+#: app/templates/base.html:38 app/templates/base.html:121
+#: app/templates/bookshelf.html:3 app/templates/bookshelf.html:13
 msgid "Bookshelf"
-msgstr "书架"
+msgstr "文档"
 
-#: app/templates/base.html:58 app/templates/base.html:128
+#: app/templates/base.html:57 app/templates/base.html:123
 msgid "Logout"
 msgstr "登出"
 
-#: app/templates/auth/login.html:2 app/templates/base.html:60
+#: app/templates/auth/login.html:2 app/templates/base.html:59
 msgid "Login"
 msgstr "登入"
 
-#: app/templates/base.html:83 app/templates/index.html:19
-msgid "PAN Research Group"
+#: app/templates/base.html:79 app/templates/index.html:12
+msgid "Building Performance Simulation Lab"
 msgstr "潘毅群教授课题组"
 
-#: app/templates/base.html:125
+#: app/templates/base.html:119 app/templates/user/user.html:2
 msgid "Profile"
 msgstr "简历"
 
-#: app/templates/index.html:14
+#: app/templates/bookshelf.html:14
+msgid "Shared documents and softwares"
+msgstr "共享文档及安装包"
+
+#: app/templates/index.html:7
 msgid "Homepage"
 msgstr "首页"
 
-#: app/templates/index.html:25
+#: app/templates/index.html:18
 msgid ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Accumsan sit amet "
-"nulla facilisi morbi tempus iaculis urna id. Fermentum leo vel orci porta"
-" non pulvinar neque laoreet. Lorem mollis aliquam ut porttitor leo a. "
-"Tincidunt dui ut ornare lectus. Justo laoreet sit amet cursus sit amet "
-"dictum. Ultrices mi tempus imperdiet nulla malesuada pellentesque elit. "
-"Enim eu turpis egestas pretium aenean pharetra. Amet massa vitae tortor "
-"condimentum lacinia quis vel eros. Semper viverra nam libero justo "
-"laoreet sit amet cursus. Nibh sit amet commodo nulla facilisi."
+"Building Performance Simulation Lab locates in the School of Mechanical "
+"Engineering fo Tongji University, directed by Prof. Yiqun Pan. The whole "
+"research group consists of 3 tutors, 6 PhD candidates and 7 MSc "
+"candidates. Main research areas include: Building Performance Simulation "
+"& System Emulation, Load Leveling & Distributed Energy System "
+"Optimization, Human Behaviour in Building Operation, Big Data & Energy "
+"Management System."
 msgstr "潘毅群教授课题组位于同济大学嘉定校区开物馆A441，课题组由3名老师、6名博士生和7名硕士组成。主要研究方向为建筑能耗模拟与系统仿真、区域负荷预测与系统优化、建筑中人的用能行为模拟、建筑大数据分析与能源管理。"
 
-#: app/templates/index.html:51
-msgid "Research"
-msgstr "研究方向"
+#: app/templates/index.html:27
+msgid "Yiqun Pan"
+msgstr "潘毅群"
 
-#: app/templates/index.html:56
+#: app/templates/index.html:28
+msgid "IBPSA Fellow | ASHRAE Member | ASME Member"
+msgstr "IBPSA 高级会员 | ASHRAE 会员 | ASME 会员"
+
+#: app/templates/index.html:29
+msgid ""
+"Ph.D., Full professor in the School of Mechanical Engineering, Tongji "
+"University."
+msgstr "博士，博导。同济大学机械与能源工程学院全职教授。"
+
+#: app/templates/index.html:30
+msgid ""
+"Post-doctoral researcher (2002), Center for Building Performance & "
+"Diagnostics, Carnegie Mellon University (USA)"
+msgstr "2002于美国卡耐基梅隆大学建筑性能与诊断中心进行博士后研究"
+
+#: app/templates/index.html:31
+msgid ""
+"Ph.D. (1992-1997) Heating Ventilation, Gas Supplying and Air-"
+"conditioning, Tongji University, Shanghai, China"
+msgstr "1997年于博士毕业于同济大学供热、供燃气、通风及空调工程专业"
+
+#: app/templates/index.html:41
+msgid "Research"
+msgstr "科研"
+
+#: app/templates/index.html:46
 msgid "Building Performance Simulation & System Emulation"
 msgstr "建筑能耗模拟与系统仿真"
 
-#: app/templates/index.html:60
+#: app/templates/index.html:50
 msgid "Load Leveling & Distributed Energy System"
 msgstr "区域负荷预测与系统优化"
 
-#: app/templates/index.html:64
+#: app/templates/index.html:54
 msgid "Human Behaviour in Building Operation"
 msgstr "建筑中人的用能行为模拟"
 
-#: app/templates/index.html:68
-msgid "Big Data & Energy Management System<"
+#: app/templates/index.html:58
+msgid "Big Data & Energy Management System"
 msgstr "建筑大数据分析与能源管理"
 
-#: app/templates/index.html:76
+#: app/templates/index.html:66
 msgid "Publications"
 msgstr "发表成果"
 
-#: app/templates/index.html:95 app/templates/index.html:160
+#: app/templates/index.html:85 app/templates/index.html:150
 msgid "... More"
 msgstr "... 更多"
 
-#: app/templates/index.html:150
-msgid "Recently"
-msgstr "近期要闻"
+#: app/templates/index.html:97 app/templates/index.html:130
+msgid ""
+"State-of-the-art Technology and Advanced Application of Building "
+"Performance Modeling"
+msgstr "建筑能耗模拟前沿技术与高级应用"
 
-#: app/templates/index.html:176
+#: app/templates/index.html:97 app/templates/index.html:130
+msgid ""
+"This book focuses on the most recent research work, softwares and "
+"relevant applications in the field of building performance simulation. "
+"The three-part book is a guide for those who are already envolved in this"
+" industry and prepared for a deep dive in various topics more cutting-"
+"edge and theoretical. Starting with introductions to basic math model "
+"like physical model and data-driven model theoretically, the book then "
+"briefs tools to fulfill the needs of various simulation tasks, concerning"
+" BIM application, parametric design and cloud compute supports... The "
+"third and the last part of the book goes deep into some buzz topics in "
+"this field: human behaviour in building operation, simulation assisted "
+"green building labeling, load prediction on urban scale, HVAC system "
+"simulation commisssioning, demand reponse, co-simulation, object-oriented"
+" simulation and so on. Cases are studied in conjunction with each method "
+"introduced."
+msgstr "本书是在《实用建筑能耗模拟手册》的基础上，总结最新的建筑能耗模拟研究进展、计算原理、软件工具和相关应用，进行编写，针对建筑能耗模拟的中级及高级用户。本书第一部分关于建筑能耗模拟的理论基础和数学模型，从物理模型和数据驱动模型分别介绍；第二部分介绍了主流的能耗模拟软件，重点结合BIM和参数化设计工具、云计算软件和区域建筑能耗模拟等；第三部分针对建筑能耗模拟领域的热点问题进行深入讨论，包括建筑中人行为、绿色建筑认证中的能耗模拟、区域尺度的建筑负荷预测与能耗模拟、空调系统仿真调适、需求响应与能耗模拟、联合仿真、面向对象的仿真，并给出计算案例。读者可以通过本书系统地掌握和了解建筑能耗模拟的基础理论、软件工具和具体应用，也可以结合自己的工作和兴趣单独阅读任何一个章节，了解此方面的最新研究和发展动态。"
+
+#: app/templates/index.html:102
+msgid "Guidelines for Community Energy Planning"
+msgstr "城区需求侧能源规划实施指南"
+
+#: app/templates/index.html:102
+msgid ""
+"This book systematically introduces readers to the operator method, which"
+" can be used in different stages of urban planning. Energy planning "
+"should ideally be accompanied by urban planning, ranging from "
+"comprehensive planning and detailed planning, to the design of individual"
+" construction projects. This book discusses a range of methods and models"
+" for defining energy planning objectives; analyzing and predicting energy"
+" demand; assessing available energy resources; optimizing integrated "
+"energy systems; analyzing the cost-effectiveness of proposals; "
+"implementation management; and post-assessment. Part one focuses on "
+"energy planning in different urban planning stages, while part two "
+"provides detailed discussions of key issues related to energy planning."
+msgstr "能源规划应伴随城区规划从控规详规再到目标建筑设计的各个阶段。本书系统地介绍了城区开发不同阶段能源规划的核心内容及编制方法，分规划指标设定、能量需求预测与分析、城区能源资源条件分析、能源系统优化配置、规划方案综合评价及规划实施管理等等。前篇对各类方法进行了梳理，后篇结合具体的项目进行了专题分析。本书介绍的方法大部分经过多个实际项目的检验，可切实作为实际应用的指导与参考。"
+
+#: app/templates/index.html:107
+msgid "Building Energy Simulation Handbook"
+msgstr "实用建筑能耗模拟手册"
+
+#: app/templates/index.html:107
+msgid ""
+"First academic book in China talking about building performance "
+"simulation(BPS). In this book we will walk you through the development of"
+" BPS, standards both foreign and domestic, basic theories and principles,"
+" softwares and how to use them. Mainly based on eQUEST, EnergyPlus and "
+"TRNSYS, 25 cases of various building and system types will be present "
+"step by step to help you accquire basic skills of BPS, including typical "
+"simulation routines, LEED labeling, co-simulation, calibrated simulation "
+"and district load estimation... All IO files are packed within the disk "
+"attached with this book. You may also download them on our website."
+msgstr "国内第一本关于建筑能耗模拟的专业书籍。比较全面的介绍了建筑能耗模拟的应用、相关标准、研究进展、基本原理、能耗模拟软件和专业分析软件、建筑能耗模拟方法(基本方法、LEED认证能耗模拟方法、校验模拟方法、联合模拟方法、区域建筑负荷与能耗模拟方法)，并结合eQUEST、EnergyPlus、TRNSYS给出25个案例，涵盖不同建筑类型、空调系统形式、新建建筑模拟、既有建筑校验、LEED认证等，案例均给出详细输入参数、建模方法和步骤、结果分析(随书光盘或于本站下载)。本书适用于相关专业领域从业者和学生从起步开始学习，以较全面了解建筑能耗模拟。"
+
+#: app/templates/index.html:112
+msgid "ESCO & Building Energy Retrofits"
+msgstr "ESCO与建筑节能改造"
+
+#: app/templates/index.html:112
+msgid ""
+"We proposed practical methods for mesurement and verification of energy "
+"savings under the circumstances of Chinese industry, based on GB/T "
+"28750-2012 of China and foreign guidelines such as IPMVP and ASHRAE "
+"Guideline14. Abundant cases may act as references for energy management "
+"contract. First part of the book introduces our methods in format of "
+"guideline.The second part compiles all the pilot-study cases cencerning "
+"EMC."
+msgstr "本书围绕合同能源管理模式下既有建筑节能改造中的节能量测量与验证问题，基于《节能量测量与验证技术通则》（GB/T 28750-2012），借鉴国外相关标准和导则（IPMVP，ASHRAE Guideline14等），研究和提出适合我国国情的节能量测量与验证方法，并给出大量详细案例。本书分为上下两篇：上篇为“既有建筑节能改造中的节能量测量与验证方法”；下篇为“公共建筑合同能源管理服务示范项目汇编”。"
+
+#: app/templates/index.html:159
+msgid "Contact"
+msgstr "联系我们"
+
+#: app/templates/index.html:168
 msgid "Partners:"
-msgstr "合作伙伴:"
+msgstr "合作伙伴："
 
-#: app/templates/index.html:177
+#: app/templates/index.html:169
 msgid "Room A441, School of Mechanical Engineering, Tongji University"
-msgstr "同济大学机械与能源工程学院, A441室"
+msgstr "同济大学，机械与能源工程学院A441"
 
-#: app/templates/index.html:177
+#: app/templates/index.html:169
 msgid "No.4800 Caoan Rd., Shanghai"
-msgstr "上海市曹安公路4800号"
+msgstr "上海市嘉定区，曹安公路4800号"
 
 #: app/templates/people.html:8
 msgid "This is us"
-msgstr "组内成员"
+msgstr "小组成员"
 
-#: app/templates/people.html:9
-msgid ""
-"The Group has 3 tutors, 6 doctor candidates and 7 master candidates for "
-"now. All members are listed here chronically. Click on the name card to "
-"have a closer look. hahhahahahahahah"
-msgstr "潘毅群教授课题组位于同济大学嘉定校区开物馆A441，课题组由3名老师、6名博士生和7名硕士组成。"
-
-#: app/templates/people.html:17
+#: app/templates/people.html:18
 msgid "Tutor"
 msgstr "导师"
 
-#: app/templates/people.html:18
-msgid "Doctoral student"
+#: app/templates/people.html:19
+msgid "PhD Candidates"
 msgstr "博士生"
 
-#: app/templates/people.html:19
-msgid "Postgraduate"
+#: app/templates/people.html:20
+msgid "MSc Candidates"
 msgstr "硕士生"
 
-#: app/templates/people.html:20
+#: app/templates/people.html:21
 msgid "Alumni"
 msgstr "已毕业"
 
 #: app/templates/pubs.html:9
 msgid "Research Publications"
-msgstr "发表论文"
+msgstr "发表成果"
 
-#: app/templates/pubs.html:10
-msgid ""
-"Free to download and share the published books and papers. Send an email "
-"if some of those are hard to find. Other documents, guidances, installers"
-" that you may be interested in can be found in the"
-msgstr "潘毅群教授课题组位于同济大学嘉定校区开物馆A441，课题组由3名老师、6名博士生和7名硕士组成。"
-
-#: app/templates/pubs.html:24
+#: app/templates/pubs.html:25
 msgid "Cached"
 msgstr "已归档"
 
-#: app/templates/pubs.html:29
+#: app/templates/pubs.html:30
 msgid "Category"
-msgstr "类别"
+msgstr "论文筛选"
 
-#: app/templates/pubs.html:31
+#: app/templates/pubs.html:32
 msgid "EN-Journal"
 msgstr "英文期刊"
 
-#: app/templates/pubs.html:32
+#: app/templates/pubs.html:33
 msgid "CN-Journal"
 msgstr "中文期刊"
 
-#: app/templates/pubs.html:33
+#: app/templates/pubs.html:34
 msgid "Conference"
 msgstr "会议论文"
 
-#: app/templates/pubs.html:34
+#: app/templates/pubs.html:35
 msgid "Thesis"
 msgstr "学位论文"
 
-#: app/templates/pubs.html:38
+#: app/templates/pubs.html:39 app/templates/search.html:3
 msgid "Search"
 msgstr "搜索"
 
-#: app/templates/search.html:5
+#: app/templates/pubs.html:162
+msgid "ABSTRACT"
+msgstr "摘要"
+
+#: app/templates/search.html:6
 msgid "Search Results"
-msgstr "匹配结果"
+msgstr "搜索结果"
 
 #: app/templates/auth/register.html:2
 msgid "Register"
@@ -206,26 +308,13 @@ msgstr "注册"
 
 #: app/templates/blog/add_post.html:4
 msgid "Add notes"
-msgstr "新增笔记"
+msgstr "文章撰写"
 
-#: app/templates/blog/blog.html:4 app/templates/blog/blog.html:9
-#: app/templates/blog/post.html:4
-msgid "Notes"
-msgstr "笔记"
-
-#: app/templates/blog/blog.html:10 app/templates/news/news.html:14
-#: app/templates/proj/project.html:11
-msgid ""
-"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas "
-"porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, "
-"purus lectus malesuada libero, sit amet commodo magna eros quis urna."
-msgstr "潘毅群教授课题组位于同济大学嘉定校区开物馆A441，课题组由3名老师、6名博士生和7名硕士组成。"
-
-#: app/templates/blog/blog.html:28
+#: app/templates/blog/blog.html:29 app/templates/blog/category.html:23
 msgid "Read More"
-msgstr "更多"
+msgstr ".. 更多"
 
-#: app/templates/blog/blog.html:55 app/templates/blog/blog.html:63
+#: app/templates/blog/blog.html:52 app/templates/blog/blog.html:60
 msgid "Tags"
 msgstr "标签"
 
@@ -235,7 +324,7 @@ msgstr "归档"
 
 #: app/templates/blog/edit_post.html:4
 msgid "Edit notes"
-msgstr "编辑笔记"
+msgstr "文章编辑"
 
 #: app/templates/blog/post.html:99
 msgid "Comments"
@@ -255,11 +344,11 @@ msgstr "说道"
 
 #: app/templates/blog/post.html:136
 msgid "No comments"
-msgstr "暂无回复"
+msgstr "暂无评论"
 
 #: app/templates/blog/post.html:154
 msgid "Reply to"
-msgstr ""
+msgstr "回复"
 
 #: app/templates/blog/post.html:155
 msgid "Cancel"
@@ -275,23 +364,23 @@ msgstr "访问拒绝"
 
 #: app/templates/blog/post.html:200
 msgid "participants"
-msgstr "贡献者"
+msgstr "参与者"
 
 #: app/templates/news/add_event.html:4
 msgid "Add event"
-msgstr "马克日程"
+msgstr "添加事项"
 
 #: app/templates/news/add_news.html:4
 msgid "Add news"
-msgstr "写新闻稿"
+msgstr "添加新闻"
 
 #: app/templates/news/news.html:13
 msgid "Recent News"
 msgstr "近期要闻"
 
-#: app/templates/news/news.html:44 app/templates/news/story.html:80
+#: app/templates/news/news.html:45 app/templates/news/story.html:80
 msgid "Posted by"
-msgstr "通讯作者"
+msgstr "通讯"
 
 #: app/templates/news/story.html:75
 msgid "Time"
@@ -306,24 +395,36 @@ msgid "Update on"
 msgstr "更新"
 
 #: app/templates/news/story.html:83
-msgid "Album"
-msgstr "相簿"
-
-#: app/templates/news/story.html:83
 msgid "pcs"
 msgstr "张"
 
 #: app/templates/proj/add_project.html:4
 msgid "Add project"
-msgstr "备案项目"
+msgstr "项目备案"
 
 #: app/templates/proj/edit_project.html:4
 msgid "Edit project"
-msgstr "编辑项目"
+msgstr "编辑信息"
 
 #: app/templates/proj/project.html:10 app/templates/proj/project_item.html:9
 msgid "Projects"
-msgstr "项目及课题"
+msgstr "课题与项目"
+
+#: app/templates/proj/project.html:11
+msgid ""
+"The Building Performance Simulation Lab is involved in a variety of "
+"projects ranging from traditional building system emulation to most "
+"nascent fields like human behaviour and big data analysis on city scale. "
+"Here you may learn about the strengths of our group and the techniques "
+"equiped to dig into the cutting-edge issues. Key research areas of the "
+"Building Performance Simulation Lab include: Building performance "
+"simulation & mechanical system emulation; Load Leveling & Distributed "
+"Energy System; Human Behaviour in Building Operation; City-scale big data"
+" analysis & Energy management system. The Building Performance Simulation"
+" Lab at Tonji University also colllaborates with many research "
+"institutions and groups as well as industry partners. Here we brief some "
+"of our projects attached with documents for reference."
+msgstr "潘毅群教授课题组已完成数十项课题专项及委托咨询项目，涵盖传统建筑能耗系统模拟到人行为、大数据等前沿热点。主要研究领域为：建筑能耗模拟与系统仿真、区域负荷预测与系统优化、建筑中人的用能行为模拟、建筑大数据分析与能源管理。同时，课题组也同行业内专家学者和企业伙伴保持着密切合作。以下列出部分承接课题并附以项目报告。"
 
 #: app/templates/proj/project_dashboard.html:40
 msgid "Ended"
@@ -333,42 +434,54 @@ msgstr "结题"
 msgid "In progress"
 msgstr "在研"
 
+#: app/templates/proj/project_item.html:22
+msgid "No info"
+msgstr "无信息"
+
+#: app/templates/proj/project_item.html:37
+msgid "Complete"
+msgstr "结题"
+
 #: app/templates/proj/project_item.html:46
 msgid "Attachments"
-msgstr "项目附件"
+msgstr "项目文档"
 
-#: app/templates/proj/project_item.html:53
+#: app/templates/proj/project_item.html:72
 msgid "No document available"
-msgstr "暂无说明文档"
+msgstr "暂无公开项目文档"
 
-#: app/templates/proj/project_item.html:59
+#: app/templates/proj/project_item.html:78
 msgid "Project participants"
 msgstr "参与者"
 
-#: app/templates/proj/project_item.html:61
+#: app/templates/proj/project_item.html:80
 msgid "No claim of this project"
 msgstr "暂无参与人员信息"
 
-#: app/templates/proj/project_item.html:96
+#: app/templates/proj/project_item.html:115
 msgid "Previous"
-msgstr ""
+msgstr "前"
 
-#: app/templates/proj/project_item.html:100
+#: app/templates/proj/project_item.html:119
 msgid "Next"
-msgstr ""
+msgstr "后"
 
 #: app/templates/proj/project_list.html:7
-msgid "Major projects"
-msgstr "纵向及横向课题"
+msgid "Research Projects"
+msgstr "研究项目"
 
-#: app/templates/proj/project_list.html:43
-msgid "Thesis projects"
-msgstr "学生实验项目"
+#: app/templates/proj/project_list.html:44
+msgid "Consulting Projects"
+msgstr "模拟咨询"
+
+#: app/templates/proj/project_list.html:81
+msgid "Thesis Projects"
+msgstr "学生课题"
 
 #: app/templates/user/reset_password.html:2
 #: app/templates/user/reset_password_request.html:2
 msgid "Reset password"
-msgstr "重置密码"
+msgstr "密码重置"
 
 #: app/templates/user/user.html:29
 msgid "Last been here on"
@@ -376,21 +489,21 @@ msgstr "上次访问于"
 
 #: app/templates/user/user.html:31
 msgid "followers"
-msgstr "订阅"
+msgstr ""
 
 #: app/templates/user/user.html:31
 msgid "following"
-msgstr "关注"
+msgstr ""
 
 #: app/templates/user/user.html:33
 msgid "Edit profile"
-msgstr "编辑简历"
+msgstr ""
 
 #: app/templates/user/user.html:35
 msgid "Follow"
-msgstr "关注"
+msgstr ""
 
 #: app/templates/user/user.html:37
 msgid "Unfollow"
-msgstr "取关"
+msgstr ""
 
