@@ -16,8 +16,9 @@
 
 			<div style="text-align:right;" class="col-md-3 col-sm-4">
 				{% if project.startdate %}
-				<small style="display: inline;">{{ project.startdate.strftime('%Y-%m-%d') }}</small>
+				<small style="display: inline;">{{ project.startdate.strftime('%Y-%m') }}</small>
 				{% endif %}
+				<a href="{{ url_for('proj.show_project', project_id=project.id) }}" class="pubs-button"><i class="fas fa-info"></i></a>
 				{% if current_user.is_authenticated %}
                 <form style="display: inline; margin-left: 5px;">
                     <a class="pubs-button" href="{{ url_for('proj.edit_project', project_id=project.id, next=request.full_path) }}"><i class="far fa-edit"></i></a>
@@ -53,8 +54,9 @@
 
 			<div style="text-align:right;" class="col-md-3 col-sm-4">
 				{% if project.startdate %}
-				<small style="display: inline;">{{ project.startdate.strftime('%Y-%m-%d') }}</small>
+				<small style="display: inline;">{{ project.startdate.strftime('%Y-%m') }}</small>
 				{% endif %}
+				<a href="{{ url_for('proj.show_project', project_id=project.id) }}" class="pubs-button"><i class="fas fa-info"></i></a>
 				{% if current_user.is_authenticated %}
                 <form style="display: inline; margin-left: 5px;">
                     <a class="pubs-button" href="{{ url_for('proj.edit_project', project_id=project.id, next=request.full_path) }}"><i class="far fa-edit"></i></a>
@@ -90,8 +92,9 @@
 
 			<div style="text-align:right;" class="col-md-3 col-sm-4">
 				{% if project.startdate %}
-				<small style="display: inline;">{{ project.startdate.strftime('%Y-%m-%d') }}</small>
+				<small style="display: inline;">{{ project.startdate.strftime('%Y-%m') }}</small>
 				{% endif %}
+				<a href="{{ url_for('proj.show_project', project_id=project.id) }}" class="pubs-button"><i class="fas fa-info"></i></a>
 				{% if current_user.is_authenticated %}
                 <form style="display: inline; margin-left: 5px;">
                     <a class="pubs-button" href="{{ url_for('proj.edit_project', project_id=project.id, next=request.full_path) }}"><i class="far fa-edit"></i></a>

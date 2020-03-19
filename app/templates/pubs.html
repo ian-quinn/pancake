@@ -125,7 +125,7 @@
 		{% for paper in papers %}
 		<div class="pubs row {% if paper.category == 1 %}sci{% endif %}{% if paper.category == 2 %}ei{% endif %}{% if paper.category == 3 %}cssci{% endif %}{% if paper.category == 4 %}thesis{% endif %}">
 			<div class="col-10">
-				<b class="text-muted">{{ paper.title }}
+				<b class="text-muted"><a data-toggle="collapse" href="#No{{ paper.id }}" role="button" aria-expanded="false" aria-controls="collapseExample" class="pubs-button">{{ paper.title }}</a>
 					{% if paper.issci %}
 					<span class="badge badge-danger">SCI</span>
 					{% endif %}
@@ -145,8 +145,6 @@
                     <button class="pubs-button" onclick="return confirm('Can not be reversed. Are you sure?');"><i class="far fa-trash-alt"></i></button>
                 </form>
                 {% endif %}
-                
-				<a data-toggle="collapse" href="#No{{ paper.id }}" role="button" aria-expanded="false" aria-controls="collapseExample" class="pubs-button"><i class="fas fa-asterisk"></i></a>
 
 				<form method="get"
                   action="{{ url_for('download_pubs', paper_id=paper.id) }}" style="display: inline;">

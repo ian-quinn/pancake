@@ -76,7 +76,8 @@
                 <div class="container">
                     {% if active_page != 'index' %}
                     <a class="navbar-brand {% if get_locale() == 'zh' %}fluffy{% endif %}" href="#" style="font-size: 1.2rem;">
-                        {{ _('Building Performance Simulation Lab') }}
+                        {% if get_locale() == 'zh' %}潘毅群教授课题组{% else %}
+                        PAN Research Group{% endif %}
                     </a>
                     {% else %}
                     <a class="navbar-brand" href="#">

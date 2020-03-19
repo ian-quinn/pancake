@@ -20,11 +20,11 @@
 
     <div class="row justify-content-between news-header" > <!-- class not defined! -->
         
-        <div class="col-8">
+        <div class="col-md-8">
             <span>{% if get_locale() == 'zh' %}{{ news.title_cn }}{% else %}{{ news.title_en }}{% endif %}</span>
         </div>
 
-        <div class="col-4 ctrl-panel">
+        <div class="col-md-4 ctrl-panel">
             {% if current_user.is_authenticated %}
 
             {% if news.jumbotron %}

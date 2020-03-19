@@ -27,9 +27,9 @@
         {% if news.category == 2 %}amusement{% endif %}
         {% if news.category == 3 %}appointment{% endif %} news-list {% if not loop.last %}news-list-break{% endif %}" >
 
-            {% if news.date %}
+            {% if news.category == 3 %}
             <div class="news-schedule text-secondary">
-                <span>{{ news.date.strftime('%Y-%m-%d %H:%M') }}</span>
+                <span>{% if news.date %}{{ news.date.strftime('%Y-%m-%d %H:%M') }}{% else %}??-??-?? ??:??{% endif %}</span>
                 <span style="float: right;">{% if news.location %}{{ news.location }}{% endif %}</span>
             </div>
             {% endif %}

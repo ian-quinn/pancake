@@ -6,7 +6,7 @@
 		{% for project in projects %}
 		<div class="card {% if not project.id|getstatus %}border-secondary{% endif %}" style="box-shadow: 0px 0px 1px #ccc">
 			{% if project.banner %}
-			<div class="img-responsive" style="max-height: 300px;">
+			<div class="img-responsive" style="max-height: 200px;">
 				<img src="{{ url_for('static', filename='projtemp/' + project.banner) }}" class="card-img">
 			</div>
 			{% endif %}
@@ -36,7 +36,7 @@
 						{% endif %}
 					{% endif %}
 				</p>
-				<small style="text-align: left;">{% if project.startdate %}{{ project.startdate.strftime('%Y-%m-%d') }}{% elif project.enddate %}{{ project.enddate.strftime('%Y-%m-%d') }}{% else %}????-??-??{% endif %}
+				<small style="text-align: left;">{% if project.startdate %}{{ project.startdate.strftime('%Y-%m') }}{% elif project.enddate %}{{ project.enddate.strftime('%Y-%m') }}{% else %}????-??{% endif %}
 					<span style="float: right;">{% if project.id|getstatus %}{{ _('Ended') }}{% else %}{{ _('In progress')}}{% endif %}</span>
 				</small>
 			</div>

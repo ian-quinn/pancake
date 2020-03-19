@@ -1504,15 +1504,14 @@ code {
 }
 
 .news-header {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 25px;
+  padding-bottom: 25px;
   border-bottom: 1px solid #a8a8a8;
   border-top: 1px solid #a8a8a8;
 }
 
 .news-header span {
   font-size: 2em;
-  line-height: 2em;
 }
 
 .ctrl-panel {

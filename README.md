@@ -16,6 +16,14 @@
 >>> whooshee.reindex()
 ```
 - Update translation files
+```
+(venv) $ pybabel extract -F babel.cfg -k _l -o messages.pot .
+(venv) $ pybabel init -i messages.pot -d app/translations -l zh
+creating catalog app/translations/es/LC_MESSAGES/messages.po based on messages.pot
+(venv) $ pybabel compile -d app/translations
+compiling catalog app/translations/es/LC_MESSAGES/messages.po to
+app/translations/zh/LC_MESSAGES/messages.mo
+```
 - Update project by Git
 ```
 (venv) $ git pull                              # download the new version
