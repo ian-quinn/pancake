@@ -1508,6 +1508,7 @@ code {
   padding-bottom: 25px;
   border-bottom: 1px solid #a8a8a8;
   border-top: 1px solid #a8a8a8;
+  line-height: 2.5em;
 }
 
 .news-header span {
@@ -1575,7 +1576,7 @@ code {
   width: 8px;
   display: inline-block;
   margin-left: -18px;
-  margin-top: 10px;
+  margin-top: 7px;
   margin-bottom: -20px;
   cursor: pointer;
 }

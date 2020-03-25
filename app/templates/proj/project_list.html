@@ -11,7 +11,7 @@
 		{% if project.category == 1 %}
 		<div class="project-list row">
 			<div class="col-md-9 col-sm-8">
-				<span><a data-toggle="collapse" href="#No{{ project.id }}" role="button" aria-expanded="false" aria-controls="No{{ project.id }}">{% if get_locale() == 'zh' %}{{ project.title_cn }}{% else %}{{ project.title_en|capitalize }}{% endif %}</a></span>
+				<span><a data-toggle="collapse" href="#No{{ project.id }}" role="button" aria-expanded="false" aria-controls="No{{ project.id }}">{% if get_locale() == 'zh' %}{{ project.title_cn }}{% else %}{{ project.title_en }}{% endif %}</a></span>
 			</div>
 
 			<div style="text-align:right;" class="col-md-3 col-sm-4">

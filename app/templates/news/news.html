@@ -38,9 +38,9 @@
             {% if news.category == 1 %}class="category-pin pin-academy"{% endif %}
             {% if news.category == 2 %}class="category-pin pin-amusement"{% endif %}
             {% if news.category == 3 %}class="category-pin pin-appointment"{% endif %}></div>
-            <h4 class="text-secondary">
+            <h5 class="text-secondary">
                 <a href="{{ url_for('.show_news', news_id=news.id) }}">{% if get_locale() == 'zh' %}{{ news.title_cn }}{% else %}{{ news.title_en }}{% endif %}</a>
-            </h4>
+            </h5>
 
             <small class="timestamp mute">{{ moment(news.timestamp).format('YYYY-MM-DD') }} {{ _('Posted by')}} {{ news.author.nickname }}</small>
             <div class="news-preview">

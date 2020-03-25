@@ -16,7 +16,7 @@
 				
 				<h5 class="card-title">
 					{% if project.filename %}<a href="{{ url_for('proj.show_project', project_id=project.id) }}">{% endif %}
-					{% if get_locale() == 'zh' %}{{ project.title_cn }}{% else %}{{ project.title_en|capitalize }}{% endif %}
+					{% if get_locale() == 'zh' %}{{ project.title_cn }}{% else %}{{ project.title_en }}{% endif %}
 					{% if project.filename %}</a>{% endif %}
 				</h5>
 				<p class="card-text" style="line-height: 1.6em; font-size: 0.9em;">

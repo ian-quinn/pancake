@@ -203,23 +203,19 @@ killasgroup=true
 ```
 # /etc/nginx/conf.d/pancake_443.conf
 # http {} upper level settings
-client_max_body_size 50m;
+client_max_body_size 500m;
+client_max_body_size 200m;
+client_header_timeout 60; 
+client_body_timeout 60;
+proxy_connect_timeout 60;
+proxy_send_timeout 60;
+proxy_read_timeout 60;
+keepalive_timeout 1200;
+
 server {
     # listen on port 80 (http)
     listen 80;
-    server_name _;
-    location / {
-        # redirect any requests to the same URL but on https
-        return 301 https://$host$request_uri;
-    }
-}
-server {
-    # listen on port 443 (https)
-    listen 443 ssl;
-    server_name _;
-    # location of the self-signed SSL certificate
-    ssl_certificate /home/pancake/certs/cert.pem;
-    ssl_certificate_key /home/pancake/certs/key.pem;
+    server_name bsim.tongji.edu.cn;
     # write access and error logs to /var/log
     access_log /var/log/pan_access.log;
     error_log /var/log/pan_error.log;
@@ -237,6 +233,7 @@ server {
         expires 30d;
     }
 }
+
 ```
 
 ## Future plans
