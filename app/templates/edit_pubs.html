@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% set active_page = "project" %}
+
+{% block title %}{{ _('Edit project')}}{% endblock %}
+
+{% block content %}
+<div class="pub-box" style="padding-top: 10px;">
+	{% if current_user.is_authenticated %}
+	<form action="{{ url_for('edit_pubs', paper_id=paper.id) }}" method="post" enctype="multipart/form-data">
+		{{ form.hidden_tag() }}
+		<div class="form-group">
+			{{ form.title(class="form-control", placeholder="Title") }}
+			{% for error in form.title.errors %}
+            <small class="error-bullet">{{ error }}</small>
+            {% endfor %}
+		</div>
+		<div class="form-row">
+			<div class="col-3">
+				{{ form.author(class="form-control", placeholder="Author") }}
+				{% for error in form.author.errors %}
+                <small class="error-bullet">{{ error }}</small>
+                {% endfor %}
+			</div>
+			<div class="col">
+				{{ form.coauthor(class="form-control", placeholder="Co-Author") }}
+			</div>
+		</div>
+		<div class="form-row" style="height: 225px; margin-top: 16px; margin-bottom: 16px;">
+			<div class="col-3">
+				<div class="form-group">
+					{{ form.journal(class="form-control", placeholder="Journal") }}
+					{% for error in form.journal.errors %}
+	                <small class="error-bullet">{{ error }}</small>
+	                {% endfor %}
+				</div>
+				<div class="form-group">
+					{{ form.date(class="form-control", placeholder="YYYY-MM") }}
+					{% for error in form.date.errors %}
+	                <small class="error-bullet">{{ error }}</small>
+	                {% endfor %}
+				</div>
+				<div class="input-group">
+					{{ form.category(class="custom-select form-control", id="filtername") }}
+				</div>
+				<div class="col-6 custom-control custom-switch form-group" style="margin-top: 20px;">
+					{{ form.is_sci(type="checkbox", class="custom-control-input", id="SCIswitch") }}
+					<label class="custom-control-label" for="SCIswitch">SCI</label>
+				</div>
+				<div class="col-6 custom-control custom-switch form-group">
+					{{ form.is_ei(type="checkbox", class="custom-control-input", id="EIswitch") }}
+					<label class="custom-control-label" for="EIswitch">EI</label>
+				</div>
+			</div>
+			<div class="col-9">
+				<div class="form-group pubs_box" style="height: 150px;">
+					{{ form.abstract(class="form-control", placeholder="Abstract") }}
+					{% for error in form.abstract.errors %}
+	                <small class="error-bullet">{{ error }}</small>
+	                {% endfor %}
+				</div>
+				<div class="form-group pubs_box" style="height: 60px;">
+					{{ form.abstract(class="form-control", placeholder="Citation") }}
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			{{ form.submit(class="btn btn-outline-danger btn-sm btn-block") }}
+		</div>
+	</form>
+	{% endif %}
+</div>
+
+{% endblock %}

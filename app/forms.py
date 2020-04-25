@@ -101,6 +101,19 @@ class AddPubsForm(FlaskForm):
 	#	if chronicle.data < 2006 or chronicle.data > 2025:
 	#		raise ValidationError('Enrollment year format: XXXX ')
 
+class EditPubsForm(FlaskForm):
+	title = StringField('Title', validators=[DataRequired(message="Title must be specified")])
+	author = StringField('Author', validators=[DataRequired(message="The author is needed for retrieving")])
+	coauthor = StringField('Co-Author')
+	journal = StringField('Journal', validators=[DataRequired(message="Journal info is necessary")])
+	date = DateField('Publish date', format='%Y-%m')
+	category = SelectField('Category', choices=[(1,'英文期刊'), (2,'中文期刊'), (3,'会议论文'), (4,'学位论文')], default=1, coerce=int)
+	abstract = TextAreaField('Briefing')
+	citation = TextAreaField('Citation')
+	is_sci = BooleanField('SCI?')
+	is_ei = BooleanField('EI?')
+	submit = SubmitField('Submit')
+
 class PostForm(FlaskForm):
 	post = TextAreaField('Say something', validators=[DataRequired()])
 	submit = SubmitField('Submit')

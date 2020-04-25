@@ -266,3 +266,4 @@ More extensions are in development to add more functions, which will be deployed
 - [ ] Multiple highlights of whooshee's search result
 - [ ] Reconstruction blueprint for further extension of modules
 - [ ] Consider sub-page loading papers
+- [x] Allow to change information of papers

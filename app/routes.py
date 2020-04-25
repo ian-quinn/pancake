@@ -21,7 +21,7 @@ from babel import Locale
 # ------------from current app-------------
 from app import app, db, avatars
 from app.models import User, Paper, Post, Comment, News, File, Project, History, Category, Photo
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, AddPubsForm, PostForm, CommentForm, UserCommentForm, AddProjectForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, AddPubsForm, EditPubsForm, PostForm, CommentForm, UserCommentForm, AddProjectForm
 from app.forms import CropAvatarForm, UploadAvatarForm, JumboAvatarForm, EditPasswordForm, AddNewsForm, AddEventForm, SearchForm
 
 
@@ -100,7 +100,8 @@ def pubs():
         # filename = random_filename(f.filename)
         # f.save(os.path.join(app.config['PUBS_UPLOAD_PATH'], filename))
     if form.validate_on_submit():
-        title = str.title(form.title.data)
+        # never alter the format when storing the data
+        title = form.title.data
         author = str.title(form.author.data)
         coauthor = str.title(form.coauthor.data)
         citation = form.citation.data
@@ -140,6 +141,37 @@ def delete_pubs(paper_id):
     db.session.commit()
     flash('Paper deleted.', 'danger')
     return redirect(url_for('pubs'))
+
+@app.route('/pubs/<int:paper_id>/edit', methods=['GET', 'POST'])
+@login_required
+def edit_pubs(paper_id):
+    paper = Paper.query.get_or_404(paper_id)
+    form = EditPubsForm()
+    if form.validate_on_submit():
+        paper.title = form.title.data
+        paper.author = str.title(form.author.data)
+        paper.coauthor = str.title(form.coauthor.data)
+        paper.journal = form.journal.data
+        paper.date = form.date.data
+        paper.category = form.category.data
+        paper.abstract = form.abstract.data
+        paper.citation = form.citation.data
+        paper.issci = form.is_sci.data
+        paper.isei = form.is_ei.data
+        db.session.commit()
+        flash('Changes have been saved.', 'success')
+        return redirect(url_for('pubs'))
+    form.title.data = paper.title
+    form.author.data = paper.author
+    form.coauthor.data = paper.coauthor
+    form.journal.data = paper.journal
+    form.date.data = paper.date
+    form.category.data = paper.category
+    form.abstract.data = paper.abstract
+    form.citation.data = paper.citation
+    form.is_sci.data = paper.issci
+    form.is_ei.data = paper.isei
+    return render_template('edit_pubs.html', form=form, paper=paper)
 
 
 @app.route('/pubs/<int:paper_id>/download', methods=['GET'])
