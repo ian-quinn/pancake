@@ -146,13 +146,14 @@
                 </form>
 
                 <a href="{{ url_for('edit_pubs', paper_id=paper.id, next=request.full_path) }}" role="button" class="pubs-button"><i class="far fa-edit"></i></a>
-
                 {% endif %}
 
+                {% if paper.filename %}
 				<form method="get"
                   action="{{ url_for('download_pubs', paper_id=paper.id) }}" style="display: inline;">
                     <button class="pubs-button"><i class="far fa-file"></i></button>
                 </form>
+                {% endif %}
 
                 <!--
 				<a class="pubs-button" href="{{ url_for('static', filename='publications/') }}{{ paper.filename }}"><i class="far fa-file"></a>

@@ -107,12 +107,15 @@ def pubs():
         citation = form.citation.data
         issci = form.is_sci.data
         isei = form.is_ei.data
-        filename = re.sub('\s', '_', str.capitalize(title[0:32]), 0) + '.pdf'
-        f = form.file.data
-        if os.path.splitext(f.filename)[1] != '.pdf':
-            flash('PDF only!', 'danger')
-            return redirect(url_for('pubs'))
-        f.save(os.path.join(app.config['PUBS_UPLOAD_PATH'], filename))
+        if form.file.data:
+            filename = re.sub('\s', '_', str.capitalize(title[0:32]), 0) + '.pdf'
+            f = form.file.data
+            if os.path.splitext(f.filename)[1] != '.pdf':
+                flash('PDF only!', 'danger')
+                return redirect(url_for('pubs'))
+            f.save(os.path.join(app.config['PUBS_UPLOAD_PATH'], filename))
+        else:
+            filename = ''
         paper = Paper(title=title, author=author, coauthor=coauthor, filename=filename, 
             journal=form.journal.data, date=form.date.data, category=form.category.data,
             abstract=form.abstract.data, citation=citation, issci=issci, isei=isei)
