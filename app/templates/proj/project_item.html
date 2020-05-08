@@ -48,8 +48,9 @@
 					{% for document in documentlist %}
 					{% if not document.islocked or current_user.is_authenticated %}
 					<li class="document-bullet">
-						<a href="{{ url_for('.download', document_id=document.id) }}">{{ document.filenote }}</a>
 						{% if current_user.is_authenticated %}
+
+						<a href="{{ url_for('.download', document_id=document.id) }}">{{ document.filenote }}</a>
 	                    {% if document.islocked %}
 	                    <form method="post"
 	                          action="{{ url_for('.block', document_id=document.id) }}" class="document-blocker">
@@ -63,6 +64,12 @@
 	                        <button class="book-button"><i class="far fa-eye"></i></button>
 	                    </form>
 	                    {% endif %}
+	                    
+		                {% else %}
+		                <span style="color: #ccc;">{{ document.filenote }}</span>
+		                <form class="document-blocker">
+	                        <button class="book-button"><i class="fas fa-lock" style="color: #ccc;"></i></button>
+	                    </form>
 		                {% endif %}
 					</li>
 					{% endif %}
