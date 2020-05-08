@@ -13,9 +13,7 @@
 			<div class="row">
 	 			<div class="{% if current_user.is_authenticated %}col-md-11 col-sm-10{% else %}col-12{% endif %}">
 					<span style="text-align: left;"><a data-toggle="collapse" href="#No{{ project.id }}" role="button" aria-expanded="false" aria-controls="No{{ project.id }}">{% if get_locale() == 'zh' %}{{ project.title_cn }}{% else %}{{ project.title_en }}{% endif %}</a>
-					{% if project.startdate %}
-					<span style="float:right;">{{ project.startdate.strftime('%Y') }}</span></span>
-					{% endif %}
+					<span style="float:right;">{% if project.enddate %}{{ project.enddate.strftime('%Y') }}{% elif project.startdate %}{{ project.startdate.strftime('%Y') }}{% endif %}</span></span>
 				</div>
 
 				{% if current_user.is_authenticated %}
@@ -34,7 +32,7 @@
 
 			<div class="collapse" id="No{{ project.id }}" data-parent="#ProjectAccordion">
 				<p class="mb-auto text-muted" style="">{% if get_locale() == 'zh' %}{{ project.brief_cn }}{% else %}{{ project.brief_en }}{% endif %}
-					{% if project.filename %}
+					{% if project.filename or project.documents %}
 					<a href="{{ url_for('proj.show_project', project_id=project.id) }}"><small>...More...</small></a>
 					{% endif %}
 				</p>
@@ -56,9 +54,7 @@
 			<div class="row">
 	 			<div class="{% if current_user.is_authenticated %}col-md-11 col-sm-10{% else %}col-12{% endif %}">
 					<span style="text-align: left;"><a data-toggle="collapse" href="#No{{ project.id }}" role="button" aria-expanded="false" aria-controls="No{{ project.id }}">{% if get_locale() == 'zh' %}{{ project.title_cn }}{% else %}{{ project.title_en }}{% endif %}</a>
-					{% if project.startdate %}
-					<span style="float:right;">{{ project.startdate.strftime('%Y') }}</span></span>
-					{% endif %}
+					<span style="float:right;">{% if project.enddate %}{{ project.enddate.strftime('%Y') }}{% elif project.startdate %}{{ project.startdate.strftime('%Y') }}{% endif %}</span></span>
 				</div>
 
 				{% if current_user.is_authenticated %}
@@ -77,7 +73,7 @@
 
 			<div class="collapse" id="No{{ project.id }}" data-parent="#ProjectAccordion">
 				<p class="mb-auto text-muted" style="">{% if get_locale() == 'zh' %}{{ project.brief_cn }}{% else %}{{ project.brief_en }}{% endif %}
-					{% if project.filename %}
+					{% if project.filename or project.documents %}
 					<a href="{{ url_for('proj.show_project', project_id=project.id) }}"><small>...More...</small></a>
 					{% endif %}
 				</p>
@@ -99,9 +95,7 @@
 			<div class="row">
 	 			<div class="{% if current_user.is_authenticated %}col-md-11 col-sm-10{% else %}col-12{% endif %}">
 					<span style="text-align: left;"><a data-toggle="collapse" href="#No{{ project.id }}" role="button" aria-expanded="false" aria-controls="No{{ project.id }}">{% if get_locale() == 'zh' %}{{ project.title_cn }}{% else %}{{ project.title_en }}{% endif %}</a>
-					{% if project.startdate %}
-					<span style="float:right;">{{ project.startdate.strftime('%Y') }}</span></span>
-					{% endif %}
+					<span style="float:right;">{% if project.enddate %}{{ project.enddate.strftime('%Y') }}{% elif project.startdate %}{{ project.startdate.strftime('%Y') }}{% endif %}</span></span>
 				</div>
 
 				{% if current_user.is_authenticated %}
@@ -120,7 +114,7 @@
 
 			<div class="collapse" id="No{{ project.id }}" data-parent="#ProjectAccordion">
 				<p class="mb-auto text-muted" style="">{% if get_locale() == 'zh' %}{{ project.brief_cn }}{% else %}{{ project.brief_en }}{% endif %}
-					{% if project.filename %}
+					{% if project.filename or project.documents %}
 					<a href="{{ url_for('proj.show_project', project_id=project.id) }}"><small>...More...</small></a>
 					{% endif %}
 				</p>
