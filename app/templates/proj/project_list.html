@@ -9,30 +9,35 @@
 
 		{% for project in projects %}
 		{% if project.category == 1 %}
-		<div class="project-list row">
-			<div class="col-md-9 col-sm-8">
-				<span><a data-toggle="collapse" href="#No{{ project.id }}" role="button" aria-expanded="false" aria-controls="No{{ project.id }}">{% if get_locale() == 'zh' %}{{ project.title_cn }}{% else %}{{ project.title_en }}{% endif %}</a></span>
-			</div>
+		<div class="project-list">
+			<div class="row">
+	 			<div class="{% if current_user.is_authenticated %}col-md-11 col-sm-10{% else %}col-12{% endif %}">
+					<span style="text-align: left;"><a data-toggle="collapse" href="#No{{ project.id }}" role="button" aria-expanded="false" aria-controls="No{{ project.id }}">{% if get_locale() == 'zh' %}{{ project.title_cn }}{% else %}{{ project.title_en }}{% endif %}</a>
+					{% if project.startdate %}
+					<span style="float:right;">{{ project.startdate.strftime('%Y') }}</span></span>
+					{% endif %}
+				</div>
 
-			<div style="text-align:right;" class="col-md-3 col-sm-4">
-				{% if project.startdate %}
-				<small style="display: inline;">{{ project.startdate.strftime('%Y-%m') }}</small>
-				{% endif %}
-				<a href="{{ url_for('proj.show_project', project_id=project.id) }}" class="pubs-button"><i class="fas fa-info"></i></a>
 				{% if current_user.is_authenticated %}
-                <form style="display: inline; margin-left: 5px;">
-                    <a class="pubs-button" href="{{ url_for('proj.edit_project', project_id=project.id, next=request.full_path) }}"><i class="far fa-edit"></i></a>
-                </form>
-				<form method="post"
-	                  action="{{ url_for('proj.delete_project', project_id=project.id, next=request.full_path) }}" style="display: inline;">
-	                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-	                <button class="pubs-button" onclick="return confirm('Can not be reversed. Are you sure?');"><i class="far fa-trash-alt"></i></button>
-	            </form>
-	            {% endif %}
+				<div style="text-align:right;" class="col-md-1 col-sm-2">
+	                <form style="display: inline; margin-left: 5px;">
+	                    <a class="pubs-button" href="{{ url_for('proj.edit_project', project_id=project.id, next=request.full_path) }}"><i class="far fa-edit"></i></a>
+	                </form>
+					<form method="post"
+		                  action="{{ url_for('proj.delete_project', project_id=project.id, next=request.full_path) }}" style="display: inline;">
+		                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+		                <button class="pubs-button" onclick="return confirm('Can not be reversed. Are you sure?');"><i class="far fa-trash-alt"></i></button>
+		            </form>
+				</div>
+				{% endif %}
 			</div>
 
 			<div class="collapse" id="No{{ project.id }}" data-parent="#ProjectAccordion">
-				<p class="mb-auto text-muted" style="">{% if get_locale() == 'zh' %}{{ project.brief_cn }}{% else %}{{ project.brief_en|capitalize }}{% endif %}</p>
+				<p class="mb-auto text-muted" style="">{% if get_locale() == 'zh' %}{{ project.brief_cn }}{% else %}{{ project.brief_en }}{% endif %}
+					{% if project.filename %}
+					<a href="{{ url_for('proj.show_project', project_id=project.id) }}"><small>...More...</small></a>
+					{% endif %}
+				</p>
 			</div>
 		</div>
 		{% endif %}
@@ -47,30 +52,35 @@
 
 		{% for project in projects %}
 		{% if project.category == 2 %}
-		<div class="project-list row">
-			<div class="col-md-9 col-sm-8">
-				<span><a data-toggle="collapse" href="#No{{ project.id }}" role="button" aria-expanded="false" aria-controls="No{{ project.id }}">{% if get_locale() == 'zh' %}{{ project.title_cn }}{% else %}{{ project.title_en|capitalize }}{% endif %}</a></span>
-			</div>
+		<div class="project-list">
+			<div class="row">
+	 			<div class="{% if current_user.is_authenticated %}col-md-11 col-sm-10{% else %}col-12{% endif %}">
+					<span style="text-align: left;"><a data-toggle="collapse" href="#No{{ project.id }}" role="button" aria-expanded="false" aria-controls="No{{ project.id }}">{% if get_locale() == 'zh' %}{{ project.title_cn }}{% else %}{{ project.title_en }}{% endif %}</a>
+					{% if project.startdate %}
+					<span style="float:right;">{{ project.startdate.strftime('%Y') }}</span></span>
+					{% endif %}
+				</div>
 
-			<div style="text-align:right;" class="col-md-3 col-sm-4">
-				{% if project.startdate %}
-				<small style="display: inline;">{{ project.startdate.strftime('%Y-%m') }}</small>
-				{% endif %}
-				<a href="{{ url_for('proj.show_project', project_id=project.id) }}" class="pubs-button"><i class="fas fa-info"></i></a>
 				{% if current_user.is_authenticated %}
-                <form style="display: inline; margin-left: 5px;">
-                    <a class="pubs-button" href="{{ url_for('proj.edit_project', project_id=project.id, next=request.full_path) }}"><i class="far fa-edit"></i></a>
-                </form>
-				<form method="post"
-	                  action="{{ url_for('proj.delete_project', project_id=project.id, next=request.full_path) }}" style="display: inline;">
-	                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-	                <button class="pubs-button" onclick="return confirm('Can not be reversed. Are you sure?');"><i class="far fa-trash-alt"></i></button>
-	            </form>
-	            {% endif %}
+				<div style="text-align:right;" class="col-md-1 col-sm-2">
+	                <form style="display: inline; margin-left: 5px;">
+	                    <a class="pubs-button" href="{{ url_for('proj.edit_project', project_id=project.id, next=request.full_path) }}"><i class="far fa-edit"></i></a>
+	                </form>
+					<form method="post"
+		                  action="{{ url_for('proj.delete_project', project_id=project.id, next=request.full_path) }}" style="display: inline;">
+		                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+		                <button class="pubs-button" onclick="return confirm('Can not be reversed. Are you sure?');"><i class="far fa-trash-alt"></i></button>
+		            </form>
+				</div>
+				{% endif %}
 			</div>
 
 			<div class="collapse" id="No{{ project.id }}" data-parent="#ProjectAccordion">
-				<p class="mb-auto text-muted" style="">{% if get_locale() == 'zh' %}{{ project.brief_cn }}{% else %}{{ project.brief_en|capitalize }}{% endif %}</p>
+				<p class="mb-auto text-muted" style="">{% if get_locale() == 'zh' %}{{ project.brief_cn }}{% else %}{{ project.brief_en }}{% endif %}
+					{% if project.filename %}
+					<a href="{{ url_for('proj.show_project', project_id=project.id) }}"><small>...More...</small></a>
+					{% endif %}
+				</p>
 			</div>
 		</div>
 		{% endif %}
@@ -86,29 +96,34 @@
 		{% for project in projects %}
 		{% if project.category == 3 %}
 		<div class="project-list row">
-			<div class="col-md-9 col-sm-8">
-				<span><a data-toggle="collapse" href="#No{{ project.id }}" role="button" aria-expanded="false" aria-controls="No{{ project.id }}" class="pubs-button">{% if get_locale() == 'zh' %}{{ project.title_cn }}{% else %}{{ project.title_en|capitalize }}{% endif %}</a></span>
-			</div>
+			<div class="row">
+	 			<div class="{% if current_user.is_authenticated %}col-md-11 col-sm-10{% else %}col-12{% endif %}">
+					<span style="text-align: left;"><a data-toggle="collapse" href="#No{{ project.id }}" role="button" aria-expanded="false" aria-controls="No{{ project.id }}">{% if get_locale() == 'zh' %}{{ project.title_cn }}{% else %}{{ project.title_en }}{% endif %}</a>
+					{% if project.startdate %}
+					<span style="float:right;">{{ project.startdate.strftime('%Y') }}</span></span>
+					{% endif %}
+				</div>
 
-			<div style="text-align:right;" class="col-md-3 col-sm-4">
-				{% if project.startdate %}
-				<small style="display: inline;">{{ project.startdate.strftime('%Y-%m') }}</small>
-				{% endif %}
-				<a href="{{ url_for('proj.show_project', project_id=project.id) }}" class="pubs-button"><i class="fas fa-info"></i></a>
 				{% if current_user.is_authenticated %}
-                <form style="display: inline; margin-left: 5px;">
-                    <a class="pubs-button" href="{{ url_for('proj.edit_project', project_id=project.id, next=request.full_path) }}"><i class="far fa-edit"></i></a>
-                </form>
-				<form method="post"
-	                  action="{{ url_for('proj.delete_project', project_id=project.id, next=request.full_path) }}" style="display: inline;">
-	                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-	                <button class="pubs-button" onclick="return confirm('Can not be reversed. Are you sure?');"><i class="far fa-trash-alt"></i></button>
-	            </form>
-	            {% endif %}
+				<div style="text-align:right;" class="col-md-1 col-sm-2">
+	                <form style="display: inline; margin-left: 5px;">
+	                    <a class="pubs-button" href="{{ url_for('proj.edit_project', project_id=project.id, next=request.full_path) }}"><i class="far fa-edit"></i></a>
+	                </form>
+					<form method="post"
+		                  action="{{ url_for('proj.delete_project', project_id=project.id, next=request.full_path) }}" style="display: inline;">
+		                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+		                <button class="pubs-button" onclick="return confirm('Can not be reversed. Are you sure?');"><i class="far fa-trash-alt"></i></button>
+		            </form>
+				</div>
+				{% endif %}
 			</div>
 
 			<div class="collapse" id="No{{ project.id }}" data-parent="#ProjectAccordion">
-				<p class="mb-auto text-muted" style="">{% if get_locale() == 'zh' %}{{ project.brief_cn }}{% else %}{{ project.brief_en|capitalize }}{% endif %}</p>
+				<p class="mb-auto text-muted" style="">{% if get_locale() == 'zh' %}{{ project.brief_cn }}{% else %}{{ project.brief_en }}{% endif %}
+					{% if project.filename %}
+					<a href="{{ url_for('proj.show_project', project_id=project.id) }}"><small>...More...</small></a>
+					{% endif %}
+				</p>
 			</div>
 		</div>
 		{% endif %}

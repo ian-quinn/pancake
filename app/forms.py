@@ -105,7 +105,7 @@ class EditPubsForm(FlaskForm):
 	title = StringField('Title', validators=[DataRequired(message="Title must be specified")])
 	author = StringField('Author', validators=[DataRequired(message="The author is needed for retrieving")])
 	coauthor = StringField('Co-Author')
-	journal = StringField('Journal', validators=[DataRequired(message="Journal info is necessary")])
+	journal = StringField('Journal')
 	date = DateField('Publish date', format='%Y-%m')
 	category = SelectField('Category', choices=[(1,'英文期刊'), (2,'中文期刊'), (3,'会议论文'), (4,'学位论文')], default=1, coerce=int)
 	abstract = TextAreaField('Briefing')
