@@ -46,33 +46,37 @@
 				<small class="project-bullet">{{ _('Attachments') }}</small>
 				<ul class="list-group" style="border-bottom: 1px solid #1e1e1e;">
 					{% for document in documentlist %}
-					{% if not document.islocked or current_user.is_authenticated %}
 					<li class="document-bullet">
 						{% if current_user.is_authenticated %}
-
 						<a href="{{ url_for('.download', document_id=document.id) }}">{{ document.filenote }}</a>
-	                    {% if document.islocked %}
-	                    <form method="post"
-	                          action="{{ url_for('.block', document_id=document.id) }}" class="document-blocker">
-	                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-	                        <button class="book-button"><i class="far fa-eye-slash"></i></button>
-	                    </form>
-	                    {% else %}
-	                    <form method="post"
-	                          action="{{ url_for('.block', document_id=document.id) }}" class="document-blocker">
-	                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-	                        <button class="book-button"><i class="far fa-eye"></i></button>
-	                    </form>
-	                    {% endif %}
+
+		                    {% if document.islocked %}
+		                    <form method="post"
+		                          action="{{ url_for('.block', document_id=document.id) }}" class="document-blocker">
+		                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+		                        <button class="book-button"><i class="far fa-eye-slash"></i></button>
+		                    </form>
+		                    {% else %}
+		                    <form method="post"
+		                          action="{{ url_for('.block', document_id=document.id) }}" class="document-blocker">
+		                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+		                        <button class="book-button"><i class="far fa-eye"></i></button>
+		                    </form>
+		                    {% endif %}
 	                    
 		                {% else %}
-		                <span style="color: #ccc;">{{ document.filenote }}</span>
-		                <form class="document-blocker">
-	                        <button class="book-button"><i class="fas fa-lock" style="color: #ccc;"></i></button>
-	                    </form>
+
+			                {% if not document.islocked %}
+			                <a href="{{ url_for('.download', document_id=document.id) }}">{{ document.filenote }}</a>
+			                {% else %}
+			                <span style="color: #ccc;">{{ document.filenote }}</span>
+			                <form class="document-blocker">
+		                        <button class="book-button"><i class="fas fa-lock" style="color: #ccc;"></i></button>
+		                    </form>
+		                    {% endif %}
+
 		                {% endif %}
 					</li>
-					{% endif %}
 					{% endfor %}
 				</ul>
 				{% else %}

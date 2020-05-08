@@ -52,7 +52,7 @@ def get_locale():
 
 @proj_bp.route('/list', methods=['GET', 'POST'])
 def project():
-    projects = Project.query.order_by(Project.enddate.desc()).all()
+    projects = Project.query.order_by(Project.startdate.desc()).all()
     return render_template('proj/project_list.html', title='Project', projects=projects)
 
 @proj_bp.route('/dashboard', methods=['GET', 'POST'])
