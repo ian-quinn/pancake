@@ -137,9 +137,10 @@ def filt_pubs(cate):
 @login_required
 def delete_pubs(paper_id):
     paper = Paper.query.get_or_404(paper_id)
-    file_path = os.path.join(app.config['PUBS_UPLOAD_PATH'], paper.filename)
-    if os.path.exists(file_path):
-        os.remove(file_path)
+    if paper.filename:
+        file_path = os.path.join(app.config['PUBS_UPLOAD_PATH'], paper.filename)
+        if os.path.exists(file_path):
+            os.remove(file_path)
     db.session.delete(paper)
     db.session.commit()
     flash('Paper deleted.', 'danger')
