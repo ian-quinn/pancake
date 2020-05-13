@@ -25,7 +25,7 @@
                 <label class="custom-control-label" for="RememberMe">Remember Me!</label>
             </div>
             <p>{{ form.submit(type="submit", class="btn btn-outline-danger btn-sm btn-block") }}</p>
-            <p>New User? <a href="{{ url_for('auth.register') }}">Click to Register!</a></p>
+            <!--<p>New User? <a href="{{ url_for('auth.register') }}">Click to Register!</a></p>-->
             <p>Forgot Your Password?<a href="{{ url_for('user.reset_password_request') }}">Click to Reset It</a></p>
         </form>
     </div>

@@ -309,6 +309,7 @@ class Paper(db.Model):
     filename = db.Column(db.String(64))
     issci = db.Column(db.Boolean, default=False)
     isei = db.Column(db.Boolean, default=False)
+    islocked = db.Column(db.Boolean, default=False)
 
 
 ###############  for caching project  #####################

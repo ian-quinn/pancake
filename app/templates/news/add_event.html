@@ -44,7 +44,7 @@
             <small>{{ event.startdate.strftime('%Y-%m-%d') }}&emsp;{{ event.name }}&emsp;{{ event.location }}</small>
             <form method="post" action="{{ url_for('.delete_event', event_id=event.id, next=request.full_path) }}" style="float: right; margin: 0;">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                <button class="book-button" onclick="return confirm('Will remove this event from calendar. Sure about this?');"><i class="fas fa-calendar-times"></i></button>
+                <button class="book-button" onclick="return confirm('Will remove this event from calendar. Sure about this?');"><i class="far fa-calendar-times"></i></button>
             </form>
         </li>
         {% endfor %}

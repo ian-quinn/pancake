@@ -112,6 +112,7 @@ class EditPubsForm(FlaskForm):
 	citation = TextAreaField('Citation')
 	is_sci = BooleanField('SCI?')
 	is_ei = BooleanField('EI?')
+	is_locked = BooleanField('Classified?')
 	submit = SubmitField('Submit')
 
 class PostForm(FlaskForm):

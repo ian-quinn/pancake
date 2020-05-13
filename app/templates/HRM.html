@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% set active_page = "people" %}
+
+{% block title %}{{ _('People')}}{% endblock %}
+
+{% if not current_user.is_authenticated %}
+<p>Please login to access this page</p>
+{% endif %}
+
+{% block content %}
+<div class="main-content logincard">
+    <p>Human Resource Machine</p>
+    <ul class="list-group">
+        {% for user in users %}
+        <li class="list-group-item">
+            <small>{{ user.username }}&emsp;{{ user.email }}&emsp;{{ user.name_zh }}</small>
+            {% if user != current_user %}
+            <form method="post" action="{{ url_for('fire', user_id=user.id, next=request.full_path) }}" style="float: right; margin: 0;">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <button class="book-button" onclick="return confirm('Kick off this guy. Sure about that?');"><i class="fas fa-times"></i></button>
+            </form>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+{% endblock %}

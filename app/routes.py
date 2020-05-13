@@ -161,6 +161,7 @@ def edit_pubs(paper_id):
         paper.citation = form.citation.data
         paper.issci = form.is_sci.data
         paper.isei = form.is_ei.data
+        paper.islocked = form.is_locked.data
         db.session.commit()
         flash('Changes have been saved.', 'success')
         return redirect(url_for('pubs'))
@@ -261,6 +262,21 @@ def crop_avatar():
 def people():
     users = User.query.order_by(User.username.desc()).all()
     return render_template('people.html', title='People', users=users)
+    
+@app.route('/humanresourcemachine', methods=['GET', 'POST'])
+@login_required
+def humanresourcemachine():
+    users = User.query.order_by(User.chronicle.desc()).all()
+    return render_template('HRM.html', title='People', users=users)
+
+@app.route('/humanresourcemachine/<int:user_id>/delete', methods=['POST'])
+@login_required
+def fire(user_id):
+    user = User.query.get_or_404(user_id)
+    db.session.delete(user)
+    db.session.commit()
+    flash('Fired.', 'danger')
+    return redirect(url_for('humanresourcemachine'))
 
 # ---------------------------------------------------------------------------------
 

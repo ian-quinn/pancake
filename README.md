@@ -268,3 +268,4 @@ More extensions are in development to add more functions, which will be deployed
 - [ ] Consider sub-page loading papers
 - [x] Allow to change information of papers
 - [x] Cancel restrictions on paper submit / project list revised
+- [x] Member management / paper editor uplift / paper lock / remove register 5.14
