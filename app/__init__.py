@@ -74,6 +74,8 @@ from app.blueprints.news import news_bp
 app.register_blueprint(news_bp, url_prefix='/news')
 from app.blueprints.proj import proj_bp
 app.register_blueprint(proj_bp, url_prefix='/project')
+from app.blueprints.offset import offset_bp
+app.register_blueprint(offset_bp, url_prefix='/offset')
 # reconstruct these registers when all blueprints are done
 # use fatory function create_app
 
