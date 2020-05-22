@@ -87,7 +87,7 @@ def grab_markdown(text):
 @news_bp.route('/')
 def news():
     page = request.args.get('page', 1, type=int)
-    newss = News.query.order_by(News.timestamp.desc()).paginate(page, app.config['POSTS_PER_PAGE'], False)
+    newss = News.query.order_by(News.date.desc()).paginate(page, app.config['POSTS_PER_PAGE'], False)
     # can also define 'pagination' then pass items attribute like posts=pagination.items, much more clear
     next_url = url_for('.news', page=newss.next_num) \
         if newss.has_next else None

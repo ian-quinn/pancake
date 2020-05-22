@@ -79,7 +79,7 @@
             {% endif %}
             <div class="news-bullet">{{ _('Posted by') }}: <span style="float: right;">{{ news.author.username }}</a></span></div>
             <div class="news-bullet">{{ _('Update on') }}: <span style="float: right;">{{ moment(news.timestamp).format('YYYY-MM-DD') }}</span></div>
-            {% if imgs|length > 1 %}
+            {% if imgs|length > 0 %}
             <div class="news-bullet">{{ _('Album') }}: <span style="float: right;">{{ imgs | length }} {{ _('pcs') }}</span></div>
             <div style="text-align: center;">
                 <div class="my-gallery news-gallery">
