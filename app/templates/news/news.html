@@ -42,7 +42,7 @@
                 <a href="{{ url_for('.show_news', news_id=news.id) }}">{% if get_locale() == 'zh' %}{{ news.title_cn }}{% else %}{{ news.title_en }}{% endif %}</a>
             </h5>
 
-            <small class="timestamp mute">{{ moment(news.timestamp).format('YYYY-MM-DD') }} {{ _('Posted by')}} {{ news.author.nickname }}</small>
+            <small class="timestamp mute">{{ moment(news.date).format('YYYY-MM-DD') }} {{ _('Posted by')}} {{ news.author.username }}</small>
             <div class="news-preview">
             {% if news.jumbotron %}
                 {% if news.img_jumbo %}
