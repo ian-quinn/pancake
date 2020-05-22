@@ -26,7 +26,7 @@
 			<small style="float: right; color: #ccc;">{{ moment(post.timestamp).format('YYYY-MM-DD') }}</small>
 			<div class="post-preview">
 				<span>
-					{% if get_locale() == 'zh' %}{{ post.text_cn | truncate(300) | stripout }}{% else %}{{ post.text_en | truncate(300) | stripout }}{% endif %}<a href="{{ url_for('blog.show_post', post_id=post.id) }}">{{ _('Read More')}}</a>
+					{% if get_locale() == 'zh' %}{{ post.text_cn | truncate(300) | stripout }}{% else %}{{ post.text_en | truncate(300) | stripout }}{% endif %}<a href="{{ url_for('blog.show_post', post_id=post.id) }}">... {{ _('Read More')}}</a>
 				</span>
 			</div>
 		</div>

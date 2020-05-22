@@ -33,7 +33,7 @@
 
 {% block content %}
 <section class="main-content">
-    <h1 style="margin-bottom: 100px;">Craft it!</h1>
+    <h1 style="margin-bottom: 100px;">News release</h1>
 
     <form role="form" method="post" action="pubnews" enctype="multipart/form-data">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
@@ -43,14 +43,14 @@
             <div class="col-md-6" style="padding: 5px;">
                 <legend>In Chinese</legend>
                 <div class="form-group">
-                    {{ form.title_cn(class="form-control input-md", placeholder="Title in Chinese") }}
+                    {{ form.title_cn(class="form-control input-md", placeholder="Title") }}
                     {% for error in form.title_cn.errors %}
                     <small class="error-bullet">{{ error }}</small>
                     {% endfor %}
                 </div>
 
                 <div class="form-group">
-                    {{ form.text_cn(class="form-control", placeholder="Markdown and HTML are both supported but not recommended", style="height: 300px;") }}
+                    {{ form.text_cn(class="form-control", placeholder="Content", style="height: 300px;") }}
                     {% for error in form.text_cn.errors %}
                     <small class="error-bullet">{{ error }}</small>
                     {% endfor %}
@@ -60,14 +60,14 @@
             <div class="col-md-6" style="padding: 5px;">
                 <legend>In English</legend>
                 <div class="form-group">
-                    {{ form.title_en(class="form-control input-md", placeholder="Title in English") }}
+                    {{ form.title_en(class="form-control input-md", placeholder="Title") }}
                     {% for error in form.title_en.errors %}
                     <small class="error-bullet">{{ error }}</small>
                     {% endfor %}
                 </div>
 
                 <div class="form-group">
-                    {{ form.text_en(class="form-control", placeholder="Markdown and HTML are both supported but not recommended", style="height: 300px;") }}
+                    {{ form.text_en(class="form-control", placeholder="Content", style="height: 300px;") }}
                     {% for error in form.text_en.errors %}
                     <small class="error-bullet">{{ error }}</small>
                     {% endfor %}
@@ -102,7 +102,7 @@
             </div>
         </div>
 
-        <button class="add_field_button btn btn-outline-secondary btn-block btn-sm" style="margin-bottom: 10px;">Add photos to gallary</button>
+        <button class="add_field_button btn btn-outline-secondary btn-block btn-sm" style="margin-bottom: 10px;">Upload news photos</button>
         <div class="form-group">
             <div class="input_fields_wrap">
             </div>
@@ -174,7 +174,7 @@ $(document).ready(function() {
         e.preventDefault();
         if(x < max_fields){ //max input box allowed
             x++; //text box increment
-            $(wrapper).append('<div class="input-group" style="margin-bottom:10px;"><div class="input-group-prepend"><span class="btn btn-secondary btn-file">Browse…<input type="file" id="fileupload" name="file"></span></div><input type="text" class="form-control" name="note" placeholder="Desriptions about this photo..."></div>'); //add input box
+            $(wrapper).append('<div class="input-group" style="margin-bottom:10px;"><div class="input-group-prepend"><span class="btn btn-secondary btn-file">Browse…<input type="file" id="fileupload" name="file"></span></div><input type="text" class="form-control" name="note" placeholder="Photo description ..."></div>'); //add input box
         }
     });
     

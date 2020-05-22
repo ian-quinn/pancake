@@ -4,7 +4,7 @@
 
 {% block content %}
     <div class="logincard">
-        <h1 class="headup">Sign In</h1>
+        <h1 class="headup">Sign in</h1>
         <p></p>
         <form action="" method="post">
             {{ form.hidden_tag() }}
@@ -22,11 +22,11 @@
             </div>
             <div class="custom-control custom-checkbox mb-3">
                 {{ form.remember_me(type="checkbox", class="custom-control-input", id="RememberMe") }}
-                <label class="custom-control-label" for="RememberMe">Remember Me!</label>
+                <label class="custom-control-label text-muted" for="RememberMe">Remember me</label>
             </div>
             <p>{{ form.submit(type="submit", class="btn btn-outline-danger btn-sm btn-block") }}</p>
             <!--<p>New User? <a href="{{ url_for('auth.register') }}">Click to Register!</a></p>-->
-            <p>Forgot Your Password?<a href="{{ url_for('user.reset_password_request') }}">Click to Reset It</a></p>
+            <small class="text-muted">Forgot your password?<a href="{{ url_for('user.reset_password_request') }}" class="text-muted"> Click to reset</a></samll>
         </form>
     </div>
 {% endblock %}

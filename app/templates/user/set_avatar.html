@@ -26,13 +26,14 @@
                         {{ upload_form.submit(class="btn btn-outline-secondary") }}
                     </div>
                 </div>
-                
+
+                {% for error in upload_form.image.errors %}
+                <small class="error-bullet">{{ error }}</small>
+                {% endfor %}
             </form>
-            {% for error in upload_form.image.errors %}
-            <small class="error-bullet">{{ error }}</small>
-            {% endfor %}
+            
             <small class="text-muted">
-                The size must be lower than 3 MB. JPG and PNG allowed.
+                File size must be lower than 3 MB. JPG / PNG allowed.
             </small>
         </div>
         <div class="card-body">

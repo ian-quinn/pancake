@@ -10,18 +10,15 @@
     </div>
     <div class="row" style="margin-top: 50px;">
         <div class="col-md-3 settings-nav">
-            <div class="nav nav-pills flex-column" role="tablist" aria-orientation="vertical">
-                {% set settings_nav = [
-                    ('/user/settings/profile', 'profile', 'Profile'),
-                    ('/user/settings/password', 'password', 'Password'),
-                    ('/user/settings/figure', 'figure', 'Figure'),
-                    ('/user/settings/avatar', 'avatar', 'Avatar')
-                ] %}
-
-                {% for href, id, caption in settings_nav %}
-                <a class="nav-item nav-link {% if id == active_setting %}active{% endif %}" href="{{ href|e }}">{{ caption }}</a>
-                {% endfor %}
-            </div>
+            {% set settings_nav = [
+                ('/user/settings/profile', 'profile', 'Profile'),
+                ('/user/settings/password', 'password', 'Password'),
+                ('/user/settings/photo', 'photo', 'Photo'),
+                ('/user/settings/avatar', 'avatar', 'Avatar')
+            ] %}
+            {% for href, id, caption in settings_nav %}
+            <a class="{% if id == active_setting %}active{% endif %}" href="{{ href|e }}"><strong>{{ caption }}</strong></a>
+            {% endfor %}
         </div>
         <div class="nav nav-tabs settings-menu col-12" role="tablist">
             {% for href, id, caption in settings_nav %}

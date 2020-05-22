@@ -54,13 +54,13 @@
 		                    <form method="post"
 		                          action="{{ url_for('.block', document_id=document.id) }}" class="document-blocker">
 		                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-		                        <button class="book-button"><i class="far fa-eye-slash"></i></button>
+		                        <button class="book-button"><i class="far fa-eye-slash" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Private"></i></button>
 		                    </form>
 		                    {% else %}
 		                    <form method="post"
 		                          action="{{ url_for('.block', document_id=document.id) }}" class="document-blocker">
 		                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-		                        <button class="book-button"><i class="far fa-eye"></i></button>
+		                        <button class="book-button"><i class="far fa-eye" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Public"></i></button>
 		                    </form>
 		                    {% endif %}
 	                    
@@ -97,7 +97,7 @@
 		        	{% if current_user.is_authenticated %}
 		        	<form method="post" action="{{ url_for('proj.show_project', project_id=project.id) }}" style="display: inline; float: right;">
 		                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-		                <button class="pubs-button" style="height: 30px; width: 30px; margin: 3px;"><i class="fas fa-plus fa-x"></i></button>
+		                <button class="pubs-button" style="height: 30px; width: 30px; margin: 3px;"><i class="fas fa-plus fa-x" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="I participated in this project"></i></button>
 		            </form>
 		            {% endif %}
 	            </div>

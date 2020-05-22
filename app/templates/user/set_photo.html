@@ -1,11 +1,11 @@
 {% extends 'user/settings.html' %}
-{% set active_setting = "figure" %}
+{% set active_setting = "photo" %}
 
 {% block setting_content %}
     <div class="settings-card w-100 bg-light">
         <h3 class="card-header">Upload Photo</h3>
         <div class="card-body">
-            <form action="{{ url_for('user.set_figure') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ url_for('user.set_photo') }}" method="post" enctype="multipart/form-data">
                 {{ form.hidden_tag() }}
                 <div class="input-group">
                     <div class="custom-file">
@@ -20,6 +20,10 @@
                 <small class="error-bullet">{{ error }}</small>
                 {% endfor %}
             </form>
+
+            <small class="text-muted">
+                Please upload horizontal photo. Lifestyle portrait is better. JPG / PNG allowed.
+            </small>
         </div>
     </div>
 {% endblock %}

@@ -11,20 +11,20 @@ from app.models import User
 class LoginForm(FlaskForm):
 	username = StringField('Username', validators=[DataRequired(message="What's the username?")])
 	password = PasswordField('Password', validators=[DataRequired(message="Password?")])
-	remember_me = BooleanField('Remember Me')
-	submit = SubmitField('Sign In')
+	remember_me = BooleanField('Remember me')
+	submit = SubmitField('Sign in')
 
 class RegistrationForm(FlaskForm):
-	username = StringField('ID Number', validators=[DataRequired(message="Your student ID")])
-	name_zh = StringField('Chinese name', validators=[DataRequired()])
-	name_en = StringField('English name', validators=[DataRequired()])
+	username = StringField('ID Number', validators=[DataRequired(message="Username for login."), Length(1, 32)])
+	name_zh = StringField('Chinese name', validators=[DataRequired(), Length(1, 16, message="Length must be less than 16")])
+	name_en = StringField('English name', validators=[DataRequired(), Length(1, 16, message="Length must be less than 16")])
 	chronicle = IntegerField('Enrollment year', validators=[DataRequired()])
 	email = StringField('Email', validators=[DataRequired(), Email()])
-	category = SelectField('Category', choices=[(1,'Tutor'), (2,'Doctoral candidate'), (3,'Postgraduate'), (4,'Alumni'), (5,'Friend')], default=1, coerce=int)
+	category = SelectField('Category', choices=[(1,'Tutor & PostDoc'), (2,'PhD Candidate'), (3,'MSc Candidate'), (4,'Alumni'), (5,'Friend')], default=4, coerce=int)
 	password = PasswordField('Password', validators=[DataRequired()])
 	password2 = PasswordField(
-		'Confirm password', validators=[DataRequired(), EqualTo('password',message="Not exactly the same. Type again")])
-	submit = SubmitField('Sign Up')
+		'Confirm password', validators=[DataRequired(), EqualTo('password', message="Not exactly the same. Retry")])
+	submit = SubmitField('Sign up')
 
 	def validate_username(self, username):
 		user = User.query.filter_by(username=username.data).first()
@@ -79,13 +79,13 @@ class AddProjectForm(FlaskForm):
 	brief_en = TextAreaField('BriefingEN')
 	startdate = DateTimeField('Start', format='%Y-%m-%d', validators=[Optional()])
 	enddate = DateTimeField('End', format='%Y-%m-%d', validators=[Optional()])
-	category = SelectField('Category', choices=[(1,'重点专项'), (2,'模拟咨询'), (3,'课题企划')], default=1, coerce=int)
+	category = SelectField('Category', choices=[(1,'重点专项'), (2,'模拟咨询'), (3,'学生课题')], default=1, coerce=int)
 	submit = SubmitField('Done!')
 
 class AddPubsForm(FlaskForm):
 	title = StringField('Title', validators=[DataRequired(message="Title must be specified")])
 	author = StringField('Author', validators=[DataRequired(message="The author is needed for retrieving")])
-	coauthor = StringField('Co-Author')
+	coauthor = StringField('Co-author')
 	journal = StringField('Journal')
 	date = DateField('Publish date', format='%Y-%m')
 	category = SelectField('Category', choices=[(1,'英文期刊'), (2,'中文期刊'), (3,'会议论文'), (4,'学位论文')], default=1, coerce=int)
@@ -133,11 +133,11 @@ class UserCommentForm(CommentForm):
 #-----------------------------------user forms ---------------------------------------
 
 class EditProfileForm(FlaskForm):
-	about_zh = TextAreaField('关于', validators=[Length(min=0, max=10000)])
-	about_en = TextAreaField('About me', validators=[Length(min=0, max=10000)])
-	username = StringField('Username', validators=[DataRequired(), Length(1, 16)])
-	email = StringField('New Email', validators=[DataRequired(), Length(1, 32), Email()])
-	category = SelectField('Category', choices=[(1,'Tutor'), (2,'Doctoral candidate'), (3,'Postgraduate'), (4,'Alumni'), (5,'Friend')], coerce=int)
+	about_zh = TextAreaField('Resume in Chinese', validators=[Length(min=0, max=30000)])
+	about_en = TextAreaField('Resume in English', validators=[Length(min=0, max=30000)])
+	username = StringField('Username', validators=[DataRequired(), Length(1, 32)])
+	email = StringField('New Email', validators=[DataRequired(), Email()])
+	category = SelectField('Category', choices=[(1,'Tutor / PostDoc'), (2,'PhD Candidate'), (3,'MSc Candidate'), (4,'Alumni'), (5,'Friend')], coerce=int)
 	chronicle = IntegerField('Enrollment year', validators=[DataRequired()])
 	name_zh = StringField('姓名')
 	name_en = StringField('Name')

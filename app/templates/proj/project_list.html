@@ -95,12 +95,12 @@
 				{% if current_user.is_authenticated %}
 				<div style="text-align:right;" class="col-md-1 col-sm-2">
 	                <form style="display: inline; margin-left: 5px;">
-	                    <a class="pubs-button" href="{{ url_for('proj.edit_project', project_id=project.id, next=request.full_path) }}"><i class="far fa-edit"></i></a>
+	                    <a class="pubs-button" href="{{ url_for('proj.edit_project', project_id=project.id, next=request.full_path) }}"><i class="far fa-edit" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Edit"></i></a>
 	                </form>
 					<form method="post"
 		                  action="{{ url_for('proj.delete_project', project_id=project.id, next=request.full_path) }}" style="display: inline;">
 		                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-		                <button class="pubs-button" onclick="return confirm('Can not be reversed. Are you sure?');"><i class="far fa-trash-alt"></i></button>
+		                <button class="pubs-button" onclick="return confirm('Can not be reversed. Are you sure?');"><i class="far fa-trash-alt" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Delete"></i></button>
 		            </form>
 				</div>
 				{% endif %}

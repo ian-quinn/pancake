@@ -442,3 +442,8 @@ def stripout(text):
     html = markdown(text)
     plaintext = ''.join(BeautifulSoup(html).findAll(text=True))
     return plaintext
+
+@app.template_filter('mdparse')
+def mdparse(text):
+    html = markdown(text)
+    return html

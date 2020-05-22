@@ -117,7 +117,7 @@
                                 <div style="text-align: center;"><b class="dropdown-header">{{ current_user.username }}</b></div>
                                 <div class="dropdown-divider"></div>
                                 <!--<p class="dropdown-header">Separated link</p>-->
-                                    <a href="{{ url_for('user.user', username=current_user.username) }}" class="dropdown-item"><span class="fas fa-user dropdown-icon"></span>&emsp;{{ _('Profile') }}</a>
+                                    <!-- <a href="{{ url_for('user.user', username=current_user.username) }}" class="dropdown-item"><span class="fas fa-user dropdown-icon"></span>&emsp;{{ _('Profile') }}</a> -->
                                     <a href="{{ url_for('user.set_profile') }}" class="dropdown-item"><span class="fas fa-cog dropdown-icon"></span>&emsp;{{ _('Settings') }}</a>
                                     <a href="{{ url_for('bookshelf') }}" class="dropdown-item"><span class="fas fa-book dropdown-icon"></span>&emsp;{{ _('Bookshelf') }}</a>
                                     <a href="{{ url_for('album') }}" class="dropdown-item"><span class="fas fa-image dropdown-icon"></span>&emsp;{{ _('Album') }}</a>
@@ -156,7 +156,7 @@
                 <div class="pan-footer">
                     <div style="display: inline;"><img src="{{ url_for('static', filename='img/pan.png') }}" style="margin-top: -3px; width: 30px; height: auto;"></div>
                     <div style="float: right; text-align: right;display: inline;">
-                        <p>© 2012-2020 PAN Research Group<br>
+                        <p>© 2020 PAN Research Group<br>
                         Powered by <a href="http://flask.pocoo.org/">Flask</a></p>
                     </div>
                 </div>

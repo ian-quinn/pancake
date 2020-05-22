@@ -108,9 +108,9 @@ def get_avatar(filename):
     return send_from_directory(app.config['AVATARS_SAVE_PATH'], filename)
 
 
-@user_bp.route('/settings/figure', methods=['GET', 'POST'])
+@user_bp.route('/settings/photo', methods=['GET', 'POST'])
 @login_required
-def set_figure():
+def set_photo():
     form = JumboAvatarForm()
     if form.validate_on_submit():
         image = form.image.data
@@ -119,7 +119,7 @@ def set_figure():
         current_user.avatar_jumbo = filename
         db.session.commit()
         flash('Image uploaded', 'success')
-    return  render_template('user/set_figure.html', title='Edit Figure', form=form)
+    return  render_template('user/set_photo.html', title='Edit photo', form=form)
 
 
 @user_bp.route('/settings/avatar', methods=['GET', 'POST'])

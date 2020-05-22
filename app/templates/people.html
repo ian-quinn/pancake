@@ -7,7 +7,6 @@
 	<div class="headup col-md-8 {% if get_locale() == 'zh' %}fluffy{% endif %}">
 		<h1>{{ _('This is us') }}</h1>
 		<p></p>
-		<p></p>
 	</div>
 </div>
 
@@ -27,7 +26,7 @@
         <li><span><i class="fas fa-infinity"></i><span></li>
     </ul>
     <ul>
-    	{% for i in range(2019,2006,-1) %}
+    	{% for i in range(2020,2006,-1) %}
         <li><span>{{ i }}</span></li>
         {% endfor %}
     </ul>
@@ -119,12 +118,9 @@
 						" class="card-img-top lazyload"></a>
 				</div>
 				<div class="card-body">
-					<!--
-					<a href="{{ url_for('user.user', username=user.username) }}"><strong>{{ user.username }}</strong></a>
-				-->
-					<a href="{{ url_for('user.user', username=user.username) }}"><strong>
+					<!-- <a href="{{ url_for('user.user', username=user.username) }}"> --><strong>
 						{% if get_locale() == 'zh' %}{{ user.name_zh }}{% endif %}{% if get_locale() == 'en' %}{{ user.name_en }}{% endif %}
-					</strong></a>
+					</strong><!-- </a> -->
 					<br>
 					<small class="card-text text-muted">{% if get_locale() == 'zh' %}{{ user.about_zh|striptags|truncate(60, True) }}{% endif %}{% if get_locale() == 'en' %}{{ user.about_en|striptags|truncate(150) }}{% endif %}</small>
 				</div>
@@ -152,7 +148,9 @@
 						        </button>
 								<p><b>{{ user.name_zh }}</b> | <span>{{ user.name_en }}</span></p>
 							</div>
-							<small>{% if get_locale() == 'zh' %}{% if user.about_zh %}{{ user.about_zh|striptags|truncate(300) }}{% endif %}{% endif %}{% if get_locale() == 'en' %}{% if user.about_en %}{{ user.about_en|striptags|truncate(400) }}{% endif %}{% endif %}</small>
+							<div>
+								<small>{% if get_locale() == 'zh' %}{% if user.about_zh %}{{ user.about_zh|mdparse|safe }}{% endif %}{% endif %}{% if get_locale() == 'en' %}{% if user.about_en %}{{ user.about_en|mdparse|safe }}{% endif %}{% endif %}</small>
+							</div>
 						</div>
 			    	</div>
 			  	</div>
@@ -161,8 +159,9 @@
 			{% endfor %}
 		</div>
 		<hr style="margin: 1.2rem 10rem;">
-			
 		{% endfor %}
+
+		<div style="height: 200px;"></div>
 	</div>
 </div>
 
@@ -185,7 +184,7 @@
 	      milestones = $('.timeline__section .milestone'),
 	      offsetTop = parseInt(timeline.css('top'));
 	  var TIMELINE_VALUES = {
-	    start: 260,
+	    start: 300,
 	    step: 30
 	  };
 
@@ -238,7 +237,7 @@
 	      active = scrollTarget;
 	    }
 
-	    timeline.css('top', -1 * active * TIMELINE_VALUES.step + TIMELINE_VALUES.start + 50 + 'px');
+	    timeline.css('top', -1 * active * TIMELINE_VALUES.step + TIMELINE_VALUES.start - 60 + 'px');
 	    items.filter('.active').removeClass('active');
 	    items.eq(active != 0 ? active : 0).addClass('active');
 	  }).trigger('scroll');

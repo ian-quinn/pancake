@@ -23,7 +23,7 @@
                 <form method="post"
                       action="{{ url_for('blog.mute_post', post_id=post.id) }}">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                    <button class="pubs-button"><i class="fa fa-microphone" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Chat"></i></button>
+                    <button class="pubs-button"><i class="fa fa-microphone" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Comment open"></i></button>
                 </form>
             </div>
             {% else %}
@@ -31,7 +31,7 @@
                 <form method="post"
                       action="{{ url_for('blog.mute_post', post_id=post.id) }}">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                    <button class="pubs-button"><i class="fa fa-microphone-slash" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Mute"></i></button>
+                    <button class="pubs-button"><i class="fa fa-microphone-slash" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Comment closed"></i></button>
                 </form>
             </div>
             {% endif %}
@@ -41,7 +41,7 @@
                 <form method="post"
                       action="{{ url_for('blog.block_post', post_id=post.id) }}">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                    <button class="pubs-button"><i class="far fa-eye-slash" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Hidden"></i></button>
+                    <button class="pubs-button"><i class="far fa-eye-slash" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Private"></i></button>
                 </form>
             </div>
             {% else %}
@@ -49,7 +49,7 @@
                 <form method="post"
                       action="{{ url_for('blog.block_post', post_id=post.id) }}">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                    <button class="pubs-button"><i class="far fa-eye" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Visible"></i></button>
+                    <button class="pubs-button"><i class="far fa-eye" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Public"></i></button>
                 </form>
             </div>
             {% endif %}
@@ -57,7 +57,7 @@
             <div class="post-iconlist">
                 <form method="GET"
                       action="{{ url_for('blog.download', post_id=post.id, next=request.full_path) }}" style="display: inline;">
-                    <button class="pubs-button"><i class="far fa-save" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Grab Markdown"></i></button>
+                    <button class="pubs-button"><i class="far fa-save" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Download markdown"></i></button>
                 </form>
             </div>
 

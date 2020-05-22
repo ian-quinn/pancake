@@ -7,19 +7,19 @@
         <div class="card-body">
             <form action="" method="post">
 		        {{ form.hidden_tag() }}
-		        <fieldset disabled>
-		        	<div class="form-group form-row">
-			        	<div class="col-6">
-	                    {{ form.name_zh(class="form-control") }}
-	                	</div>
-	                	<div class="col-6">
-	                    {{ form.name_en(class="form-control") }}
-	                	</div>
+		        <!-- <fieldset disabled> -->
+	        	<div class="form-group form-row">
+		        	<div class="col-6">
+                    {{ form.name_zh(class="form-control") }}
                 	</div>
-                </fieldset>
+                	<div class="col-6">
+                    {{ form.name_en(class="form-control") }}
+                	</div>
+            	</div>
+                <!-- </fieldset> -->
 		        <div class="form-group">
 		            {{ form.about_zh.label }}<br>
-		            {{ form.about_zh(cols=100, rows=10, class="form-control") }}<br>
+		            {{ form.about_zh(cols=100, rows=10, class="form-control", placeholder="Research interests / Contact information / Anything you think necessary") }}<br>
 		            {% for error in form.about_zh.errors %}
 		            <small class="error-bullet">{{ error }}</small>
 		            {% endfor %}
@@ -63,6 +63,7 @@
 		            {% endfor %}
 		        	</div>
 		        </div>
+		        <fieldset disabled>
 		        <div class="form-group form-row">
 		        	<div class="col-12">
 		        	{{ form.googlescholar.label }}<br>
@@ -72,6 +73,7 @@
 		            {% endfor %}
 		        	</div>
 		        </div>
+		    	</fieldset>
 
 		        <div class="form-group">{{ form.submit(class="btn btn-outline-secondary btn-sm btn-block") }}</div>
 		    </form>

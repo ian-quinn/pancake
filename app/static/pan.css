@@ -150,6 +150,7 @@ button>i:hover {
 
 .infobox {
   white-space: pre-line;
+  /*white-space: pre-wrap;*/
 }
 /* to display plain text */
 
@@ -1664,6 +1665,25 @@ code {
     border-top-left-radius: 0.25rem;
   }
 }
+
+.settings-nav a {
+  text-align: right;
+  padding: 0.7em 0.8em;
+  display: block;
+  border-right: 1px solid #ca3352;
+}
+
+.settings-nav a[class=active] {
+  color: #fff;
+  background-color: #ca3352;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.settings-nav a:hover {
+
+}
+
 
 .settings-menu {
   text-align: center;
