@@ -175,7 +175,7 @@ def pubnews():
         category = form.category.data
         date = form.date.data
         location = form.location.data
-        news = News(title_cn=title_cn, title_en=title_en, text_cn=text_cn, text_en=text_en, category=category, date=date, author=current_user,
+        news = News(title_cn=title_cn, title_en=title_en, text_cn=text_cn, text_en=text_en, category=category, date=date, location=location, author=current_user,
             img_jumbo=img_jumbo, img_path="*".join(img_path), img_note="*".join(img_note), img_size="*".join(img_size))
         db.session.add(news)
         db.session.commit()

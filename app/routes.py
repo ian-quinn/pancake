@@ -43,8 +43,8 @@ def parse_markdown(text):
 @app.route('/')
 @app.route('/index')
 def index():
-    papers = Paper.query.order_by(Paper.date.desc()).limit(5).all()
-    newss = News.query.order_by(News.timestamp.desc()).limit(5).all()
+    papers = Paper.query.filter_by(category = 1).order_by(Paper.date.desc()).limit(5).all()
+    newss = News.query.order_by(News.date.desc()).limit(5).all()
     return render_template('index.html', title='Home', papers=papers, newss=newss)
 # @login_required
 

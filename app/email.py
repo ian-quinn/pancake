@@ -12,7 +12,7 @@ def send_email(subject, sender, recipients, text_body, html_body):
 
 def send_password_reset_email(user):
     token = user.get_reset_password_token()
-    send_email('[Microblog] Reset Your Password',
+    send_email('Reset Your Password',
                sender='bsimtongji@163.com',
                recipients=[user.email],
                text_body=render_template('user/mail.txt',
