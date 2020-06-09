@@ -1014,7 +1014,7 @@ code {
   display: block;
   padding: 0rem 0.5rem;
   line-height: 50px;
-  color: #fff;
+  /*color: #fff;*/
 }
 
 #magic-line { 
