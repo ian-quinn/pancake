@@ -161,11 +161,11 @@ class EditProfileForm(FlaskForm):
 				raise ValidationError('The email is already in use.')
 
 class UploadAvatarForm(FlaskForm):
-	image = FileField('Upload (<=3M)', validators=[FileRequired(), FileAllowed(['jpg','png'], 'Wrong file type')])
+	image = FileField('Upload (<=3M)', validators=[FileRequired(), FileAllowed(['jpg', 'jpeg', 'png'], 'Wrong file type')])
 	submit = SubmitField()
 
 class JumboAvatarForm(FlaskForm):
-	image = FileField('Upload (<=3M)', validators=[FileRequired(), FileAllowed(['jpg','png'], 'Only .jpg and .png formats are supported')])
+	image = FileField('Upload (<=3M)', validators=[FileRequired(), FileAllowed(['jpg', 'jpeg', 'png'], 'Only .jpg .jpeg .png formats are supported')])
 	submit = SubmitField()
 
 class CropAvatarForm(FlaskForm):
