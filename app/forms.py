@@ -136,7 +136,7 @@ class EditProfileForm(FlaskForm):
 	about_zh = TextAreaField('Resume in Chinese', validators=[Length(min=0, max=30000)])
 	about_en = TextAreaField('Resume in English', validators=[Length(min=0, max=30000)])
 	username = StringField('Username', validators=[DataRequired(), Length(1, 32)])
-	email = StringField('New Email', validators=[DataRequired(), Email()])
+	email = StringField('Email', validators=[DataRequired(), Email()])
 	category = SelectField('Category', choices=[(1,'Tutor / PostDoc'), (2,'PhD Candidate'), (3,'MSc Candidate'), (4,'Alumni'), (5,'Friend')], coerce=int)
 	chronicle = IntegerField('Enrollment year', validators=[DataRequired()])
 	name_zh = StringField('姓名')
