@@ -85,6 +85,8 @@ def set_profile():
         current_user.about_zh = form.about_zh.data
         current_user.about_en = form.about_en.data
         current_user.email = form.email.data
+        current_user.name_zh = form.name_zh.data
+        current_user.name_en = form.name_en.data
         current_user.chronicle = form.chronicle.data
         current_user.category = form.category.data
         current_user.googlescholar = form.googlescholar.data
@@ -98,6 +100,7 @@ def set_profile():
     form.name_zh.data = current_user.name_zh
     form.name_en.data = current_user.name_en
     form.chronicle.data = current_user.chronicle
+    form.category.data = current_user.category
     form.googlescholar.data = current_user.googlescholar
     # i dont know but the selectfield likely has to be initiated at the loading stage.
     return render_template('user/set_profile.html', title='Edit Profile', form=form)

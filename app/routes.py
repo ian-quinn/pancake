@@ -279,6 +279,36 @@ def fire(user_id):
     flash('Fired.', 'danger')
     return redirect(url_for('humanresourcemachine'))
 
+@app.route('/humanresourcemachine/<int:user_id>/edit', methods=['GET', 'POST'])
+@login_required
+def hire(user_id):
+    user = User.query.get_or_404(user_id)
+    form = EditProfileForm(user.username, user.email, category=user.category)
+    if form.validate_on_submit():
+        user.username = form.username.data
+        user.about_zh = form.about_zh.data
+        user.about_en = form.about_en.data
+        user.email = form.email.data
+        user.chronicle = form.chronicle.data
+        user.category = form.category.data
+        user.googlescholar = form.googlescholar.data
+        user.name_zh = form.name_zh.data
+        user.name_en = form.name_en.data
+        db.session.commit()
+        flash('Your changes have been saved.', 'success')
+        return redirect(url_for('humanresourcemachine'))
+    form.username.data = user.username
+    form.about_zh.data = user.about_zh
+    form.about_en.data = user.about_en
+    form.email.data = user.email
+    form.name_zh.data = user.name_zh
+    form.name_en.data = user.name_en
+    form.chronicle.data = user.chronicle
+    form.googlescholar.data = user.googlescholar
+    form.category.data = user.category
+    return render_template('HRM_edit.html', title='Edit Profile', form=form)
+    
+
 # ---------------------------------------------------------------------------------
 
 @app.route('/bookshelf')
