@@ -149,7 +149,7 @@ button>i:hover {
 }
 
 .infobox {
-  white-space: pre-line;
+  /*white-space: pre-line;*/
   /*white-space: pre-wrap;*/
 }
 /* to display plain text */

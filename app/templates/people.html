@@ -58,7 +58,7 @@
 						{% if get_locale() == 'zh' %}{{ user.name_zh }}{% endif %}{% if get_locale() == 'en' %}{{ user.name_en }}{% endif %}
 					</strong></a>
 					<br>
-					<small class="card-text text-muted">{% if get_locale() == 'zh' %}{{ user.about_zh|striptags|truncate(60, True) }}{% endif %}{% if get_locale() == 'en' %}{{ user.about_en|striptags|truncate(150) }}{% endif %}</small>
+					<small class="card-text text-muted">{% if get_locale() == 'zh' %}{{ user.about_zh|stripout|truncate(60, True) }}{% endif %}{% if get_locale() == 'en' %}{{ user.about_en|stripout|truncate(150) }}{% endif %}</small>
 				</div>
 			</div>
 
@@ -85,7 +85,7 @@
 								<p><b>{{ user.name_zh }}</b> | <span>{{ user.name_en }}</span></p>
 							</div>
 							<div class="infobox">
-								<small>{% if get_locale() == 'zh' %}{% if user.about_zh %}{{ user.about_zh|striptags|truncate(300) }}{% endif %}{% endif %}{% if get_locale() == 'en' %}{% if user.about_en %}{{ user.about_en|striptags|truncate(400) }}{% endif %}{% endif %}</small>
+								<small>{% if get_locale() == 'zh' %}{% if user.about_zh %}{{ user.about_zh|mdparse|safe }}{% endif %}{% endif %}{% if get_locale() == 'en' %}{% if user.about_en %}{{ user.about_en|mdparse|safe }}{% endif %}{% endif %}</small>
 							</div>
 						</div>
 			    	</div>
@@ -123,7 +123,7 @@
 						{% if get_locale() == 'zh' %}{{ user.name_zh }}{% endif %}{% if get_locale() == 'en' %}{{ user.name_en }}{% endif %}
 					</strong><!-- </a> -->
 					<br>
-					<small class="card-text text-muted">{% if get_locale() == 'zh' %}{{ user.about_zh|striptags|truncate(60, True) }}{% endif %}{% if get_locale() == 'en' %}{{ user.about_en|striptags|truncate(150) }}{% endif %}</small>
+					<small class="card-text text-muted">{% if get_locale() == 'zh' %}{{ user.about_zh|stripout|truncate(60, True) }}{% endif %}{% if get_locale() == 'en' %}{{ user.about_en|stripout|truncate(150) }}{% endif %}</small>
 				</div>
 			</div>
 
