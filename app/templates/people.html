@@ -82,7 +82,12 @@
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 						        </button>
-								<p><b>{{ user.name_zh }}</b> | <span>{{ user.name_en }}</span></p>
+								<p>
+									<b>{{ user.name_zh }}</b> | <span>{{ user.name_en }}</span>
+									{% if user.googlescholar %} | 
+									<a href="{{ user.googlescholar }}" style="color: #fc6564;"><img src="{{ url_for('static', filename='img/googlescholar.png') }}" style="height: 1em; width: auto;"></a>
+									{% endif %}
+								</p>
 							</div>
 							<div class="infobox">
 								<small>{% if get_locale() == 'en' %}{% if user.about_en %}{{ user.about_en|mdparse|safe }}{% endif %}{% else %}{% if user.about_zh %}{{ user.about_zh|mdparse|safe }}{% endif %}{% endif %}</small>
@@ -147,7 +152,12 @@
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 						        </button>
-								<p><b>{{ user.name_zh }}</b> | <span>{{ user.name_en }}</span></p>
+								<p>
+									<b>{{ user.name_zh }}</b> | <span>{{ user.name_en }}</span>
+									{% if user.googlescholar %} | 
+									<a href="{{ user.googlescholar }}" style="color: #fc6564;"><img src="{{ url_for('static', filename='img/googlescholar.png') }}" style="height: 1em; width: auto;"></a>
+									{% endif %}
+								</p>
 							</div>
 							<div>
 								<small>{% if get_locale() == 'en' %}{% if user.about_en %}{{ user.about_en|mdparse|safe }}{% endif %}{% else %}{% if user.about_zh %}{{ user.about_zh|mdparse|safe }}{% endif %}{% endif %}</small>
