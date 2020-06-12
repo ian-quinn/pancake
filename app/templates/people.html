@@ -42,7 +42,7 @@
 			{% if user.chronicle == i %}
 			<div class="card border-dark tutor">
 				<div class="img-box" style="height: 150px;">
-					<a data-toggle="modal" data-target="#id{{ user.username }}"><img src="{{ url_for('static', filename='img/idbadge.jpg') }}" data-src="
+					<a data-toggle="modal" data-target="#id{{ user.username|stripcomma }}"><img src="{{ url_for('static', filename='img/idbadge.jpg') }}" data-src="
 						{% if user.avatar_jumbo %}
 						{{ url_for('user.get_avatar', filename=user.avatar_jumbo) }}
 						{% else %}
@@ -62,7 +62,7 @@
 				</div>
 			</div>
 
-			<div class="modal fade" id="id{{ user.username }}" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal fade" id="id{{ user.username|stripcomma }}" tabindex="-1" role="dialog" aria-hidden="true">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header" style="padding: 0;">
@@ -115,7 +115,7 @@
 			{% if user.category == 5 %}border-warning{% endif %} 
 			{% if user.category == 1 %}tutor{% endif %}{% if user.category == 2 %}doctor{% endif %}{% if user.category == 3 %}master{% endif %}{% if user.category == 4 %}graduate{% endif %}{% if user.category == 5 %}friend{% endif %}">
 				<div class="img-box saturate" style="height: 150px;">
-					<a data-toggle="modal" data-target="#id{{ user.username }}"><img src="{{ url_for('static', filename='img/idbadge.jpg') }}" data-src="
+					<a data-toggle="modal" data-target="#id{{ user.username|stripcomma }}"><img src="{{ url_for('static', filename='img/idbadge.jpg') }}" data-src="
 						{% if user.avatar_jumbo %}
 						{{ url_for('user.get_avatar', filename=user.avatar_jumbo) }}
 						{% else %}
@@ -132,7 +132,7 @@
 				</div>
 			</div>
 
-			<div class="modal fade" id="id{{ user.username }}" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal fade" id="id{{ user.username|stripcomma }}" tabindex="-1" role="dialog" aria-hidden="true">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header" style="padding: 0;">

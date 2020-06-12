@@ -33,9 +33,7 @@
 			<div class="collapse" id="No{{ project.id }}" data-parent="#ProjectAccordion">
 				<p class="mb-auto text-muted" style="">
 					{% if get_locale() == 'zh' %}{{ project.brief_cn }}{% else %}{{ project.brief_en }}{% endif %}
-					{% if project.filename %}
 					<a href="{{ url_for('proj.show_project', project_id=project.id) }}"><small>  ...More...</small></a>
-					{% endif %}
 				</p>
 			</div>
 		</div>

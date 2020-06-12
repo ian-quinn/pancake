@@ -496,3 +496,9 @@ def stripout(text):
 def mdparse(text):
     html = markdown(text)
     return html
+
+@app.template_filter('stripcomma')
+def stripcomma(text):
+    punctuation = '!.,;:?"\'、，。； '
+    text = re.sub(r'[{}]+'.format(punctuation),'',text)
+    return text.strip().lower()
