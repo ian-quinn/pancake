@@ -1498,6 +1498,31 @@ code {
 }
 
 @media (min-width: 768px) {
+  .news-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    cursor: pointer;
+    height: 400px;
+    margin-top: -50px;
+    margin-bottom: 50px;
+  }
+}
+
+@media  (max-width: 768px) {
+  .news-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    cursor: pointer;
+    margin-top: -50px;
+    margin-bottom: 50px;
+  }
+}
+
+@media (min-width: 768px) {
   .news_preview {
     text-align: left;
     padding-left: 1rem;
@@ -1518,6 +1543,7 @@ code {
 
 .ctrl-panel {
   text-align: right;
+  padding-top: 15px;
   padding-bottom: 0;
 }
 

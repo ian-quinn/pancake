@@ -444,6 +444,25 @@ def uploadphoto():
 # --------------------------------------------------------------------------------------
 
 
+@app.route('/briefcase')
+@login_required
+def briefcase():
+    filenames = []
+    for root, dirs, files in os.walk(app.config['AVATARS_SAVE_PATH']):
+        for file in files:
+            filenames.append(file)
+    return render_template('briefcase.html', filenames=filenames)
+
+@app.route('/briefcase/upload', methods=['GET', 'POST'])
+@login_required
+def updatebriefcase():
+    if request.method == 'POST':
+        for f in request.files.getlist('file'):
+            path = os.path.join(app.config['AVATARS_SAVE_PATH'], f.filename)
+            f.save(path)
+    return ('', 204)
+
+
 ########################################################
 ########################################################
 ########################################################

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% set active_page = "bookshelf" %}
+{% block title %}{{ _('Bookshelf') }}{% endblock %}
+
+{% block styles %}
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dropzone.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="logincard">
+    <div class="row">
+        <div class="col-md-8 headup {% if get_locale() == 'zh' %}fluffy{% endif %}">
+            <h1>{{ _('Briefcase') }}</h1>
+        </div>
+        <div class="col-md-4">
+            <div class="pub-button">
+                <a data-toggle="collapse" href="#NewFile" role="button" aria-label="Add files!" aria-controls="Add files!">
+                <i class="fas fa-book fa-2x" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Upload files"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="collapse" id="NewFile" style="padding-top: 10px;">
+        <!-- Change action value to your upload address -->
+        <form action="{{ url_for('updatebriefcase') }}" class="dropzone" method="POST" enctype="multipart/form-data" id="bookcollect" style="border: 2px dashed #eee; border-radius: 8px;">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <div class="dz-message needsclick">    
+            Drop files here or click to upload.<br>
+            </div>
+        </form>
+    </div>
+    <div class="bookshelf">
+        <table>
+            <tr>
+                <td class="bookshelf-shack"><span>NAME</span></td>
+            </tr>
+            {% for filename in filenames %}
+            <tr>
+                <td>
+                    <a href="{{ url_for('static', filename='avatars/' + filename) }}">{{ filename }}</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dropzone.js') }}"></script>
+<script type="text/javascript">
+    Dropzone.options.bookcollect = {
+    acceptedFiles: ".jpg, .jpeg, .png",
+};
+</script>
+{% endblock %}

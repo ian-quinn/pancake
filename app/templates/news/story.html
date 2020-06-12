@@ -12,7 +12,7 @@
 
     {% if news.jumbotron %}
     {% if imgs[0] %}
-    <div class="img-box" style="height: 400px; margin-top: -50px; margin-bottom: 50px;">
+    <div class="news-banner">
         <img src="{{ url_for('static', filename='newstemp/' + imgs[0]) }}" style="object-fit: cover; min-width: 100%; min-height: 100%; width: 100%; height: auto;">
     </div>
     {% endif %}
