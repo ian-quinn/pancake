@@ -71,12 +71,12 @@
 				{% for paper in papers %}
 				<div class="index-pubs">
 					<b class="card-text text-muted">{{ paper.title }}
-						{% if paper.issci %}
+						<!-- {% if paper.issci %}
 						<span class="badge badge-danger">SCI</span>
 						{% endif %}
 						{% if paper.isei %}
 						<span class="badge badge-secondary">EI</span>
-						{% endif %}
+						{% endif %} -->
 					</b>
 					<p style="font-size: 0.7em; padding-top: 6px;" class="text-muted mb-auto">{{ paper.author }}{% if paper.coauthor%}, {{ paper.coauthor }}{% endif %}. {% if paper.journal %}{{ paper.journal }}, {% endif %}{{ paper.date.strftime('%Y-%m') }}</p>
 				</div>		

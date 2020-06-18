@@ -57,8 +57,8 @@
 					<a href="{{ url_for('user.user', username=user.username) }}"><strong>
 						{% if get_locale() == 'en' %}{{ user.name_en }}{% else %}{{ user.name_zh }}{% endif %}
 					</strong></a>
-					<br>
-					<small class="card-text text-muted">{% if get_locale() == 'en' %}{{ user.about_en|striptags|truncate(150) }}{% else %}{{ user.about_zh|striptags|truncate(60, True) }}{% endif %}</small>
+					<!-- <br>
+					<small class="card-text text-muted">{% if get_locale() == 'en' %}{{ user.about_en|striptags|truncate(150) }}{% else %}{{ user.about_zh|striptags|truncate(60, True) }}{% endif %}</small> -->
 				</div>
 			</div>
 
@@ -127,8 +127,8 @@
 					<!-- <a href="{{ url_for('user.user', username=user.username) }}"> --><strong>
 						{% if get_locale() == 'en' %}{{ user.name_en }}{% else %}{{ user.name_zh }}{% endif %}
 					</strong><!-- </a> -->
-					<br>
-					<small class="card-text text-muted">{% if get_locale() == 'en' %}{{ user.about_en|striptags|truncate(150) }}{% else %}{{ user.about_zh|striptags|truncate(60, True) }}{% endif %}</small>
+					<!-- <br>
+					<small class="card-text text-muted">{% if get_locale() == 'en' %}{{ user.about_en|striptags|truncate(150) }}{% else %}{{ user.about_zh|striptags|truncate(60, True) }}{% endif %}</small> -->
 				</div>
 			</div>
 
