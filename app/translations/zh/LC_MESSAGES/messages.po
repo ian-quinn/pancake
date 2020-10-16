@@ -468,11 +468,11 @@ msgstr "后"
 
 #: app/templates/proj/project_list.html:7
 msgid "Research Projects"
-msgstr "研究项目"
+msgstr "研究课题"
 
 #: app/templates/proj/project_list.html:44
 msgid "Consulting Projects"
-msgstr "模拟咨询"
+msgstr "四技项目"
 
 #: app/templates/proj/project_list.html:81
 msgid "Thesis Projects"
