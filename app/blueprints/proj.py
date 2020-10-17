@@ -66,13 +66,12 @@ def getstatus(id):
     project = Project.query.filter_by(id=int(id)).first_or_404()
     date = datetime.now()
     if project.enddate:
-        deadline = project.enddate
+        if date >= project.enddate:
+            return True
+        else:
+            return False
     else:
-        deadline = date
-    if date >= deadline:
         return True
-    else:
-        return False
 
 @proj_bp.route('/<int:project_id>/delete', methods=['POST'])
 @login_required

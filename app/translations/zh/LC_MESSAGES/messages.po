@@ -471,12 +471,12 @@ msgid "Research Projects"
 msgstr "研究课题"
 
 #: app/templates/proj/project_list.html:44
-msgid "Consulting Projects"
+msgid "Technical Projects"
 msgstr "四技项目"
 
 #: app/templates/proj/project_list.html:81
-msgid "Thesis Projects"
-msgstr "学生课题"
+msgid "Student Projects"
+msgstr "学生实践"
 
 #: app/templates/user/reset_password.html:2
 #: app/templates/user/reset_password_request.html:2
