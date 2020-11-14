@@ -1,4 +1,5 @@
-# Briefing
+# Pancake :pancakes:
+BSIM website in operation.
 
 ## Main components
 - Flask - Backend support
