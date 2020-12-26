@@ -311,7 +311,7 @@ def hire(user_id):
 
 # ---------------------------------------------------------------------------------
 
-@app.route('/bookshelf')
+@app.route('/download')
 def bookshelf():
     #list = os.listdir(app.config['BOOKSHELF_PATH'])
     files = File.query.all()
@@ -322,7 +322,7 @@ def bookshelf():
     return render_template('bookshelf.html', files=files, document=document, package=package, video=video, miscs=miscs)
 
 
-@app.route('/bookshelf/<int:file_id>/delete', methods=['POST'])
+@app.route('/download/<int:file_id>/delete', methods=['POST'])
 @login_required
 def delete_file(file_id):
     file = File.query.get_or_404(file_id)
@@ -335,14 +335,14 @@ def delete_file(file_id):
     return redirect(url_for('bookshelf'))
 
 
-@app.route('/bookshelf/<int:file_id>/download', methods=['GET', 'POST'])
+@app.route('/download/<int:file_id>/download', methods=['GET', 'POST'])
 def download(file_id):
     file = File.query.get_or_404(file_id)
     uploads = os.path.join(current_app.root_path, app.config['BOOKSHELF_PATH'])
     return send_from_directory(directory=uploads, filename=file.link, as_attachment=True, attachment_filename="%s" % file.name)
 
 
-@app.route('/bookshelf/<int:file_id>/block', methods=['GET', 'POST'])
+@app.route('/download/<int:file_id>/block', methods=['GET', 'POST'])
 @login_required
 def block(file_id):
     file = File.query.get_or_404(file_id)
@@ -351,7 +351,7 @@ def block(file_id):
     return redirect(url_for('bookshelf'))
 
 
-@app.route('/bookshelf/uploadfile', methods=['GET', 'POST'])
+@app.route('/download/uploadfile', methods=['GET', 'POST'])
 @login_required
 def uploadfile():
     if request.method == 'POST':
