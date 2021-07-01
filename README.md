@@ -10,6 +10,8 @@ BSIM website in operation.
 - Nginx - HTTP server
 
 ## Scheduled tasks
+Do activate the authority of `root` 
+
 - Update dictionary for search engine whooshee
 ```
 (venv) $ flask shell
