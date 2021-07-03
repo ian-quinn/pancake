@@ -115,13 +115,13 @@ msgstr "博士，博导。同济大学机械与能源工程学院全职教授。
 msgid ""
 "Post-doctoral researcher (2002), Center for Building Performance & "
 "Diagnostics, Carnegie Mellon University (USA)"
-msgstr "2002于美国卡耐基梅隆大学建筑性能与诊断中心进行博士后研究"
+msgstr "2002年 博士后 美国卡耐基梅隆大学建筑性能与诊断中心"
 
 #: app/templates/index.html:31
 msgid ""
 "Ph.D. (1992-1997) Heating Ventilation, Gas Supplying and Air-"
 "conditioning, Tongji University, Shanghai, China"
-msgstr "1997年于博士毕业于同济大学供热、供燃气、通风及空调工程专业"
+msgstr "1997年 博士 同济大学供热、供燃气、通风及空调工程专业"
 
 #: app/templates/index.html:41
 msgid "Research"
