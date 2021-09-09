@@ -33,21 +33,21 @@ def login():
     return render_template('auth/login.html', title='Sign In', form=form)
 
 
-# @auth_bp.route('/register', methods=['GET', 'POST'])
-# def register():
-#     if current_user.is_authenticated:
-#         return redirect(url_for('index'))
-#     form = RegistrationForm()
-#     if form.validate_on_submit():
-#         user = User(username=form.username.data, nickname=form.username.data, email=form.email.data, 
-#             name_zh=form.name_zh.data, name_en=form.name_en.data, 
-#             chronicle=form.chronicle.data, category=form.category.data)
-#         user.set_password(form.password.data)
-#         db.session.add(user)
-#         db.session.commit()
-#         flash('Request admitted! Please login', 'success')
-#         return redirect(url_for('auth.login'))
-#     return render_template('auth/register.html', title='Register', form=form)
+@auth_bp.route('/register', methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(username=form.username.data, nickname=form.username.data, email=form.email.data, 
+            name_zh=form.name_zh.data, name_en=form.name_en.data, 
+            chronicle=form.chronicle.data, category=form.category.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('Request admitted! Please login', 'success')
+        return redirect(url_for('auth.login'))
+    return render_template('auth/register.html', title='Register', form=form)
 
 
 @auth_bp.route('/logout')
