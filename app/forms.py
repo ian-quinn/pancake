@@ -37,8 +37,8 @@ class RegistrationForm(FlaskForm):
 			raise ValidationError('Email address already exists.')
 
 	def validate_chronicle(self, chronicle):
-		if chronicle.data < 2000 or chronicle.data > 2020:
-			raise ValidationError('Enrollment year lies within 2000-2020')
+		if chronicle.data < 2000 or chronicle.data > 2022:
+			raise ValidationError('Enrollment year lies within 2000-2022')
 
 
 ####################################################################################
