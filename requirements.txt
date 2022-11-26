@@ -13,7 +13,7 @@ Flask-Avatars==0.2.2
 Flask-Mail==0.9.1
 flask-whooshee==0.7.0
 mistune==0.8.4
-Pillow==9.0.1
+Pillow==9.3.0
 pypinyin==0.35.3
 python-dotenv==0.10.3
 beautifulsoup4==4.8.2
