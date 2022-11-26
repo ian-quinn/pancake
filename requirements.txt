@@ -17,7 +17,7 @@ Pillow==9.3.0
 pypinyin==0.35.3
 python-dotenv==0.10.3
 beautifulsoup4==4.8.2
-PyJWT==1.7.1
+PyJWT==2.4.0
 elasticsearch==7.1.0
 
 #requirements for Heroku
